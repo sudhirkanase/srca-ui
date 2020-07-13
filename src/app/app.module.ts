@@ -7,8 +7,10 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
 import { MenuBarComponent } from './header/menu-bar/menu-bar.component';
-import { PrimengModule } from './shared/primeng.module';
+import { TMTPrimengModule } from './shared/tmtprimeng.module';
 import { HomeComponent } from './home/home.component';
+import { TaskListComponent } from './task-list/task-list.component';
+import { HttpClientModule } from '@angular/common/http';
 
 
 
@@ -17,14 +19,16 @@ import { HomeComponent } from './home/home.component';
     AppComponent,
     HeaderComponent,
     MenuBarComponent,
-    HomeComponent
+    HomeComponent,
+    TaskListComponent
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
-    PrimengModule,
-    FormsModule
+    TMTPrimengModule,
+    FormsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
