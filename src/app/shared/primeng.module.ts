@@ -5,7 +5,11 @@ import { MenuModule } from 'primeng/menu';
 import { MenubarModule } from 'primeng/menubar';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
-
+import {PanelModule} from 'primeng/panel';
+import {DropdownModule} from 'primeng/dropdown';
+import {ChartModule} from 'primeng/chart';
+import {AutoCompleteModule} from 'primeng/autocomplete';
+import {TableModule} from 'primeng/table';
 
 @NgModule({
   declarations: [],
@@ -16,7 +20,12 @@ import { InputTextModule } from 'primeng/inputtext';
     MenubarModule,
     MenuModule,
     ButtonModule,
-    InputTextModule
+    InputTextModule,
+    PanelModule,
+    DropdownModule,
+    ChartModule,
+    AutoCompleteModule,
+    TableModule,
   ]
 })
 export class PrimengModule { }
