@@ -4,15 +4,23 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { HeaderComponent } from './header/header.component';
+import { MenuBarComponent } from './header/menu-bar/menu-bar.component';
+import { PrimengModule } from './shared/primeng.module';
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    HeaderComponent,
+    MenuBarComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
+    PrimengModule
   ],
   providers: [],
   bootstrap: [AppComponent]
