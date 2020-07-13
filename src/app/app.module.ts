@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms'
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -8,6 +9,8 @@ import { HeaderComponent } from './header/header.component';
 import { MenuBarComponent } from './header/menu-bar/menu-bar.component';
 import { PrimengModule } from './shared/primeng.module';
 import { HomeComponent } from './home/home.component';
+
+
 
 @NgModule({
   declarations: [
@@ -20,7 +23,8 @@ import { HomeComponent } from './home/home.component';
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
-    PrimengModule
+    PrimengModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

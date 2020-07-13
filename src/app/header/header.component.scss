@@ -1,0 +1,51 @@
+
+//main heading css
+.main-header{
+    padding: 14px;
+    padding-left: 10px;
+    background-color: #613c1f;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    font-style: normal;
+}
+
+//content panel css
+.content-panel{
+    padding-left: 14px;
+    padding-right: 10px;
+    background-color: white;
+    .task-header{
+        font-size: 23px;
+        font-weight: 700;
+        padding-bottom: 8px;
+        padding-top: 8px;
+    }
+}
+//padding-0 class
+.no-pad{
+    padding: 0px !important;
+}
+.user-icon{
+  display: inline-block;
+  padding-left: 30px;
+  padding-right: 8px;
+  margin-top: 5px;
+  float: right;
+}
+.question-icon{
+    margin-top: 5px;
+    float: right;
+}
+.login-name{
+    display: inline-block;
+    font-weight: bold;
+    font-size: 16px;
+    float: right;
+}
+.down-icon{
+    display: inline-block;
+    padding-left: 8px;
+    margin-top: 5px;
+    float: right;
+}

@@ -1,0 +1,41 @@
+::ng-deep .menubar{
+    margin-bottom: 14px;
+    padding-left: 14px;
+    padding-right: 14px;
+    p-menubar{
+        div.ui-menubar{
+            p-menubarsub{
+                ul.ui-menubar-root-list{
+                    li.ui-menuitem.ui-menuitem-active{
+                       &.ui-menuitem.ui-menuitem-active:focus{
+                        border: none;
+                       }
+                       &.ui-menuitem.ui-menuitem-active.ui-menuitem-link-active:focus{
+                        border: none;
+                       }
+                        a.ui-menuitem-link.ui-menuitem-link-active{
+                            background-color: #613c1f;
+                            border: none;
+                            &.ui-menuitem-link:focus{
+                                box-shadow: none;
+                            }
+                            &.ui-menuitem-link:hover{
+                                background-color: #613c1f;
+                            }
+                            span.ui-menuitem-icon {
+                                color: white;
+                            }
+                            span.ui-menuitem-text{
+                                color: white;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+} 
+
+::ng-deep .ui-menubar .ui-menubar-root-list > .ui-menuitem > .ui-menuitem-link:focus {
+    border: none !important;
+}

@@ -1,4 +1,4 @@
-<p>home works!</p>
+<!-- <p>home works!</p>
 
 <div>
     TODO :- Have two sections <br>
@@ -11,4 +11,112 @@
             Sort<br>
             Export xls and pdf<br>
             Pagination<br>
+</div> -->
+<div class="container-div">
+    <div class="row col-md-12 no-pad">
+        <div class="content-panel-first col-md-4">
+            <p-panel header="Tasks Status">
+                <div class="dough-align">
+                  <p-chart type="doughnut" [data]="data"></p-chart>
+                </div>
+                <div class="select-by-align">
+                  <span>Select By : </span>
+                  <span><p-dropdown [options]="cities4" [(ngModel)]="selectedCity4"></p-dropdown></span>
+                  <div class="seprator"></div>
+                  <div>
+                   <span class="open-span">12</span>
+                   <span class="pending-span">8</span>
+                   <span class="process-span">10</span>
+                  </div>
+                  <div>
+                    <span class="completed-text">Open</span>
+                    <span class="inprocess-text">In Progress</span>
+                    <span class="pending-text">Completed</span>
+                   </div>
+                </div>
+            </p-panel>
+        </div>
+        <div class="content-panel-second col-md-4">
+            <p-panel header="Account Type">
+               <div class="account-type-panel">
+                 <span class="account-label">Select Account Type : </span>
+                 <span><p-dropdown [options]="cities1" [(ngModel)]="selectedCity1"></p-dropdown></span>
+                <div class="accont-info-label">
+                  112 Task open for AD with-Account
+                </div>
+                <div>
+                  <p-button label="Create Task"></p-button>
+                </div>
+               </div>
+            </p-panel>
+        </div>
+        <div class="content-panel-third col-md-4">
+            <p-panel header="Reports">
+               <table class="Report-table">
+                 <tbody>
+                   <tr>
+                     <td>
+                      <span class="fa fa-file-text-o"></span>
+                      <span class="file-name-pad">Document 1</span>
+                    </td>
+                   </tr>
+                   <tr>
+                    <td>
+                      <span class="fa fa-file-text-o"></span>
+                      <span class="file-name-pad">Document 1</span>
+                   </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <span class="fa fa-file-text-o"></span>
+                      <span class="file-name-pad">Document 1</span>
+                   </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <span class="fa fa-file-text-o"></span>
+                      <span class="file-name-pad">Document 1</span>
+                   </td>
+                  </tr>
+                 </tbody>
+               </table>
+            </p-panel>
+        </div>
+        <div class="task-content">
+            <span class="task-label">All Tasks</span> 
+            <span class="fa fa-info-circle info-icon"></span>
+            <span class="search-bar">Search : <p-autoComplete></p-autoComplete></span>
+            <div class="task-table">
+             <span>Select Action : </span>
+             <span><p-dropdown [options]="cities2" [(ngModel)]="selectedCity2"></p-dropdown></span>
+             <span class="task-label-last">over the last : </span>
+             <span><p-dropdown [options]="cities3" [(ngModel)]="selectedCity3"></p-dropdown></span>
+             <div style="padding-top: 12px;">
+                <p-table [value]="cars">
+                  <ng-template pTemplate="header">
+                      <tr>
+                          <th>ID</th>
+                          <th>Task Type</th>
+                          <th>Task Specifics</th>
+                          <th>Workflow Step</th>
+                          <th>Account</th>
+                          <th>Account Name</th>
+                          <th>Requestor</th>
+                          <th>Due (IST)</th>
+                      </tr>
+                  </ng-template>
+                  <ng-template pTemplate="body">
+                      <tr>
+                          <td>xyz</td>
+                          <td>pqr</td>
+                          <td>xyz</td>
+                          <td>xyz</td>
+                      </tr>
+                  </ng-template>
+              </p-table>
+              </div>
+             </div>
+             </div>
+            
+</div>
 </div>
