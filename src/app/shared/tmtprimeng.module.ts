@@ -28,4 +28,4 @@ import {TableModule} from 'primeng/table';
     TableModule,
   ]
 })
-export class PrimengModule { }
+export class TMTPrimengModule { }
