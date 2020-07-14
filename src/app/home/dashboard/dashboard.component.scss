@@ -11,7 +11,7 @@
             }
         }
         .ui-panel-content{
-            height: 234px;
+            height: 204px;
         }
     }
 }
@@ -31,7 +31,7 @@
 
     }
     .ui-panel-content{
-        height: 234px;
+        height: 204px;
     }
 }
 
@@ -50,7 +50,7 @@
 
     }
     .ui-panel-content{
-        height: 234px;
+        height: 204px;
     }
 }
 
@@ -108,64 +108,70 @@ table.Report-table {
     }
 }
 
+//css for 1st panel
 
 ::ng-deep div.dough-align p-chart{
     canvas.chartjs-render-monitor{
         display: block;
-        height: 170px !important;
-        position: absolute !important;
-        width: 328px !important;
-        left: -92px !important;
+       // height: 170px !important;
+       // position: absolute !important;
+       // width: 328px !important;
+       //  left: -92px !important;
+        height: 151px !important;
+    position: absolute !important;
     }
 }
 
-.select-by-align{
-    margin-left: 174px;
-    margin-top: 24px;
+.select-by-main-div{
+    position: relative;
+    .select-by-align{
+        position: absolute;
+        left: 165px;
+    }
 }
-
 .seprator{
     border: 1px solid gray;
     margin-top: 22px;
     margin-bottom: 12px;
 }
 
-.open-span{
-    display: inline-block;
-    font-size: 63px;
-    color: #551c69;
-    border-right: 1px solid gray;
-    padding-right: 14px;
+.flex-container{
+    display: flex;
+    flex-wrap: nowrap;
 }
-.process-span{
-    display: inline-block;
-    font-size: 63px;
-    color: #2b7b32;
-    padding-right: 14px;
-    padding-left: 14px;
-}
-.pending-span{
-    display: inline-block;
-    font-size: 63px;
-    color: #61221d;
-    border-right: 1px solid gray;
-    padding-right: 21px;
-    padding-left: 17px;
-}
+.flex-container > div {
+    width: 275px;
+    text-align: center;
+    font-size: 57px;
+    :first-child{
+        border-right: 1px solid black;
+    }
+    :nth-child(2){
+        border-right: 1px solid black;
+    }
+    .open-task{
+        color: #551c69;  
+    }
+    .in-progress-task{
+        color: #61221d;
+    }
+    .complete-task{
+        color: #2b7b32;
+    }
+  }
+  .flex-container-text{
+    display: flex;
+    flex-wrap: nowrap;
+  }
+  .flex-container-text > div{
+    width: 275px; 
+    text-align: center;
+    font-size: 16px;
+  }
 
-.completed-text{
-    padding-left: 25px;
-    display: inline-block;
-}
-.inprocess-text{
-    display: inline-block;
-    padding-left: 30px;
-}
-.pending-text{
-    display: inline-block;
-    padding-left: 17px;
-}
 .no-pad{
     padding: 0px !important;
 }
-
+.pad-r-0{
+    padding-right: 0px !important;
+}

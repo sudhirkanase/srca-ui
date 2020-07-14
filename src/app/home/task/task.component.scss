@@ -1,5 +1,5 @@
 .task-content{
-    padding-left: 14px;
+    padding-right: 14px;
     position: relative;
     .task-label{
         display: inline-block;
@@ -32,4 +32,15 @@
     position: absolute;
     right: 0;
     top: 20px;
+    padding-right: 14px;
+}
+
+.pdf-excel-icon{
+    display: inline-block;
+    color: #007bff !important;
+    padding-right: 10px;
+    padding-left: 10px;
+}
+.fa.fa-download{
+    color: #007bff !important;
 }
