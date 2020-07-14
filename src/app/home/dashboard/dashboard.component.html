@@ -4,21 +4,27 @@
       <div class="dough-align">
         <p-chart type="doughnut" [data]="data"></p-chart>
       </div>
-      <div class="select-by-align">
-        <span>Select By : </span>
-        <span>
-          <p-dropdown [options]="cities4" [(ngModel)]="selectedCity4"></p-dropdown>
-        </span>
-        <div class="seprator"></div>
-        <div>
-          <span class="open-span">12</span>
-          <span class="pending-span">8</span>
-          <span class="process-span">10</span>
-        </div>
-        <div>
-          <span class="completed-text">Open</span>
-          <span class="inprocess-text">In Progress</span>
-          <span class="pending-text">Completed</span>
+      <div class="select-by-main-div">
+        <div class="select-by-align">
+          <span>Select By : </span>
+          <span>
+            <p-dropdown [options]="cities4" [(ngModel)]="selectedCity4"></p-dropdown>
+          </span>
+          <div class="seprator"></div>
+          <div class="flex-container">
+            <div class="flex-container">
+              <div class="open-task">20</div>
+              <div class="in-progress-task">12</div>
+              <div class="complete-task">03</div>  
+            </div>
+          </div>
+          <div class="flex-container-text">
+            <div class="flex-container-text">
+              <div>Open</div>
+              <div>In Progress</div>
+              <div>Pending</div>  
+            </div>
+          </div> 
         </div>
       </div>
     </p-panel>
@@ -41,7 +47,7 @@
     </p-panel>
   </div>
 
-  <div class="content-panel-third col-md-4">
+  <div class="content-panel-third col-md-4 pad-r-0">
     <p-panel header="Reports">
       <table class="Report-table">
         <tbody>
