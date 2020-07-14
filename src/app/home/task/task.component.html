@@ -1,0 +1,18 @@
+<div class="task-content">
+  <span class="task-label">All Tasks</span>
+  <span class="fa fa-info-circle info-icon"></span>
+  <span class="search-bar">Search : <p-autoComplete></p-autoComplete></span>
+  <div class="task-table">
+    <span>Select Action : </span>
+    <span>
+      <p-dropdown [options]="cities2" [(ngModel)]="selectedCity2"></p-dropdown>
+    </span>
+    <span class="task-label-last">over the last : </span>
+    <span>
+      <p-dropdown [options]="cities3" [(ngModel)]="selectedCity3"></p-dropdown>
+    </span>
+    <div style="padding-top: 12px;">
+      <tmt-my-task-list></tmt-my-task-list>
+    </div>
+  </div>
+</div>

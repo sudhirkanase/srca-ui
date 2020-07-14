@@ -1,0 +1,171 @@
+//customise panel css for task status
+
+::ng-deep .content-panel-first p-panel{
+    div.ui-panel {
+        div.ui-panel-titlebar{
+            background-color: #551c69;
+            color: white;
+            .ui-panel-title{
+                font-weight: normal;
+                font-size: 18px;
+            }
+        }
+        .ui-panel-content{
+            height: 234px;
+        }
+    }
+}
+
+//customise panel css for Account Type
+
+::ng-deep .content-panel-second p-panel{
+    div.ui-panel {
+        div.ui-panel-titlebar{
+            background-color: #2b7b32;
+            color: white;
+            .ui-panel-title{
+                font-weight: normal;
+                font-size: 18px;
+            }
+        }
+
+    }
+    .ui-panel-content{
+        height: 234px;
+    }
+}
+
+//customise panel css for Reports
+
+::ng-deep .content-panel-third p-panel{
+    div.ui-panel {
+        div.ui-panel-titlebar{
+            background-color: #61221d;
+            color: white;
+            .ui-panel-title{
+                font-weight: normal;
+                font-size: 18px;
+            }
+        }
+
+    }
+    .ui-panel-content{
+        height: 234px;
+    }
+}
+
+.account-type-panel{
+    text-align: center;
+    padding: 25px;
+    .account-label{
+        display: inline-block;
+        margin-right: 11px;
+    }
+    .accont-info-label{
+        padding-top: 20px;
+        padding-bottom: 20px;
+    }
+}  
+
+//customise panel css for Reports table
+
+table.Report-table {
+    border-collapse: collapse;
+    width: 100%;
+    td {
+        padding: 12px;
+        border-bottom: 1px solid lightgray;
+    
+    }
+        .fa.fa-file-text-o{
+        color: #007bff !important;
+        cursor: pointer;
+    }
+        .file-name-pad{
+        display: inline-block;
+        padding-left: 10px;
+    }
+}
+  
+.task-content{
+    padding-left: 14px;
+    position: relative;
+    .task-label{
+        display: inline-block;
+        font-size: 32px;
+        padding: 12px 0px;
+    } 
+    .info-icon{
+        display: inline-block;
+        position: absolute;
+        top: 23px;
+        left: 133px;
+    &.fa.fa-info-circle{
+        color: #007bff !important;
+        cursor: pointer;
+        font-size: 19px;
+    }
+    }
+}
+
+
+::ng-deep div.dough-align p-chart{
+    canvas.chartjs-render-monitor{
+        display: block;
+        height: 170px !important;
+        position: absolute !important;
+        width: 328px !important;
+        left: -92px !important;
+    }
+}
+
+.select-by-align{
+    margin-left: 174px;
+    margin-top: 24px;
+}
+
+.seprator{
+    border: 1px solid gray;
+    margin-top: 22px;
+    margin-bottom: 12px;
+}
+
+.open-span{
+    display: inline-block;
+    font-size: 63px;
+    color: #551c69;
+    border-right: 1px solid gray;
+    padding-right: 14px;
+}
+.process-span{
+    display: inline-block;
+    font-size: 63px;
+    color: #2b7b32;
+    padding-right: 14px;
+    padding-left: 14px;
+}
+.pending-span{
+    display: inline-block;
+    font-size: 63px;
+    color: #61221d;
+    border-right: 1px solid gray;
+    padding-right: 21px;
+    padding-left: 17px;
+}
+
+.completed-text{
+    padding-left: 25px;
+    display: inline-block;
+}
+.inprocess-text{
+    display: inline-block;
+    padding-left: 30px;
+}
+.pending-text{
+    display: inline-block;
+    padding-left: 17px;
+}
+.no-pad{
+    padding: 0px !important;
+}
+

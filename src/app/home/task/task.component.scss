@@ -1,0 +1,35 @@
+.task-content{
+    padding-left: 14px;
+    position: relative;
+    .task-label{
+        display: inline-block;
+        font-size: 32px;
+        padding: 12px 0px;
+    } 
+    .info-icon{
+        display: inline-block;
+        position: absolute;
+        top: 23px;
+        left: 133px;
+    &.fa.fa-info-circle{
+        color: #007bff !important;
+        cursor: pointer;
+        font-size: 19px;
+    }
+    }
+}
+
+.task-table{
+    border: 1px solid lightgrey;
+    padding: 18px;
+    .task-label-last{
+        padding-left: 18px;
+    }
+}
+
+.search-bar{
+    display: inline-block;
+    position: absolute;
+    right: 0;
+    top: 20px;
+}

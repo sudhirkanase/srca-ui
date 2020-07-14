@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 @Component({
-  selector: 'tmt-task-list',
-  templateUrl: './task-list.component.html',
-  styleUrls: ['./task-list.component.css']
+  selector: 'tmt-my-task-list',
+  templateUrl: './my-task-list.component.html',
+  styleUrls: ['./my-task-list.component.scss']
 })
-export class TaskListComponent implements OnInit {
+export class MyTaskListComponent implements OnInit {
 
   cols: any[];
   data: any;
