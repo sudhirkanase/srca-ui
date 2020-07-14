@@ -9,8 +9,10 @@ import { HeaderComponent } from './header/header.component';
 import { MenuBarComponent } from './header/menu-bar/menu-bar.component';
 import { TMTPrimengModule } from './shared/tmtprimeng.module';
 import { HomeComponent } from './home/home.component';
-import { TaskListComponent } from './task-list/task-list.component';
+import { MyTaskListComponent } from './home/task/my-task-list/my-task-list.component';
 import { HttpClientModule } from '@angular/common/http';
+import { DashboardComponent } from './home/dashboard/dashboard.component';
+import { TaskComponent } from './home/task/task.component';
 
 
 
@@ -20,7 +22,9 @@ import { HttpClientModule } from '@angular/common/http';
     HeaderComponent,
     MenuBarComponent,
     HomeComponent,
-    TaskListComponent
+    MyTaskListComponent,
+    DashboardComponent,
+    TaskComponent
   ],
   imports: [
     BrowserModule,

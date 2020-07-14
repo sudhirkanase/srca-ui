@@ -1,0 +1,76 @@
+<div class="row col-md-12 no-pad">
+  <div class="content-panel-first col-md-4">
+    <p-panel header="Tasks Status">
+      <div class="dough-align">
+        <p-chart type="doughnut" [data]="data"></p-chart>
+      </div>
+      <div class="select-by-align">
+        <span>Select By : </span>
+        <span>
+          <p-dropdown [options]="cities4" [(ngModel)]="selectedCity4"></p-dropdown>
+        </span>
+        <div class="seprator"></div>
+        <div>
+          <span class="open-span">12</span>
+          <span class="pending-span">8</span>
+          <span class="process-span">10</span>
+        </div>
+        <div>
+          <span class="completed-text">Open</span>
+          <span class="inprocess-text">In Progress</span>
+          <span class="pending-text">Completed</span>
+        </div>
+      </div>
+    </p-panel>
+  </div>
+
+  <div class="content-panel-second col-md-4">
+    <p-panel header="Account Type">
+      <div class="account-type-panel">
+        <span class="account-label">Select Account Type : </span>
+        <span>
+          <p-dropdown [options]="cities1" [(ngModel)]="selectedCity1"></p-dropdown>
+        </span>
+        <div class="accont-info-label">
+          112 Task open for AD with-Account
+        </div>
+        <div>
+          <p-button label="Create Task"></p-button>
+        </div>
+      </div>
+    </p-panel>
+  </div>
+
+  <div class="content-panel-third col-md-4">
+    <p-panel header="Reports">
+      <table class="Report-table">
+        <tbody>
+          <tr>
+            <td>
+              <span class="fa fa-file-text-o"></span>
+              <span class="file-name-pad">Document 1</span>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <span class="fa fa-file-text-o"></span>
+              <span class="file-name-pad">Document 1</span>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <span class="fa fa-file-text-o"></span>
+              <span class="file-name-pad">Document 1</span>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <span class="fa fa-file-text-o"></span>
+              <span class="file-name-pad">Document 1</span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </p-panel>
+  </div>
+</div>

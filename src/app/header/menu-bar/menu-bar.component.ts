@@ -7,7 +7,7 @@ import { MenuService } from 'src/app/services/menu/menu.service';
  * Component will display top levels application Menu and sub menu items
  */
 @Component({
-  selector: 'app-menu-bar',
+  selector: 'tmt-menu-bar',
   templateUrl: './menu-bar.component.html',
   styleUrls: ['./menu-bar.component.scss']
 })
