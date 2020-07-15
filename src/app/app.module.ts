@@ -24,11 +24,11 @@ import { LoginComponent } from './login/login.component';
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-    AppRoutingModule,
     TMTPrimengModule,
     FormsModule,
     HttpClientModule,
-    HomeModule
+    HomeModule,
+    AppRoutingModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
