@@ -9,13 +9,17 @@ import { MenuBarComponent } from './header/menu-bar/menu-bar.component';
 import { TMTPrimengModule } from './shared/tmtprimeng.module';
 import { HttpClientModule } from '@angular/common/http';
 import { HomeModule } from './home/home.module';
+import { dropdownDirective } from './shared/directives/dropdown.directive';
+import { LoginComponent } from './login/login.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
+    dropdownDirective,
     MenuBarComponent,
+    LoginComponent,
   ],
   imports: [
     BrowserModule,
