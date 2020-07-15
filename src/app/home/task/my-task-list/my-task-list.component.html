@@ -1,12 +1,11 @@
-<p-table [columns]="cols" [value]="data" [paginator]="true" [rows]="10" [showCurrentPageReport]="true"
+<p-table (exportToPdfEvent)="exportPdf()" #dt [columns]="cols" [value]="data" [paginator]="true" [rows]="10" [showCurrentPageReport]="true"
   currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" paginatorPosition="top">
   <ng-template pTemplate="header" let-columns>
     <tr>
       <th *ngFor="let col of columns" [pSortableColumn]="col.field">
         {{col.header}}
-        <p-sortIcon [field]="col.field" ariaLabel="Activate to sort"
-          ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order">
-        </p-sortIcon>
+        <p-sortIcon [field]="col.field"></p-sortIcon>
+        <input pInputText type="text" (input)="dt.filter($event.target.value, col.field, 'contains')">
       </th>
     </tr>
   </ng-template>
@@ -15,8 +14,6 @@
       <td *ngFor="let col of columns">
         {{rowData[col.field]}}
       </td>
-    </tr>    
+    </tr>
   </ng-template>
 </p-table>
-
-<!-- <router-outlet></router-outlet> -->

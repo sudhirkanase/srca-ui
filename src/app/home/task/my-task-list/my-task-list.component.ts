@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 @Component({
@@ -12,6 +12,7 @@ export class MyTaskListComponent implements OnInit {
   data: any;
   first = 0;
   rows = 10;
+  exportColumns: any[];
 
   constructor(private httpClient: HttpClient) { }
 
@@ -32,15 +33,17 @@ export class MyTaskListComponent implements OnInit {
       { field: '', header: '' }
     ];
 
+    this.exportColumns = this.cols.map(col => ({ title: col.header, dataKey: col.field }));
+
   }
 
   getTaskList() {
     this.httpClient.get("assets/json/task-list.json").subscribe(data => {
-      console.log(data);
       this.data = data;
     })
   }
 
+  // Methods for pagination
   next() {
     this.first = this.first + this.rows;
   }
@@ -59,6 +62,48 @@ export class MyTaskListComponent implements OnInit {
 
   isFirstPage(): boolean {
     return this.first === 0;
+  }
+
+  //Export to PDF
+  exportPdf() {
+    import("jspdf").then(jsPDF => {
+      import("jspdf-autotable").then(x => {
+        const doc = new jsPDF.default(0, 0);
+        doc.autoTable(this.exportColumns, this.data);
+        doc.save('myTaskList.pdf');
+      })
+    })
+  }
+
+  //Export to Excel
+  exportExcel() {
+    import("xlsx").then(xlsx => {
+      const worksheet = xlsx.utils.json_to_sheet(this.getTaskDataToString());
+      const workbook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
+      const excelBuffer: any = xlsx.write(workbook, { bookType: 'xlsx', type: 'array' });
+      this.saveAsExcelFile(excelBuffer, "myTaskList");
+    });
+  }
+
+  //Save the Excel File
+  saveAsExcelFile(buffer: any, fileName: string): void {
+    import("file-saver").then(FileSaver => {
+      let EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
+      let EXCEL_EXTENSION = '.xlsx';
+      const data: Blob = new Blob([buffer], {
+        type: EXCEL_TYPE
+      });
+      FileSaver.saveAs(data, fileName + '_export_' + new Date().getTime() + EXCEL_EXTENSION);
+    });
+  }
+
+  getTaskDataToString() {
+    let dataToString = [];
+    for (let data of this.data) {
+      data.id = data.id.toString();
+      dataToString.push(data);
+    }
+    return dataToString;
   }
 
 }
