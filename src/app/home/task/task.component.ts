@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { SelectItem } from 'primeng/api/selectitem';
 import { MyTaskListComponent } from './my-task-list/my-task-list.component';
 
@@ -12,7 +12,6 @@ export class TaskComponent implements OnInit {
   tasks: SelectItem[];
   cities3: SelectItem[];
   
-  @Output() exportToPdfEvent = new EventEmitter();
   @ViewChild('myTaskList', { static: false }) myTaskList:MyTaskListComponent;
 
   constructor() { }
