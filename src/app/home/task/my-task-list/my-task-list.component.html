@@ -1,5 +1,5 @@
 <p-table [columns]="cols" [value]="data" [paginator]="true" [rows]="10" [showCurrentPageReport]="true"
-  currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" paginatorPosition="top">
+  currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" paginatorPosition="top" [scrollable]="true" scrollHeight="50vh">
   <ng-template pTemplate="header" let-columns>
     <tr>
       <th *ngFor="let col of columns" [pSortableColumn]="col.field">
