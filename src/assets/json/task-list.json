@@ -20,7 +20,7 @@
 },
 {
     "id": 110003,
-    "taskType": "Contact Center",
+    "taskType": "Tax Harvesting",
     "taskSpecific": "Online password setup/reset",
     "workflowStep": "Contact Center Entity",
     "accountNo": "CLSPW003",
@@ -30,7 +30,7 @@
 },
 {
     "id": 110004,
-    "taskType": "Contact Center",
+    "taskType": "Raise Cash",
     "taskSpecific": "Online password setup/reset",
     "workflowStep": "Contact Center Entity",
     "accountNo": "CLSPW004",
@@ -40,7 +40,7 @@
 },
 {
     "id": 110005,
-    "taskType": "Contact Center",
+    "taskType": "Invest Cash",
     "taskSpecific": "Online password setup/reset",
     "workflowStep": "Contact Center Entity",
     "accountNo": "CLSPW005",
@@ -50,7 +50,7 @@
 },
 {
     "id": 110006,
-    "taskType": "Contact Center",
+    "taskType": "Raise Cash",
     "taskSpecific": "Online password setup/reset",
     "workflowStep": "Contact Center Entity",
     "accountNo": "CLSPW006",
@@ -70,7 +70,7 @@
 },
 {
     "id": 110008,
-    "taskType": "Contact Center",
+    "taskType": "Invest Cash",
     "taskSpecific": "Online password setup/reset",
     "workflowStep": "Contact Center Entity",
     "accountNo": "CLSPW008",
@@ -100,7 +100,7 @@
 },
 {
     "id": 110011,
-    "taskType": "Contact Center",
+    "taskType": "Invest Cash",
     "taskSpecific": "Online password setup/reset",
     "workflowStep": "Contact Center Entity",
     "accountNo": "CLSPW011",
@@ -120,7 +120,7 @@
 },
 {
     "id": 110013,
-    "taskType": "Contact Center",
+    "taskType": "Tax Harvesting",
     "taskSpecific": "Online password setup/reset",
     "workflowStep": "Contact Center Entity",
     "accountNo": "CLSPW013",
@@ -130,7 +130,7 @@
 },
 {
     "id": 110014,
-    "taskType": "Contact Center",
+    "taskType": "Raise Cash",
     "taskSpecific": "Online password setup/reset",
     "workflowStep": "Contact Center Entity",
     "accountNo": "CLSPW014",
@@ -140,7 +140,7 @@
 },
 {
     "id": 110015,
-    "taskType": "Contact Center",
+    "taskType": "Tax Harvesting",
     "taskSpecific": "Online password setup/reset",
     "workflowStep": "Contact Center Entity",
     "accountNo": "CLSPW015",
