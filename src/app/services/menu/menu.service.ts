@@ -91,19 +91,19 @@ export class MenuService {
       label: 'Create Task',
       icon: 'pi pi-fw',
       items: [
-        { label: 'AD - With Account', icon: 'pi pi-fw' },
-        { label: 'IFS - With Account', icon: 'pi pi-fw' },
+        { label: 'AD - With Account', icon: 'pi pi-fw', routerLink: 'create/ad-account/search' },
+        { label: 'IFS - With Account', icon: 'pi pi-fw', routerLink: 'create/ifs-account/search' },
         {
           label: 'IFS - Without Account', icon: 'pi pi-fw',
           items: [
-            { label: 'Contact Center', icon: 'pi pi-fw' },
-            { label: 'FI Portfolio Diagnostic Review', icon: 'pi pi-fw' },
-            { label: 'Investments:Other', icon: 'pi pi-fw' },
-            { label: 'Name & Address Record', icon: 'pi pi-fw' },
-            { label: 'Opportunity Report', icon: 'pi pi-fw' },
-            { label: 'Other Tasks', icon: 'pi pi-fw' },
-            { label: 'Performance Reporting', icon: 'pi pi-fw' },
-            { label: 'Prospect Account Analysis', icon: 'pi pi-fw' }
+            { label: 'Contact Center', icon: 'pi pi-fw', routerLink: 'create/ifs-without-account/contact-center' },
+            { label: 'FI Portfolio Diagnostic Review', icon: 'pi pi-fw', routerLink: 'create/ifs-without-account/portfolio-diagnostic-review' },
+            { label: 'Investments:Other', icon: 'pi pi-fw', routerLink: 'create/ifs-without-account/investments-other' },
+            { label: 'Name & Address Record', icon: 'pi pi-fw', routerLink: 'create/ifs-without-account/name-address-record' },
+            { label: 'Opportunity Report', icon: 'pi pi-fw', routerLink: 'create/ifs-without-account/opportunity-report' },
+            { label: 'Other Tasks', icon: 'pi pi-fw', routerLink: 'create/ifs-without-account/other-tasks' },
+            { label: 'Performance Reporting', icon: 'pi pi-fw', routerLink: 'create/ifs-without-account/performance-reporting' },
+            { label: 'Prospect Account Analysis', icon: 'pi pi-fw', routerLink: 'create/ifs-without-account/prospect-account-analysis' }
           ]
         },
         {

@@ -1,0 +1,31 @@
+<div>
+    The available Tasks are in the Actions menu to the left. Select the Task that you want to create for the
+    selected account. You will be guided through the screens to provide details for that Task.
+</div>
+<div>
+    <strong>Tasks associated to this account are listed in the Tasks tab.</strong>
+</div>
+<div class="row">
+    <div class="col-sm-3">
+        <p-panel [toggleable]="true" [expandIcon]="'pi pi-angle-down'" [collapseIcon]="'pi pi-angle-up'">
+            <p-header>
+                Actions
+            </p-header>
+            <a routerLink="./">Account Maintenance</a>
+        </p-panel>
+    </div>
+    <div class="col-sm-9">
+        <!-- tab view -->
+        <p-tabView>
+            <p-tabPanel header="Details">
+                Account Details
+            </p-tabPanel>
+            <p-tabPanel header="Tasks">
+                <ng-template pTemplate="content">
+                    Lazily loaded tasks list
+                </ng-template>
+            </p-tabPanel>
+
+        </p-tabView>
+    </div>
+</div>
