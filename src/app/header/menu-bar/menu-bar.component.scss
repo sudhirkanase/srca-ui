@@ -21,9 +21,9 @@
                         }
                         p-menubarsub.ui-submenu{
                             ul.ui-submenu-list{
-                                li.ui-menuitem.ui-menuitem-active{
+                                li.ui-menuitem{
                                     .ui-menuitem-link{
-                                        background-color: lightgray;
+                                        background-color: #e4ddcb;
                                         .ui-menuitem-icon{
                                             color: black;
                                         }
@@ -33,12 +33,57 @@
                                             white-space: nowrap;
                                         }
                                     }
+                                    &.ui-menuitem-active{
+                                        .ui-menuitem-link{
+                                        background-color: #613c1f;
+                                        .ui-menuitem-icon{
+                                            color: white;
+                                        }
+                                        .ui-menuitem-text{
+                                            color: white;
+                                            font-weight: bold;
+                                            white-space: nowrap;
+                                        }
+                                    }
                                 }
+                                p-menubarsub.ui-submenu{
+                                    ul.ui-submenu-list{
+                                        li.ui-menuitem{
+                                            .ui-menuitem-link{
+                                                background-color: #e4ddcb;
+                                                .ui-menuitem-icon{
+                                                    color: black;
+                                                }
+                                                .ui-menuitem-text{
+                                                    color: black;
+                                                    font-weight: bold;
+                                                    white-space: nowrap;
+                                                }
+                                            }
+                                            &.ui-menuitem-active{
+                                                .ui-menuitem-link{
+                                                background-color: #613c1f;
+                                                .ui-menuitem-icon{
+                                                    color: white;
+                                                }
+                                                .ui-menuitem-text{
+                                                    color: white;
+                                                    font-weight: bold;
+                                                    white-space: nowrap;
+                                                }
+                                            }
+                                        }
+                                        }
+                                    }
+                                }
+                                }
+                               
+                               
                             }
                         }
                         &.ui-menuitem-active{
                             .ui-menuitem-link{
-                                background-color: #613c1f;;
+                                background-color: #613c1f;
                                 .ui-menuitem-icon{
                                     color: white;
                                 }
