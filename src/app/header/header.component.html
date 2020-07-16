@@ -3,9 +3,9 @@
     <div class="main-header">
         WELLS FARGO
         <span class="dropdown" style="float: right;">
-            <a class="dropdown-toggle login-name" (click)="myFunc()">Priyanka Pawar <span class="caret"></span></a>
+            <a class="dropdown-toggle login-name" (click)="myFunc()">{{currentUser?.fullName}} <span class="caret"></span></a>
             <ul class="dropdown-menu-item" *ngIf="open">
-                <li><a style="cursor: pointer;">Sign Out</a></li>
+                <li><a style="cursor: pointer;" (click)="logout()">Sign Out</a></li>
             </ul>
         </span>
         <span class="fa fa-user user-icon"></span>
@@ -15,6 +15,8 @@
         <div class="task-header">Tasks Management</div>
     </div>
 </div>
+<div *ngIf="currentUser">
 <tmt-menu-bar></tmt-menu-bar>
+</div>
 <!-- <router-outlet></router-outlet> -->
 <!-- Footer component will be here-->
