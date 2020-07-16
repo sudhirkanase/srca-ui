@@ -9,9 +9,10 @@ import { TabViewModule } from 'primeng/tabview';
 import { AccountRoutingModule } from './account-routing.module';
 import { AccountSearchComponent } from './account-search/account-search.component';
 import { AccountSummaryComponent } from './account-summary/account-summary.component';
+import { AccountDetailsComponent } from './account-summary/account-details/account-details.component';
 
 @NgModule({
-  declarations: [AccountSearchComponent, AccountSummaryComponent],
+  declarations: [AccountSearchComponent, AccountSummaryComponent, AccountDetailsComponent],
   imports: [
     CommonModule,
     FormsModule,
