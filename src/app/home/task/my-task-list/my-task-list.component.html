@@ -5,9 +5,13 @@
       <th *ngFor="let col of columns" [pSortableColumn]="col.field">
         {{col.header}}
         <p-sortIcon [field]="col.field"></p-sortIcon>
-        <input pInputText type="text" (input)="dt.filter($event.target.value, col.field, 'contains')">
       </th>
     </tr>
+    <tr>
+      <th *ngFor="let col of columns">
+        <input pInputText type="text" (input)="dt.filter($event.target.value, col.field, 'contains')" style="width: 100%;">
+      </th>
+    </tr> 
   </ng-template>
   <ng-template pTemplate="body" let-rowData let-columns="columns">
     <tr>
