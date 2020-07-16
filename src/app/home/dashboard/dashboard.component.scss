@@ -121,7 +121,7 @@ table.Report-table {
         display: block;
        // height: 170px !important;
        // position: absolute !important;
-       // width: 328px !important;
+       width: 296px !important;
        //  left: -92px !important;
         height: 151px !important;
     position: absolute !important;
@@ -132,13 +132,15 @@ table.Report-table {
     position: relative;
     .select-by-align{
         position: absolute;
-        left: 165px;
+      right: 2px;
     }
 }
+
 .seprator{
     border: 1px solid gray;
     margin-top: 22px;
     margin-bottom: 12px;
+    margin-left: 30px;
 }
 
 .flex-container{
@@ -146,9 +148,9 @@ table.Report-table {
     flex-wrap: nowrap;
 }
 .flex-container > div {
-    width: 275px;
+    width: 250px;
     text-align: center;
-    font-size: 57px;
+    font-size: 35px;
     :first-child{
         border-right: 1px solid black;
     }
@@ -170,9 +172,9 @@ table.Report-table {
     flex-wrap: nowrap;
   }
   .flex-container-text > div{
-    width: 275px; 
+    width: 250px;
     text-align: center;
-    font-size: 16px;
+    font-size: 14px;
   }
 
 .no-pad{
