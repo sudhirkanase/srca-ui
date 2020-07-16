@@ -10,6 +10,7 @@ import {DropdownModule} from 'primeng/dropdown';
 import {ChartModule} from 'primeng/chart';
 import {AutoCompleteModule} from 'primeng/autocomplete';
 import {TableModule} from 'primeng/table';
+import {PaginatorModule} from 'primeng/paginator';
 
 @NgModule({
   declarations: [],
@@ -26,6 +27,7 @@ import {TableModule} from 'primeng/table';
     ChartModule,
     AutoCompleteModule,
     TableModule,
+    PaginatorModule
   ]
 })
 export class TMTPrimengModule { }

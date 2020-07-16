@@ -6,17 +6,24 @@
         {{col.header}}
         <p-sortIcon [field]="col.field"></p-sortIcon>
       </th>
+      <th></th>
     </tr>
     <tr>
       <th *ngFor="let col of columns">
-        <input pInputText type="text" (input)="dt.filter($event.target.value, col.field, 'contains')" style="width: 100%;">
+        <input pInputText type="text" (input)="dt.filter($event.target.value, col.field, 'contains')"
+        style="width: 100%;">
       </th>
+      <th></th>
     </tr> 
   </ng-template>
   <ng-template pTemplate="body" let-rowData let-columns="columns">
     <tr>
       <td *ngFor="let col of columns">
         {{rowData[col.field]}}
+      </td>
+      <td>
+        <span class="fa fa-search" style="padding-left: 23px;"></span>
+        <span class="pi pi-user-edit" style="padding-left: 39px;"></span>
       </td>
     </tr>
   </ng-template>

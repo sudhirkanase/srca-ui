@@ -1,0 +1,30 @@
+.content-panels{
+    padding-left: 14px;
+    padding-right: 10px;
+    background-color: white;
+    .task-headers{
+        font-size: 23px;
+        font-weight: 700;
+        padding-bottom: 8px;
+        padding-top: 8px;
+    }
+    .content-text{
+        font-weight: bold;
+    }
+}
+::ng-deep p-panel{
+    .ui-panel{
+        .ui-panel-titlebar{
+            background-color: #613c1f;
+            color: white;
+        }
+
+    }
+}
+.acc-label-pad{
+    font-weight: bold;
+    padding-top: 8px;
+}
+.second-container{
+    margin-top: 25px;
+}
