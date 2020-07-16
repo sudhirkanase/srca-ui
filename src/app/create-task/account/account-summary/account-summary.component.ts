@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+
+import { CreateTaskService } from './../../services/create-task.service';
+import { Account } from './../../model/Account';
 
 @Component({
   selector: 'tmt-account-summary',
@@ -7,9 +11,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AccountSummaryComponent implements OnInit {
 
-  constructor() { }
+  accountDetails: Account;
+
+  constructor(
+    private createTaskService: CreateTaskService,
+    private route: ActivatedRoute) { }
 
   ngOnInit() {
+    let accountNumber = parseInt(this.route.snapshot.paramMap.get('accountNumber'));
+
+    this.createTaskService.getAccountByAccountNumber(accountNumber)
+      .subscribe((account: Account[]) => {
+        this.accountDetails = account[0];
+      });
   }
 
 }

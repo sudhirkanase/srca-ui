@@ -1,31 +1,41 @@
-<div>
-    The available Tasks are in the Actions menu to the left. Select the Task that you want to create for the
-    selected account. You will be guided through the screens to provide details for that Task.
-</div>
-<div>
-    <strong>Tasks associated to this account are listed in the Tasks tab.</strong>
-</div>
-<div class="row">
-    <div class="col-sm-3">
-        <p-panel [toggleable]="true" [expandIcon]="'pi pi-angle-down'" [collapseIcon]="'pi pi-angle-up'">
-            <p-header>
-                Actions
-            </p-header>
-            <a routerLink="./">Account Maintenance</a>
-        </p-panel>
+<div class="account-summary">
+    <div>
+        The available Tasks are in the Actions menu to the left. Select the Task that you want to create for the
+        selected account. You will be guided through the screens to provide details for that Task.
     </div>
-    <div class="col-sm-9">
-        <!-- tab view -->
-        <p-tabView>
-            <p-tabPanel header="Details">
-                Account Details
-            </p-tabPanel>
-            <p-tabPanel header="Tasks">
-                <ng-template pTemplate="content">
-                    Lazily loaded tasks list
-                </ng-template>
-            </p-tabPanel>
+    <div>
+        <strong>Tasks associated to this account are listed in the Tasks tab.</strong>
+    </div>
+    <div class="row details-and-actions">
+        <div class="col-sm-3 actions">
+            <p-panel [toggleable]="true" [expandIcon]="'pi pi-angle-down'" [collapseIcon]="'pi pi-angle-up'">
+                <p-header>
+                    Actions
+                </p-header>
+                <a routerLink="./">Account Maintenance</a>
+                <a routerLink="./">Acct Review Maintenance</a>
+                <a routerLink="./">Asset Transaction</a>
+                <a routerLink="./">Contact Center</a>
+                <a routerLink="./">DARS Approval</a>
+                <a routerLink="./">Name & Address Record</a>
+                <a routerLink="./">AD Fixed Income</a>
+                <a routerLink="./">AD AMS Asset Management</a>
+                <a routerLink="./">Portfolio Implementation</a>
+            </p-panel>
+        </div>
+        <div class="col-sm-9">
+            <!-- tab view -->
+            <p-tabView>
+                <p-tabPanel header="Details">
+                    Account Number: {{accountDetails?.accountNumber}}
+                </p-tabPanel>
+                <p-tabPanel header="Tasks">
+                    <ng-template pTemplate="content">
+                        Lazily loaded tasks list
+                    </ng-template>
+                </p-tabPanel>
 
-        </p-tabView>
+            </p-tabView>
+        </div>
     </div>
 </div>

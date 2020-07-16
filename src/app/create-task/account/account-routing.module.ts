@@ -10,7 +10,7 @@ const routes: Routes = [
     component: AccountSearchComponent
   },
   {
-    path: 'summary',
+    path: ':accountNumber/summary',
     component: AccountSummaryComponent
   },
   {
