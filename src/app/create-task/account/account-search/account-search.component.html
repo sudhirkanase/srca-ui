@@ -1,0 +1,84 @@
+<div>
+    <h3>
+        Account Search
+    </h3>
+</div>
+
+<div>
+    <p>
+        Enter the account number or partial account name and click on the Search button. If more than one account
+        matches
+        your search criteria, it will return a list of matching accounts. Select the appropriate account.
+        <br>
+        To create a Task if account information is not available, from the menu select Create Task > Without Account.
+    </p>
+</div>
+
+<!-- Search section -->
+<div class="search">
+    <h4>Search Criteria</h4>
+    <form action="#" (ngSubmit)="search(searchForm.value); searchForm.reset();" #searchForm="ngForm">
+        <div class="row">
+            <div class="col-sm-4">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <label for="accountNumber">Account Number</label>
+                    </div>
+                    <div class="col-sm-8">
+                        <input type="text" name="accountNumber" id="accountNumber" class="form-control search-input"
+                            [(ngModel)]="accountNumber" />
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <label>Account Name</label>
+                    </div>
+                    <div class="col-sm-8">
+                        <input type="text" name="accountName" id="accountName" class="form-control search-input"
+                            [(ngModel)]="accountName" />
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <label></label>
+                    </div>
+                    <div class="col-sm-8">
+                        <button type="submit" class="btn btn-primary">
+                            Search
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<!-- Search results results -->
+<div class="results">
+    <h4>Account Search Results</h4>
+    <p-table [columns]="cols" [value]="accounts">
+        <ng-template pTemplate="header" let-columns>
+            <tr>
+                <th *ngFor="let col of columns">
+                    {{col.header}}
+                </th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-rowData let-columns="columns">
+            <tr>
+                <td *ngFor="let col of columns">
+                    <span *ngIf="col.field == 'select'">
+                        <a routerLink="../summary">Select</a>
+                    </span>
+                    <span *ngIf="col.field != 'select'">
+                        {{rowData[col.field]}}
+                    </span>
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>

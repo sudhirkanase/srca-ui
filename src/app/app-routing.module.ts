@@ -14,8 +14,12 @@ const routes: Routes = [
     component: HomeComponent
   },
   {
-    path:'login',
-    component:LoginComponent
+    path: 'login',
+    component: LoginComponent
+  },
+  {
+    path: 'create',
+    loadChildren: () => import('./create-task/create-task.module').then(m => m.CreateTaskModule)
   }
 
   // Lazy temprory as its landing page it should be eager loading
@@ -23,7 +27,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, { enableTracing: true })],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
