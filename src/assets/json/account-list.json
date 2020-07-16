@@ -13,7 +13,13 @@
         "seniorAdministrator": "Heather Mootz",
         "seniorAdministratorCode": 3569,
         "backupAdministrator": "Unassigned",
-        "backupAdministratorCode": 1
+        "backupAdministratorCode": 1,
+        "investmentManager": "Sarah Milwad",
+        "investmentManagerCode": 5054,
+        "backupInvestmentManager": "Christopher Young",
+        "backupInvestmentManagerCode": 1174,
+        "bankCapacity": "CO - TRUSTEE",
+        "controlGroup": "WM - AD Trust"
     },
     {
         "accountNumber": 11233300,
@@ -29,7 +35,13 @@
         "seniorAdministrator": "Scott Pall",
         "seniorAdministratorCode": 3256,
         "backupAdministrator": "Unassigned",
-        "backupAdministratorCode": 1
+        "backupAdministratorCode": 1,
+        "investmentManager": "Trevor Noah",
+        "investmentManagerCode": 4145,
+        "backupInvestmentManager": "Dean Cooper",
+        "backupInvestmentManagerCode": 2267,
+        "bankCapacity": "CO - TRUSTEE",
+        "controlGroup": "WM - AD Dept"
     },
     {
         "accountNumber": 112351,
@@ -45,7 +57,13 @@
         "seniorAdministrator": "Trevor Mahn",
         "seniorAdministratorCode": 2563,
         "backupAdministrator": "Unassigned",
-        "backupAdministratorCode": 1
+        "backupAdministratorCode": 1,
+        "investmentManager": "Gilbert Grapes",
+        "investmentManagerCode": 7474,
+        "backupInvestmentManager": "Charles Xavier",
+        "backupInvestmentManagerCode": 3004,
+        "bankCapacity": "CO - TRUSTEE",
+        "controlGroup": "WM - AD Trust"
     },
     {
         "accountNumber": 11235300,
@@ -61,7 +79,13 @@
         "seniorAdministrator": "Heather Mootz",
         "seniorAdministratorCode": 3569,
         "backupAdministrator": "Unassigned",
-        "backupAdministratorCode": 1
+        "backupAdministratorCode": 1,
+        "investmentManager": "Sarah Milwad",
+        "investmentManagerCode": 5054,
+        "backupInvestmentManager": "Christopher Young",
+        "backupInvestmentManagerCode": 1174,
+        "bankCapacity": "CO - TRUSTEE",
+        "controlGroup": "WM - AD Trust"
     },
     {
         "accountNumber": 11235400,
@@ -77,6 +101,12 @@
         "seniorAdministrator": "Scott Pall",
         "seniorAdministratorCode": 3256,
         "backupAdministrator": "Unassigned",
-        "backupAdministratorCode": 1
+        "backupAdministratorCode": 1,
+        "investmentManager": "Trevor Noah",
+        "investmentManagerCode": 4145,
+        "backupInvestmentManager": "Dean Cooper",
+        "backupInvestmentManagerCode": 2267,
+        "bankCapacity": "CO - TRUSTEE",
+        "controlGroup": "WM - AD Dept"
     }
 ]

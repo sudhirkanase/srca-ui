@@ -1,5 +1,11 @@
+@mixin section-heading($headingBackground) {
+    color: $headingBackground;
+    font-size: 14px;
+    font-weight: 600;
+}
+
 .account-summary {
-    font-size: 20px;
+    font-size: 16px;
 
     .details-and-actions {
         margin-top: 30px;
@@ -8,10 +14,24 @@
             a {
                 display: block;
                 text-decoration: none;
-                color: #000;
-                font-size: 16px;
-                font-weight: 600;
                 margin-bottom: 10px;
+                @include section-heading(#000);
+            }
+        }
+
+        .details {
+
+            .details-tab-heading {
+                background-color: #613c1f;
+                padding: 10px 0;
+                @include section-heading(#fff);
+            }
+
+            .details-tab-content {
+                background-color: rgb(214, 214, 214);
+                padding: 5px;
+                font-size: 14px;
+                font-weight: 500;
             }
         }
     }
@@ -21,11 +41,15 @@
     .ui-panel{
         .ui-panel-titlebar{
             background-color: #613c1f;
-            color: white;
-            font-size: 16px;
-            font-weight: 600;
+            @include section-heading(#fff);
         }
 
     }
 
+}
+
+::ng-deep p-tabview {
+    .ui-tabview-nav {
+        font-size: 14px;
+    }
 }
