@@ -1,15 +1,18 @@
 <div class="task-content">
   <span class="task-label">All Tasks</span>
   <span class="fa fa-info-circle info-icon"></span>
-  <span class="search-bar">Search : <p-autoComplete></p-autoComplete></span>
+  <span class="search-bar">Search 
+    <input type="text" pInputText size="30" placeholder="Global Filter"
+      (input)="globalSearch($event)" style="width:auto">
+  </span>
   <div class="task-table">
-    <span>Select Action : </span>
+    <span>Select Action  </span>
     <span>
       <p-dropdown [options]="tasks" [(ngModel)]="selectedTask"></p-dropdown>
     </span>
-    <span class="task-label-last">over the last : </span>
+    <span class="task-label-last">Over the last </span>
     <span>
-      <p-dropdown [options]="cities3" [(ngModel)]="selectedCity3"></p-dropdown>
+      <p-dropdown [options]="taskPastDays" [(ngModel)]="selectedPastDays"></p-dropdown>
     </span>
     <div style="float: right;">
       <span class="fa fa-download pdf-excel-icon" (click)="exportToPdf()"><span class="pdf-excel-icon">PDF</span></span>
