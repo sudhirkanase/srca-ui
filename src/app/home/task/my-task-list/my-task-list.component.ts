@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { TaskService } from '../task.service';
+import { Table } from 'primeng/table/table';
 
 @Component({
   selector: 'tmt-my-task-list',
@@ -13,8 +15,9 @@ export class MyTaskListComponent implements OnInit {
   first = 0;
   rows = 10;
   exportColumns: any[];
+  @ViewChild('dt', { static: false }) dt:Table;
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(private taskService: TaskService) { }
 
   ngOnInit() {
 
@@ -29,8 +32,7 @@ export class MyTaskListComponent implements OnInit {
       { field: 'accountNo', header: 'Account#' },
       { field: 'accountName', header: 'Account Name' },
       { field: 'requesterName', header: 'Requester' },
-      { field: 'dueDate', header: 'Due(IST)' },
-      { field: '', header: '' }
+      { field: 'dueDate', header: 'Due(IST)' }
     ];
 
     this.exportColumns = this.cols.map(col => ({ title: col.header, dataKey: col.field }));
@@ -38,7 +40,7 @@ export class MyTaskListComponent implements OnInit {
   }
 
   getTaskList() {
-    this.httpClient.get("assets/json/task-list.json").subscribe(data => {
+    this.taskService.getTaskList().subscribe(data =>{
       this.data = data;
     })
   }
@@ -104,6 +106,11 @@ export class MyTaskListComponent implements OnInit {
       dataToString.push(data);
     }
     return dataToString;
+  }
+
+
+  globalSearch(searchValue) {
+    this.dt.filterGlobal(searchValue, 'contains');
   }
 
 }

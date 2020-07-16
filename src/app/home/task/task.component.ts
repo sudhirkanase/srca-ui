@@ -10,7 +10,7 @@ import { MyTaskListComponent } from './my-task-list/my-task-list.component';
 export class TaskComponent implements OnInit {
 
   tasks: SelectItem[];
-  cities3: SelectItem[];
+  taskPastDays: SelectItem[];
   
   @ViewChild('myTaskList', { static: false }) myTaskList:MyTaskListComponent;
 
@@ -28,9 +28,10 @@ export class TaskComponent implements OnInit {
       {label: 'Employee Work Queue', value: 4},
       {label: 'My Completed', value: 5}
   ];
-    this.cities3 = [
-      { label: 'Past 30 Days', value: null },
-      { label: 'New York', value: { id: 1, name: 'New York', code: 'NY' } }
+    this.taskPastDays = [
+      {label: 'Past 10 Days', value: 1},
+      {label: 'Past 30 Days', value: 2},
+      {label: 'Past 45 Days', value: 3},
     ];
   }
 
@@ -42,6 +43,11 @@ export class TaskComponent implements OnInit {
   // Method call to exportExcel method of MyTaskList Component
   exportToExcel() {
     this.myTaskList.exportExcel();
+  }
+
+  globalSearch(event) {
+    console.log("Search value", event.target.value);
+    this.myTaskList.globalSearch(event.target.value);
   }
 
 }
