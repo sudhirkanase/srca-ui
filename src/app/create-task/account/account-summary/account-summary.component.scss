@@ -1,0 +1,31 @@
+.account-summary {
+    font-size: 20px;
+
+    .details-and-actions {
+        margin-top: 30px;
+
+        .actions {
+            a {
+                display: block;
+                text-decoration: none;
+                color: #000;
+                font-size: 16px;
+                font-weight: 600;
+                margin-bottom: 10px;
+            }
+        }
+    }
+}
+
+::ng-deep p-panel{
+    .ui-panel{
+        .ui-panel-titlebar{
+            background-color: #613c1f;
+            color: white;
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+    }
+
+}

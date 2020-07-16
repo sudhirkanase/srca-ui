@@ -27,14 +27,6 @@ export class AccountSearchComponent implements OnInit {
   }
 
   search(searchForm: any): void {
-    console.log('form values: ', searchForm);
-    // this.accounts = [
-    //   { accountNumber: 11231100, accountName: '11231100 ACCOUNT NAME' },
-    //   { accountNumber: 11233300, accountName: '11233300 ACCOUNT NAME' },
-    //   { accountNumber: 112351, accountName: '112351 ACCOUNT NAME' },
-    //   { accountNumber: 11235300, accountName: '11235300 ACCOUNT NAME' }
-    // ];
-
     this.createTaskService.searchAccounts().subscribe((searchedAccounts: Account[]) => {
       this.accounts = searchedAccounts;
     });
