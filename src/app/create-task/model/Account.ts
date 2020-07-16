@@ -12,4 +12,10 @@ export interface Account {
     seniorAdministratorCode: number;
     backupAdministrator: string;
     backupAdministratorCode: number;
+    investmentManager: string;
+    investmentManagerCode: number;
+    backupInvestmentManager: string;
+    backupInvestmentManagerCode: number;
+    bankCapacity: string;
+    controlGroup: string;
 }
