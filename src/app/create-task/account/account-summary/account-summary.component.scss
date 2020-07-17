@@ -38,17 +38,20 @@
             div.dropdown-container.active {
                 display: block;
             }
-
-            .ui-table {
-                font-size: $font-14;
-            }
-
         }
 
         .clearfix::after {
             content:'';
             clear: both;
             display: table;
+        }
+
+        .ui-table {
+            font-size: $font-14;
+        }
+
+        .back-btn {
+            margin-top: 15px;
         }
     }
 }

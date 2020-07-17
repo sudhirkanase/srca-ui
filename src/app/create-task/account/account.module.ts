@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { TableModule } from 'primeng/table';
 import { PanelModule } from 'primeng/panel';
 import { TabViewModule } from 'primeng/tabview';
+import { ButtonModule } from 'primeng/button';
 
 import { AccountRoutingModule } from './account-routing.module';
 import { AccountSearchComponent } from './account-search/account-search.component';
@@ -19,6 +20,7 @@ import { AccountDetailsComponent } from './account-summary/account-details/accou
     TableModule,
     PanelModule,
     TabViewModule,
+    ButtonModule,
     AccountRoutingModule
   ]
 })
