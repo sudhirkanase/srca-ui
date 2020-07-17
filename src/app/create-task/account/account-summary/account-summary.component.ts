@@ -26,4 +26,20 @@ export class AccountSummaryComponent implements OnInit {
       });
   }
 
+  /**
+   * Click handler for collapsible actions menu
+   */
+  actionClick(actionItem: HTMLElement): void {
+    let dropdownContainerElement: HTMLDivElement = (actionItem.nextElementSibling as HTMLDivElement);
+    let actionIcon = actionItem.querySelector('i');
+
+    if (dropdownContainerElement.className.includes('active')) {
+      dropdownContainerElement.className = 'dropdown-container';
+      actionIcon.className = 'pi pi-caret-down';
+    } else {
+      dropdownContainerElement.className += ' active';
+      actionIcon.className = 'pi pi-caret-up';
+    }
+  }
+
 }

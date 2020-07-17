@@ -19,8 +19,24 @@
                 <a routerLink="./">DARS Approval</a>
                 <a routerLink="./">Name & Address Record</a>
                 <a routerLink="./">AD Fixed Income</a>
-                <a routerLink="./">AD AMS Asset Management</a>
-                <a routerLink="./">Portfolio Implementation</a>
+                <a routerLink="./" #assetManagement (click)="actionClick(assetManagement)">
+                    AD AMS Asset Management
+                    <i class="pi pi-caret-down"></i>
+                </a>
+                <div class="dropdown-container">
+                    <a routerLink="./">Add Acct: AD Asset</a>
+                    <a routerLink="./">Management</a>
+                    <a routerLink="./">AD Capital Gains</a>
+                </div>
+                <a routerLink="./" #portfolioImplementation (click)="actionClick(portfolioImplementation)">
+                    Portfolio Implementation
+                    <i class="pi pi-caret-down"></i>
+                </a>
+                <div class="dropdown-container">
+                    <a routerLink="./">Sub-action 1</a>
+                    <a routerLink="./">Sub-action 2</a>
+                    <a routerLink="./">Sub-action 3</a>
+                </div>
             </p-panel>
         </div>
         <div class="col-sm-9">
