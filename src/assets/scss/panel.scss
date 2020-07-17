@@ -1,0 +1,79 @@
+@import "./variables.scss";
+//customise panel css for task status in dashboard
+
+.content-panel-first p-panel{
+    div.ui-panel {
+        div.ui-panel-titlebar{
+            background-color:$panel-1-col;
+            color: $white-col;
+            .ui-panel-title{
+                font-weight: $font-normal;
+                font-size: $font-18;
+            }
+        }
+        .ui-panel-content{
+            height: 204px;
+        }
+    }
+}
+
+//customise panel css for Account Type
+
+.content-panel-second p-panel{
+    div.ui-panel {
+        div.ui-panel-titlebar{
+            background-color: $panel-2-col;
+            color: $white-col;
+            .ui-panel-title{
+                font-weight: $font-normal;
+                font-size: $font-18;
+            }
+        }
+
+    }
+    .ui-panel-content{
+        height: 204px;
+    }
+}
+
+//customise panel css for Reports
+
+.content-panel-third p-panel{
+    div.ui-panel {
+        div.ui-panel-titlebar{
+            background-color: $panel-3-col;
+            color: $white-col;
+            .ui-panel-title{
+                font-weight: $font-normal;
+                font-size: $font-18;
+            }
+        }
+
+    }
+    .ui-panel-content{
+        height: 204px;
+    }
+}
+
+.panel p-panel{
+    .ui-panel{
+        .ui-panel-titlebar{
+            background-color: $main-color;
+            color: $white-col;
+        }
+
+    }
+}
+
+.panel-aacount-summary p-panel{
+    .ui-panel{
+        .ui-panel-titlebar{
+            background-color: $main-color;
+            color: $white-col;
+        }
+        .ui-panel-content{
+            height: 329px;
+            overflow-y: auto
+        }
+    }
+}

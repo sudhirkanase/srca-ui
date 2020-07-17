@@ -1,12 +1,13 @@
+@import "../../../../assets/scss/variables.scss";
 @mixin section-heading($headingBackground) {
     color: $headingBackground;
-    font-size: 14px;
+    font-size: $font-14;
     font-weight: 600;
 }
 
 .account-summary {
     font-size: 16px;
-    background-color: white;
+    background-color: $white-col;
 
     .details-and-actions {
         margin-top: 30px;
@@ -14,18 +15,24 @@
         .actions {
             a {
                 display: block;
-                text-decoration: none;
-                margin-bottom: 10px;
+                text-decoration: $none-val;
+                color: $black-col;
+                padding: 1px 0px;
+                font-size: $font-13 !important;
+                font-weight: $font-normal !important;
+                :hover{
+                    text-decoration: underline;
+                }
                 @include section-heading(#000);
 
                 i {
-                    float: right;
+                    float: $right;
                 }
             }
             
             div.dropdown-container {
                 padding-left: 20px;
-                display: none;
+                display: $none-val;
             }
 
             div.dropdown-container.active {
@@ -43,16 +50,16 @@
     }
 }
 
-::ng-deep p-panel{
-    .ui-panel{
-        .ui-panel-titlebar{
-            background-color: #613c1f;
-            @include section-heading(#fff);
-        }
+// ::ng-deep p-panel{
+//     .ui-panel{
+//         .ui-panel-titlebar{
+//             background-color: #613c1f;
+//             @include section-heading(#fff);
+//         }
 
-    }
+//     }
 
-}
+// }
 
 ::ng-deep p-tabview {
     .ui-tabview-nav {

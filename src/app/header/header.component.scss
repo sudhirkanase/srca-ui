@@ -1,55 +1,53 @@
 
+@import "../../assets/scss/variables.scss";
 //main heading css
 .main-header{
-    padding: 14px;
-    padding-left: 10px;
-    background-color: #613c1f;
-    color: white;
-    font-size: 16px;
-    font-weight: bold;
-    font-style: normal;
+    padding: $pad-14;
+    padding-left: $pad-10;
+    background-color: $main-color;
+    color: $white-col;
+    font-size: $pad-16;
+    font-weight: $font-bold;
+    font-style: $font-normal;
 }
 
 //content panel css
 .content-panel{
-    padding-left: 14px;
-    padding-right: 10px;
-    background-color: white;
+    padding-left: $pad-14;
+    padding-right: $pad-10;
+    background-color: $white-col;
     .task-header{
-        font-size: 23px;
-        font-weight: 700;
-        padding-bottom: 8px;
-        padding-top: 8px;
+        font-size: $font-23;
+        font-weight: $font-bold;
+        padding-bottom: $pad-8;
+        padding-top: $pad-8;
     }
 }
-//padding-0 class
-.no-pad{
-    padding: 0px !important;
-}
+
 .user-icon{
-  display: inline-block;
-  padding-left: 30px;
-  padding-right: 8px;
-  margin-top: 5px;
-  float: right;
+  display: $display-inline;
+  padding-left: $pad-30;
+  padding-right: $pad-8;
+  margin-top: $pad-5;
+  float: $right;
 }
 .question-icon{
     margin-top: 5px;
-    float: right;
+    float: $right;
 }
 .login-name{
-    display: inline-block;
-    font-weight: bold;
-    font-size: 16px;
-    float: right;
-    cursor: pointer;
+    display: $display-inline;
+    font-weight: $font-bold;
+    font-size: $font-16;
+    float: $right;
+    cursor: $pointer;
 }
 .down-icon{
-    display: inline-block;
+    display: $display-inline;
     padding-left: 8px;
     margin-top: 5px;
-    float: right;
-    cursor: pointer;
+    float: $right;
+    cursor: $pointer;
 }
 .dropdown-menu-item{
     position: absolute;
@@ -62,11 +60,11 @@
     padding: 0.5rem 0.5rem;
     margin: 0.125rem 0 0;
     font-size: 15px;
-    font-weight: normal;
+    font-weight: $font-normal;
     color: #212529;
-    text-align: center;
-    list-style: none;
-    background-color: #fff;
+    text-align: $center;
+    list-style: $none-val;
+    background-color: $white-col;
     background-clip: padding-box;
     border: 1px solid rgba(0,0,0,.15);
 }
