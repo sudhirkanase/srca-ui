@@ -1,0 +1,155 @@
+@import "../scss/variables.scss";
+/* Global css for menu bar */
+.menubar{
+    margin-bottom: 14px;
+    padding-left: 14px;
+    padding-right: 14px;
+    
+    p-menubar{
+        .ui-menubar{
+            background-color: $menu-bg-col;
+                ul.ui-menubar-root-list{
+                    li.ui-menuitem{
+                        .ui-menuitem-link{
+                            border-right: 1px solid $menu-br-col;
+                            .ui-menuitem-text{
+                                color: $black-col;
+                                font-weight: $font-bold;
+                                white-space: $none-space;
+                            }
+                            .ui-submenu-icon.pi.pi-fw.pi-caret-down{
+                                opacity: 0;
+                                }
+                        }
+                        p-menubarsub.ui-submenu{
+                            ul.ui-submenu-list{
+                                width: max-content;
+                                li.ui-menuitem{
+                                    .ui-menuitem-link{
+                                        background-color: $menu-bg-col;
+                                        .ui-menuitem-icon{
+                                            color: $black-col;
+                                        }
+                                        .ui-menuitem-text{
+                                            color: $black-col;
+                                            font-weight: $font-bold;
+                                            white-space: $none-space;
+                                        }
+                                        .ui-submenu-icon.pi.pi-fw.pi-caret-right{
+                                            color: $black-col;
+                                          }
+                                    }
+                                    &.ui-menuitem-active{
+                                        .ui-menuitem-link{
+                                        background-color: $main-color;
+                                        .ui-menuitem-icon{
+                                            color: $white-col;
+                                        }
+                                        .ui-menuitem-text{
+                                            color: $white-col;
+                                            font-weight: $font-bold;
+                                            white-space: $none-space;
+                                        }
+                                        .ui-submenu-icon.pi.pi-fw.pi-caret-right{
+                                            color: $white-col;
+                                          }
+                                    }
+                                }
+                                p-menubarsub.ui-submenu{
+                                    ul.ui-submenu-list{
+                                        width: max-content;
+                                        li.ui-menuitem{
+                                            .ui-menuitem-link{
+                                                background-color: $menu-bg-col;
+                                                .ui-menuitem-icon{
+                                                    color: $black-col;
+                                                }
+                                                .ui-menuitem-text{
+                                                    color: $black-col;
+                                                    font-weight: $font-bold;
+                                                    white-space: $none-space;
+                                                }
+                                                .ui-submenu-icon.pi.pi-fw.pi-caret-right{
+                                                    color: $black-col;
+                                                  }
+                                            }
+                                            &.ui-menuitem-active{
+                                                .ui-menuitem-link{
+                                                background-color: $main-color;
+                                                .ui-menuitem-icon{
+                                                    color: $white-col;
+                                                }
+                                                .ui-menuitem-text{
+                                                    color: $white-col;
+                                                    font-weight: $font-bold;
+                                                    white-space: $none-space;
+                                                }
+                                                .ui-submenu-icon.pi.pi-fw.pi-caret-right{
+                                                    color: $black-col;
+                                                  }
+                                            }
+                                        }
+                                        }
+                                    }
+                                }
+                                }
+                               
+                               
+                            }
+                        }
+                        &.ui-menuitem-active{
+                            .ui-menuitem-link{
+                                background-color: $main-color;
+                                .ui-menuitem-icon{
+                                    color: $white-col;
+                                }
+                                .ui-menuitem-text{
+                                    color: $white-col;
+                                    font-weight: $font-bold;
+                                    white-space: $none-space;
+                                }
+                                .ui-submenu-icon.pi.pi-fw.pi-caret-right{
+                                  color: $white-col;
+                                }
+                            }
+                            .ui-menuitem-link:focus{
+                                border: $none-val;
+                                box-shadow: $none-val;
+                            }
+                        }
+                    }
+                }
+            .ui-menuitem-link.ui-menuitem-link-active {
+                .ui-menuitem-icon{
+                    color: $black-col;
+                }
+                .ui-menuitem-text{
+                    color: $black-col;
+                    font-weight: $font-bold;
+                    white-space: $none-space;
+                }
+            }
+            .ui-menuitem-link:focus{
+                border: $none-val;
+                box-shadow: $none-val;
+            }
+        }
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

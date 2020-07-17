@@ -1,64 +1,10 @@
-//customise panel css for task status
 
-::ng-deep .content-panel-first p-panel{
-    div.ui-panel {
-        div.ui-panel-titlebar{
-            background-color: #551c69;
-            color: white;
-            .ui-panel-title{
-                font-weight: normal;
-                font-size: 18px;
-            }
-        }
-        .ui-panel-content{
-            height: 204px;
-        }
-    }
-}
-
-//customise panel css for Account Type
-
-::ng-deep .content-panel-second p-panel{
-    div.ui-panel {
-        div.ui-panel-titlebar{
-            background-color: #2b7b32;
-            color: white;
-            .ui-panel-title{
-                font-weight: normal;
-                font-size: 18px;
-            }
-        }
-
-    }
-    .ui-panel-content{
-        height: 204px;
-    }
-}
-
-//customise panel css for Reports
-
-::ng-deep .content-panel-third p-panel{
-    div.ui-panel {
-        div.ui-panel-titlebar{
-            background-color: #61221d;
-            color: white;
-            .ui-panel-title{
-                font-weight: normal;
-                font-size: 18px;
-            }
-        }
-
-    }
-    .ui-panel-content{
-        height: 204px;
-    }
-}
-
+@import "../../../assets/scss/variables.scss";
 .account-type-panel{
-    text-align: center;
-    padding: 25px;
+    text-align: $center;
+    padding: $pad-25;
     .account-label{
-        display: inline-block;
+        display: $display-inline;
         margin-right: 11px;
     }
     .accont-info-label{
@@ -73,65 +19,53 @@ table.Report-table {
     border-collapse: collapse;
     width: 100%;
     td {
-        padding: 12px;
-        border-bottom: 1px solid lightgray;
+        padding: $pad-12;
+        border-bottom: 1px solid $gray-1;
     
     }
         .fa.fa-file-text-o{
-        color: #007bff !important;
-        cursor: pointer;
+        color: $blue-col !important;
+        cursor: $pointer;
     }
         .file-name-pad{
-        display: inline-block;
+        display: $display-inline;
         padding-left: 10px;
     }
     .Document-view-opt{
-        color: #007bff;
+        color: $blue-col;
         text-decoration: underline;
-        cursor: pointer;
-        float: right;
+        cursor: $pointer;
+        float: $right;
     }
 }
   
 .task-content{
     padding-left: 14px;
-    position: relative;
+    position: $relative;
     .task-label{
-        display: inline-block;
+        display: $display-inline;
         font-size: 32px;
         padding: 12px 0px;
     } 
     .info-icon{
-        display: inline-block;
-        position: absolute;
+        display: $display-inline;
+        position: $absolute;
         top: 23px;
         left: 133px;
     &.fa.fa-info-circle{
-        color: #007bff !important;
-        cursor: pointer;
+        color: $blue-col !important;
+        cursor: $pointer;
         font-size: 19px;
     }
     }
 }
 
-//css for 1st panel
 
-::ng-deep div.dough-align p-chart{
-    canvas.chartjs-render-monitor{
-        display: block;
-       // height: 170px !important;
-       // position: absolute !important;
-       width: 296px !important;
-       //  left: -92px !important;
-        height: 151px !important;
-    position: absolute !important;
-    }
-}
 
 .select-by-main-div{
-    position: relative;
+    position: $relative;
     .select-by-align{
-        position: absolute;
+        position: $absolute;
       right: 2px;
     }
 }
@@ -145,41 +79,38 @@ table.Report-table {
 
 .flex-container{
     display: flex;
-    flex-wrap: nowrap;
+    flex-wrap: $none-space;
 }
 .flex-container > div {
     width: 250px;
-    text-align: center;
+    text-align: $center;
     font-size: 35px;
     :first-child{
-        border-right: 1px solid black;
+        border-right: 1px solid $black-col;
     }
     :nth-child(2){
-        border-right: 1px solid black;
+        border-right: 1px solid $black-col;
     }
     .open-task{
-        color: #551c69;  
+        color: $panel-1-col;  
     }
     .in-progress-task{
-        color: #61221d;
+        color: $panel-2-col;
     }
     .complete-task{
-        color: #2b7b32;
+        color: $panel-3-col;
     }
   }
   .flex-container-text{
     display: flex;
-    flex-wrap: nowrap;
+    flex-wrap: $none-space;
   }
   .flex-container-text > div{
     width: 250px;
-    text-align: center;
+    text-align: $center;
     font-size: 14px;
   }
 
-.no-pad{
-    padding: 0px !important;
-}
 .pad-r-0{
     padding-right: 0px !important;
 }

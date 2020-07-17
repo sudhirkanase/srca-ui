@@ -10,13 +10,14 @@
             Account.
         </p>
     </div>
+    <div class="panel">
     <p-panel header="Search Criteria">
         <form action="#" (ngSubmit)="search(searchForm.value); searchForm.reset();" #searchForm="ngForm">
             <div class="row">
                 <div class="col-sm-4">
                     <div class="row">
                         <div class="col-sm-4 acc-label-pad">
-                            <label for="accountNumber">Account Number : </label>
+                            <label for="accountNumber">Account Number</label>
                         </div>
                         <div class="col-sm-8">
                             <input type="text" pInputText name="accountNumber" id="accountNumber"
@@ -27,7 +28,7 @@
                 <div class="col-sm-4">
                     <div class="row">
                         <div class="col-sm-4 acc-label-pad">
-                            <label class="">Account Name : </label>
+                            <label class="">Account Name</label>
                         </div>
                         <div class="col-sm-8">
                             <input type="text" pInputText name="accountName" id="accountName"
@@ -50,7 +51,8 @@
             </div>
         </form>
     </p-panel>
-    <div class="second-container">
+</div>
+    <div class="second-container panel">
         <p-panel header="Account Search Results">
             <p-table [columns]="cols" [value]="accounts">
                 <ng-template pTemplate="header" let-columns>
