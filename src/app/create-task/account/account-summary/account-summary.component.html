@@ -1,4 +1,4 @@
-<div class="account-summary">
+<div class="col-md-12 content-panels no-pad myclass account-summary">
     <div>
         The available Tasks are in the Actions menu to the left. Select the Task that you want to create for the
         selected account. You will be guided through the screens to provide details for that Task.
@@ -19,161 +19,31 @@
                 <a routerLink="./">DARS Approval</a>
                 <a routerLink="./">Name & Address Record</a>
                 <a routerLink="./">AD Fixed Income</a>
-                <a routerLink="./">AD AMS Asset Management</a>
-                <a routerLink="./">Portfolio Implementation</a>
+                <a routerLink="./" #assetManagement (click)="actionClick(assetManagement)">
+                    AD AMS Asset Management
+                    <i class="pi pi-caret-down"></i>
+                </a>
+                <div class="dropdown-container">
+                    <a routerLink="./">Add Acct: AD Asset</a>
+                    <a routerLink="./">Management</a>
+                    <a routerLink="./">AD Capital Gains</a>
+                </div>
+                <a routerLink="./" #portfolioImplementation (click)="actionClick(portfolioImplementation)">
+                    Portfolio Implementation
+                    <i class="pi pi-caret-down"></i>
+                </a>
+                <div class="dropdown-container">
+                    <a routerLink="./">Sub-action 1</a>
+                    <a routerLink="./">Sub-action 2</a>
+                    <a routerLink="./">Sub-action 3</a>
+                </div>
             </p-panel>
         </div>
-        <div class="col-sm-9 details">
+        <div class="col-sm-9">
             <!-- tab view -->
             <p-tabView>
                 <p-tabPanel header="Details">
-                    <div class="details-tab-heading">
-                        Account Details
-                    </div>
-                    <div class="details-tab-content" *ngIf="accountDetails">
-                        <div class="row">
-                            <div class="col-sm-6">
-                                <div class="row">
-                                    <div class="col-sm-5">Account Number</div>
-                                    <div class="col-sm-7">{{accountDetails.accountNumber}}</div>
-                                </div>
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="row">
-                                    <div class="col-sm-5">Account Short Name</div>
-                                    <div class="col-sm-7">{{accountDetails.accountName}}</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-6">
-                                <div class="row">
-                                    <div class="col-sm-5">Main Acct Number</div>
-                                    <div class="col-sm-7">{{accountDetails.mainAccountNumber}}</div>
-                                </div>
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="row">
-                                    <div class="col-sm-5">Market Value</div>
-                                    <div class="col-sm-7">{{accountDetails.marketValue}}</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-6">
-                                <div class="row">
-                                    <div class="col-sm-5">Branch Name</div>
-                                    <div class="col-sm-7">{{accountDetails.branchName}}</div>
-                                </div>
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="row">
-                                    <div class="col-sm-5">Branch Code</div>
-                                    <div class="col-sm-7">{{accountDetails.branchCode}}</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-6">
-                                <div class="row">
-                                    <div class="col-sm-5">Rev Tracking Description</div>
-                                    <div class="col-sm-7">{{accountDetails.revTrackingDescription}}</div>
-                                </div>
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="row">
-                                    <div class="col-sm-5">Rev Tracking Code</div>
-                                    <div class="col-sm-7">{{accountDetails.revTrackingCode}}</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-6">
-                                <div class="row">
-                                    <div class="col-sm-5">Administrator</div>
-                                    <div class="col-sm-7">{{accountDetails.administrator?.toUpperCase()}}</div>
-                                </div>
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="row">
-                                    <div class="col-sm-5">Admin Code</div>
-                                    <div class="col-sm-7">{{accountDetails.administratorCode}}</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-6">
-                                <div class="row">
-                                    <div class="col-sm-5">Senior Administrator</div>
-                                    <div class="col-sm-7">{{accountDetails.seniorAdministrator?.toUpperCase()}}</div>
-                                </div>
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="row">
-                                    <div class="col-sm-5">Senior Admin Code</div>
-                                    <div class="col-sm-7">{{accountDetails.seniorAdministratorCode}}</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-6">
-                                <div class="row">
-                                    <div class="col-sm-5">Backup Administrator</div>
-                                    <div class="col-sm-7">{{accountDetails.backupAdministrator?.toUpperCase()}}</div>
-                                </div>
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="row">
-                                    <div class="col-sm-5">Backup Administrator</div>
-                                    <div class="col-sm-7">{{accountDetails.backupAdministratorCode}}</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-6">
-                                <div class="row">
-                                    <div class="col-sm-5">Investment Mgr</div>
-                                    <div class="col-sm-7">{{accountDetails.investmentManager?.toUpperCase()}}</div>
-                                </div>
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="row">
-                                    <div class="col-sm-5">Investment Mgr Code</div>
-                                    <div class="col-sm-7">{{accountDetails.investmentManagerCode}}</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-6">
-                                <div class="row">
-                                    <div class="col-sm-5">Backup Investment Mgr</div>
-                                    <div class="col-sm-7">{{accountDetails.backupInvestmentManager?.toUpperCase()}}
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="row">
-                                    <div class="col-sm-5">Backup Investment Mgr Code</div>
-                                    <div class="col-sm-7">{{accountDetails.backupInvestmentManagerCode}}</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-6">
-                                <div class="row">
-                                    <div class="col-sm-5">Bank Capacity</div>
-                                    <div class="col-sm-7">{{accountDetails.bankCapacity?.toUpperCase()}}</div>
-                                </div>
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="row">
-                                    <div class="col-sm-5">Control Group</div>
-                                    <div class="col-sm-7">{{accountDetails.controlGroup?.toUpperCase()}}</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
+                    <tmt-account-details [accountDetails]="accountDetails"></tmt-account-details>
                 </p-tabPanel>
                 <p-tabPanel header="Tasks">
                     <ng-template pTemplate="content">
