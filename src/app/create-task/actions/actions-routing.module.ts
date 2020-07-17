@@ -4,16 +4,7 @@ import { TaskDetailComponent } from './contact-center/task-detail/task-detail.co
 import { DocumentComponent } from './contact-center/document/document.component';
 
 
-const routes: Routes = [
-  {
-    path: ':accountNumber/cost-center/task-detail',
-    component: TaskDetailComponent
-  },
-  {
-    path: ':accountNumber/cost-center/document',
-    component: DocumentComponent
-  }
-];
+const routes: Routes = [];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
