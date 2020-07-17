@@ -1,0 +1,31 @@
+.task-label{
+    display: inline-block;
+    font-size: 25px;
+    padding-left: 15px;
+}
+.info-icon{
+    display: inline-block;
+    top: 23px;
+    left: 133px;
+&.fa.fa-info-circle{
+    color: #007bff !important;
+    cursor: pointer;
+    font-size: 15px;
+}
+}
+.label-pad {
+    padding: 10px;
+}
+.task-sum-label {
+    display: inline-block;
+    font-size: 18px;
+}
+.summary-pad {
+    padding: 20px;
+}
+.task-sum-pad {
+    padding-top: 10px;
+}
+.acc-detail-pad {
+    padding-top: 20px;
+}
