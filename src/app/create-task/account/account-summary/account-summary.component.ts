@@ -32,9 +32,9 @@ export class AccountSummaryComponent implements OnInit {
 
     const accountNumber = parseInt(this.route.snapshot.paramMap.get('accountNumber'), 10);
 
-    this.createTaskService.getAccountByAccountNumber(accountNumber)
-      .subscribe((account: Account[]) => {
-        this.accountDetails = account[0];
+    this.route.data
+      .subscribe((data: { accounts: Account[] }) => {
+        this.accountDetails = data.accounts[0];
 
         this.createTaskService.getTasksByAccountNumber(this.accountDetails.accountNumber)
           .subscribe((tasks: any) => {
