@@ -45,8 +45,8 @@ export class TaskComponent implements OnInit {
     this.myTaskList.exportExcel();
   }
 
+  // Method call to globalSearch method of MyTaskList Component
   globalSearch(event) {
-    console.log("Search value", event.target.value);
     this.myTaskList.globalSearch(event.target.value);
   }
 
