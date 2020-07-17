@@ -12,17 +12,33 @@ import { Account } from './../../model/Account';
 export class AccountSummaryComponent implements OnInit {
 
   accountDetails: Account;
+  tasks: any[];
+  taskColumns: any[];
 
   constructor(
     private createTaskService: CreateTaskService,
     private route: ActivatedRoute) { }
 
   ngOnInit() {
-    let accountNumber = parseInt(this.route.snapshot.paramMap.get('accountNumber'));
+    this.taskColumns = [
+      { field: 'id', header: 'ID' },
+      { field: 'accountName', header: 'Account Name' },
+      { field: 'requesterName', header: 'Requester Name' },
+      { field: 'taskType', header: 'Task Type' },
+      { field: 'dueDate', header: 'Due Date' },
+    ];
+    this.tasks = [];
+
+    const accountNumber = parseInt(this.route.snapshot.paramMap.get('accountNumber'), 10);
 
     this.createTaskService.getAccountByAccountNumber(accountNumber)
       .subscribe((account: Account[]) => {
         this.accountDetails = account[0];
+
+        this.createTaskService.getTasksByAccountNumber(this.accountDetails.accountNumber)
+          .subscribe((tasks: any) => {
+            this.tasks = tasks.filter((task: any) => task.taskType === 'Contact Center');
+          });
       });
   }
 
@@ -30,8 +46,8 @@ export class AccountSummaryComponent implements OnInit {
    * Click handler for collapsible actions menu
    */
   actionClick(actionItem: HTMLElement): void {
-    let dropdownContainerElement: HTMLDivElement = (actionItem.nextElementSibling as HTMLDivElement);
-    let actionIcon = actionItem.querySelector('i');
+    const dropdownContainerElement: HTMLDivElement = (actionItem.nextElementSibling as HTMLDivElement);
+    const actionIcon = actionItem.querySelector('i');
 
     if (dropdownContainerElement.className.includes('active')) {
       dropdownContainerElement.className = 'dropdown-container';

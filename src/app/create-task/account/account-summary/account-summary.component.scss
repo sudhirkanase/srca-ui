@@ -39,6 +39,9 @@
                 display: block;
             }
 
+            .ui-table {
+                font-size: $font-14;
+            }
 
         }
 
@@ -49,17 +52,6 @@
         }
     }
 }
-
-// ::ng-deep p-panel{
-//     .ui-panel{
-//         .ui-panel-titlebar{
-//             background-color: #613c1f;
-//             @include section-heading(#fff);
-//         }
-
-//     }
-
-// }
 
 ::ng-deep p-tabview {
     .ui-tabview-nav {
