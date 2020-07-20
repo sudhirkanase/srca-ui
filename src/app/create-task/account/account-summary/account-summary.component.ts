@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import { CreateTaskService } from './../../services/create-task.service';
 import { Account } from './../../model/Account';
@@ -17,7 +17,8 @@ export class AccountSummaryComponent implements OnInit {
 
   constructor(
     private createTaskService: CreateTaskService,
-    private route: ActivatedRoute) { }
+    private route: ActivatedRoute,
+    private router: Router) { }
 
   ngOnInit() {
     this.taskColumns = [
@@ -31,9 +32,9 @@ export class AccountSummaryComponent implements OnInit {
 
     const accountNumber = parseInt(this.route.snapshot.paramMap.get('accountNumber'), 10);
 
-    this.createTaskService.getAccountByAccountNumber(accountNumber)
-      .subscribe((account: Account[]) => {
-        this.accountDetails = account[0];
+    this.route.data
+      .subscribe((data: { accounts: Account[] }) => {
+        this.accountDetails = data.accounts[0];
 
         this.createTaskService.getTasksByAccountNumber(this.accountDetails.accountNumber)
           .subscribe((tasks: any) => {
@@ -56,6 +57,10 @@ export class AccountSummaryComponent implements OnInit {
       dropdownContainerElement.className += ' active';
       actionIcon.className = 'pi pi-caret-up';
     }
+  }
+
+  handleBackBtnClick(): void {
+    this.router.navigate(['./../../search'], { relativeTo: this.route });
   }
 
 }
