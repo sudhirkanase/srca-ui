@@ -3,6 +3,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 import { CreateTaskService } from './../../services/create-task.service';
 import { Account } from './../../model/Account';
+import { isNullOrUndefined } from 'util';
+import { CreateTaskSharedService } from '../../services/create-task-shared.service';
 
 @Component({
   selector: 'tmt-account-summary',
@@ -14,13 +16,18 @@ export class AccountSummaryComponent implements OnInit {
   accountDetails: Account;
   tasks: any[];
   taskColumns: any[];
+  accountNumber: any;
 
   constructor(
     private createTaskService: CreateTaskService,
     private route: ActivatedRoute,
-    private router: Router) { }
+    private router: Router,
+    private createTaskSharedService: CreateTaskSharedService) { }
 
   ngOnInit() {
+
+    this.getAccountNumber();
+
     this.taskColumns = [
       { field: 'id', header: 'ID' },
       { field: 'accountName', header: 'Account Name' },
@@ -30,17 +37,36 @@ export class AccountSummaryComponent implements OnInit {
     ];
     this.tasks = [];
 
-    const accountNumber = parseInt(this.route.snapshot.paramMap.get('accountNumber'), 10);
+  }
 
-    this.route.data
-      .subscribe((data: { accounts: Account[] }) => {
-        this.accountDetails = data.accounts[0];
+  // To get the account number from state property of route
+  getAccountNumber(): void {
 
-        this.createTaskService.getTasksByAccountNumber(this.accountDetails.accountNumber)
-          .subscribe((tasks: any) => {
-            this.tasks = tasks.filter((task: any) => task.taskType === 'Contact Center');
-          });
-      });
+    if (isNullOrUndefined(history.state.data)) {
+      this.createTaskSharedService.getAccountNumber.subscribe(accountNo => this.accountNumber = accountNo);
+    } else {
+      this.accountNumber = history.state.data;
+    }
+
+    //Set Account no to in shared service
+    this.createTaskSharedService.setAccountNumber(this.accountNumber);
+
+    this.getAccountDetails();
+  }
+
+  //To get account details using account number
+  getAccountDetails(): void {
+    
+    this.createTaskService.getAccountByAccountNumber(this.accountNumber).subscribe((data: any) => {
+      this.accountDetails = data[0];
+    });
+
+    if (this.accountDetails && this.accountDetails.accountNumber) {
+      this.createTaskService.getTasksByAccountNumber(this.accountDetails.accountNumber)
+        .subscribe((tasks: any) => {
+          this.tasks = tasks.filter((task: any) => task.taskType === 'Contact Center');
+        });
+    }
   }
 
   /**
@@ -60,7 +86,7 @@ export class AccountSummaryComponent implements OnInit {
   }
 
   handleBackBtnClick(): void {
-    this.router.navigate(['./../../search'], { relativeTo: this.route });
+    this.router.navigate(['./../search'], { relativeTo: this.route });
   }
 
 }

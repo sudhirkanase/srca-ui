@@ -1,13 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, of } from 'rxjs';
-import { mergeMap, take, filter, map } from 'rxjs/operators';
+import { Observable, of, BehaviorSubject } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 import { Account } from './../model/Account';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class CreateTaskService {
 
   constructor(private httpClient: HttpClient) { }
@@ -26,5 +24,4 @@ export class CreateTaskService {
   getTasksByAccountNumber(accountNumber: number): Observable<any> {
     return this.httpClient.get('assets/json/task-list.json');
   }
-
 }
