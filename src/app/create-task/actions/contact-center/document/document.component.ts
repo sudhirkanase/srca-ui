@@ -20,7 +20,7 @@ export class DocumentComponent implements OnInit {
   constructor(private documentService:CreateTaskService) { }
 
   ngOnInit() {
-    
+    this.getDocumentsdetails()    
 
     this.filetypes()
 
@@ -61,6 +61,12 @@ export class DocumentComponent implements OnInit {
   ];
 }
 
+getDocumentsdetails(){
+  this.documentService.getDocumentDetails().subscribe(data =>{
+    console.log(data)
+    this.documents = data
+  })
+}
 
 onSubmit(){
   console.log(this.documentDetailsForm.value)
