@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { map } from 'rxjs/operators';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'tmt-contact-center',
@@ -7,8 +10,25 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ContactCenterComponent implements OnInit {
 
-  constructor() { }
+  accountNumber: number;
 
-  ngOnInit() {}
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    private location: Location
+  ) { }
 
+  ngOnInit() {
+    this.route.paramMap
+      .pipe(map(() => window.history.state))
+      .subscribe(state => {
+        this.accountNumber = state && state.accountNumber;
+
+        // if account number is not present/invalid, return to search
+        if (!this.accountNumber) {
+          this.location.back();
+          return;
+        }
+      });
+  }
 }

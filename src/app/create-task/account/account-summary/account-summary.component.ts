@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 import { CreateTaskService } from './../../services/create-task.service';
 import { Account } from './../../model/Account';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'tmt-account-summary',
@@ -11,6 +12,7 @@ import { Account } from './../../model/Account';
 })
 export class AccountSummaryComponent implements OnInit {
 
+  accountNumber: number;
   accountDetails: Account;
   tasks: any[];
   taskColumns: any[];
@@ -30,16 +32,25 @@ export class AccountSummaryComponent implements OnInit {
     ];
     this.tasks = [];
 
-    const accountNumber = parseInt(this.route.snapshot.paramMap.get('accountNumber'), 10);
+    this.route.paramMap
+      .pipe(map(() => window.history.state))
+      .subscribe(state => {
+        this.accountNumber = state && state.accountNumber;
 
-    this.route.data
-      .subscribe((data: { accounts: Account[] }) => {
-        this.accountDetails = data.accounts[0];
+        // if account number is not present/invalid, return to search
+        if (!this.accountNumber) {
+          this.router.navigate(['./../search'], { relativeTo: this.route });
+          return;
+        }
 
-        this.createTaskService.getTasksByAccountNumber(this.accountDetails.accountNumber)
-          .subscribe((tasks: any) => {
-            this.tasks = tasks.filter((task: any) => task.taskType === 'Contact Center');
-          });
+        this.createTaskService.getAccountByAccountNumber(this.accountNumber).subscribe((accounts: Account[]) => {
+          this.accountDetails = accounts[0];
+
+          this.createTaskService.getTasksByAccountNumber(this.accountDetails.accountNumber)
+            .subscribe((tasks: any) => {
+              this.tasks = tasks.filter((task: any) => task.taskType === 'Contact Center');
+            });
+        });
       });
   }
 
@@ -60,7 +71,7 @@ export class AccountSummaryComponent implements OnInit {
   }
 
   handleBackBtnClick(): void {
-    this.router.navigate(['./../../search'], { relativeTo: this.route });
+    this.router.navigate(['./../search'], { relativeTo: this.route });
   }
 
 }
