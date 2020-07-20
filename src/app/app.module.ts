@@ -7,11 +7,12 @@ import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
 import { MenuBarComponent } from './header/menu-bar/menu-bar.component';
 import { TMTPrimengModule } from './shared/tmtprimeng.module';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { HomeModule } from './home/home.module';
 import { dropdownDirective } from './shared/directives/dropdown.directive';
 import { LoginComponent } from './login/login.component';
 import { fakeBackendProvider } from './helpers/fakeBackend';
+import { HttpInterceptorService } from './services/http/http-interceptor.service';
 
 
 @NgModule({
@@ -31,7 +32,8 @@ import { fakeBackendProvider } from './helpers/fakeBackend';
     HomeModule,
     AppRoutingModule,
   ],
-  providers: [fakeBackendProvider],
+  providers: [{ provide: HTTP_INTERCEPTORS, useClass: HttpInterceptorService, multi: true }],
+
   bootstrap: [AppComponent]
 })
 export class AppModule { }

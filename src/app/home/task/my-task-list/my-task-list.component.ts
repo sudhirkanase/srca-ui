@@ -1,7 +1,6 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { TaskService } from '../task.service';
 import { Table } from 'primeng/table/table';
+import { HomeService} from 'src/app/home/services/home.service';
 
 @Component({
   selector: 'tmt-my-task-list',
@@ -17,7 +16,7 @@ export class MyTaskListComponent implements OnInit {
   exportColumns: any[];
   @ViewChild('dt', { static: false }) dt:Table;
 
-  constructor(private taskService: TaskService) { }
+  constructor(private homeService: HomeService) { }
 
   ngOnInit() {
 
@@ -40,7 +39,8 @@ export class MyTaskListComponent implements OnInit {
   }
 
   getTaskList() {
-    this.taskService.getTaskList().subscribe(data =>{
+    this.homeService.getTaskList().subscribe(data =>{
+      console.log(data);
       this.data = data;
     })
   }
