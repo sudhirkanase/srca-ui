@@ -12,7 +12,7 @@ import { HomeModule } from './home/home.module';
 import { dropdownDirective } from './shared/directives/dropdown.directive';
 import { LoginComponent } from './login/login.component';
 import { HttpInterceptorService } from './services/http/http-interceptor.service';
-
+import { BaseService } from './services/base.service';
 
 @NgModule({
   declarations: [
@@ -31,7 +31,10 @@ import { HttpInterceptorService } from './services/http/http-interceptor.service
     HomeModule,
     AppRoutingModule,
   ],
-  providers: [{ provide: HTTP_INTERCEPTORS, useClass: HttpInterceptorService, multi: true }],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: HttpInterceptorService, multi: true },
+    BaseService
+  ],
 
   bootstrap: [AppComponent]
 })
