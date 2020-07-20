@@ -6,7 +6,7 @@ import { TaskComponent } from './task/task.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { HomeComponent } from './home.component';
 import { TMTPrimengModule } from '../shared/tmtprimeng.module';
-import { TaskService } from './task/task.service';
+import { HomeService } from './services/home.service';
 
 @NgModule({
   declarations: [
@@ -20,6 +20,6 @@ import { TaskService } from './task/task.service';
     FormsModule,
     TMTPrimengModule
   ],
-  providers: [TaskService],
+  providers: [HomeService],
 })
 export class HomeModule { }
