@@ -2,8 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 
-import { AuthenticationService } from '../auth/authentication.service';
+import { AuthenticationService } from '../services/auth/authentication.service';
 import { first } from 'rxjs/operators';
+import { UserInfoBean } from '../beans/userinfo-bean';
 
 @Component({
   selector: 'app-login',
@@ -12,30 +13,30 @@ import { first } from 'rxjs/operators';
 })
 export class LoginComponent implements OnInit {
 
-   loginForm: FormGroup;
-    loading = false;
-    submitted = false;
-    returnUrl: string;
-    error: string;
+  loginForm: FormGroup;
+  loading = false;
+  submitted = false;
+  returnUrl: string;
+  error: string;
 
   constructor(private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
-    private authenticationService: AuthenticationService) { 
+    private authenticationService: AuthenticationService) {
 
-      if (this.authenticationService.currentUserValue) { 
-        this.router.navigate(['/']);
+    if (this.authenticationService.currentUserValue) {
+      this.router.navigate(['/']);
     }
-    }
+  }
 
   ngOnInit() {
     this.loginForm = this.formBuilder.group({
       username: ['', Validators.required],
       password: ['', Validators.required]
-  });
+    });
 
-  // get return url from route parameters or default to '/'
-  this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+    // get return url from route parameters or default to '/'
+    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
   }
 
   onSubmit() {
@@ -43,20 +44,23 @@ export class LoginComponent implements OnInit {
 
     // stop here if form is invalid
     if (this.loginForm.invalid) {
-        return;
+      return;
     }
 
     this.loading = true;
     this.authenticationService.login(this.loginForm.controls.username.value, this.loginForm.controls.password.value)
-        .pipe(first())
-        .subscribe(
-            data => {
-                this.router.navigate([this.returnUrl]);
-            },
-            error => {
-                this.error = error;
-                this.loading = false;
-            });
-}
+      .pipe(first())
+      .subscribe(
+        data => {
+          // console.log( this.returnUrl);
+          // this.userDetailsBean = data;
+          //console.log( this.userDetailsBean);
+          this.router.navigate([this.returnUrl]);
+        },
+        error => {
+          this.error = error;
+          this.loading = false;
+        });
+  }
 
 }
