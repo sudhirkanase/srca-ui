@@ -8,7 +8,7 @@ import { Account } from './../model/Account';
 @Injectable({
   providedIn: 'root'
 })
-export class CreateTaskService {
+export class TaskManagementService {
 
   constructor(private httpClient: HttpClient) { }
 

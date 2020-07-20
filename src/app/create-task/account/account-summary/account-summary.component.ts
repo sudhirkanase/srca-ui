@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { CreateTaskService } from './../../services/create-task.service';
+import { TaskManagementService } from '../../services/task-management.service';
 import { Account } from './../../model/Account';
 import { map } from 'rxjs/operators';
 
@@ -18,7 +18,7 @@ export class AccountSummaryComponent implements OnInit {
   taskColumns: any[];
 
   constructor(
-    private createTaskService: CreateTaskService,
+    private taskManagementService: TaskManagementService,
     private route: ActivatedRoute,
     private router: Router) { }
 
@@ -43,10 +43,10 @@ export class AccountSummaryComponent implements OnInit {
           return;
         }
 
-        this.createTaskService.getAccountByAccountNumber(this.accountNumber).subscribe((accounts: Account[]) => {
+        this.taskManagementService.getAccountByAccountNumber(this.accountNumber).subscribe((accounts: Account[]) => {
           this.accountDetails = accounts[0];
 
-          this.createTaskService.getTasksByAccountNumber(this.accountDetails.accountNumber)
+          this.taskManagementService.getTasksByAccountNumber(this.accountDetails.accountNumber)
             .subscribe((tasks: any) => {
               this.tasks = tasks.filter((task: any) => task.taskType === 'Contact Center');
             });

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { CreateTaskService } from '../../services/create-task.service';
+import { TaskManagementService } from '../../services/task-management.service';
 import { Account } from './../../model/Account';
 
 @Component({
@@ -15,7 +15,7 @@ export class AccountSearchComponent implements OnInit {
   cols: any[];
   accounts: Account[];
 
-  constructor(private createTaskService: CreateTaskService) { }
+  constructor(private taskManagementService: TaskManagementService) { }
 
   ngOnInit() {
     this.cols = [
@@ -27,7 +27,7 @@ export class AccountSearchComponent implements OnInit {
   }
 
   search(searchForm: any): void {
-    this.createTaskService.searchAccounts().subscribe((searchedAccounts: Account[]) => {
+    this.taskManagementService.searchAccounts().subscribe((searchedAccounts: Account[]) => {
       this.accounts = searchedAccounts;
     });
   }
