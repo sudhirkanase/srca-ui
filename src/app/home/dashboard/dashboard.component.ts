@@ -9,8 +9,8 @@ import { SelectItem } from 'primeng/api/selectitem';
 export class DashboardComponent implements OnInit {
 
   data: any;
-  cities1: SelectItem[];
-  cities4: SelectItem[];
+  accountType: SelectItem[];
+  selectDays: SelectItem[];
 
   constructor() { }
 
@@ -20,14 +20,21 @@ export class DashboardComponent implements OnInit {
   }
 
   dropDownData() {
-    this.cities1 = [
-      { label: 'AD With Account', value: null },
-      { label: 'New York', value: { id: 1, name: 'New York', code: 'NY' } }
+    this.accountType = [
+      { label: 'AD With Account', value: 1 },
+      { label: 'IFS With Account', value: 2 },
+      { label: 'IFS Without Account', value: 3 },
+      { label: 'PB With Client/Account', value: 4 },
+      { label: 'PB Without Client/Account', value: 5 },
+      { label: 'PB Compliance', value: 6 },
+      { label: 'PB Group Services', value: 7 }
     ];
 
-    this.cities4 = [
-      { label: 'Today', value: null },
-      { label: 'New York', value: { id: 1, name: 'New York', code: 'NY' } }
+    this.selectDays = [
+      { label: 'Today', value: 1 },
+      { label: 'Past 10 days', value: 2 },
+      { label: 'Past 30 days', value: 3 },
+      { label: 'Past 45 days', value: 4 },
     ]
   }
 

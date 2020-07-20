@@ -11,10 +11,6 @@ import {ChartModule} from 'primeng/chart';
 import {AutoCompleteModule} from 'primeng/autocomplete';
 import {TableModule} from 'primeng/table';
 import {PaginatorModule} from 'primeng/paginator';
-import {EditorModule} from 'primeng/editor';
-import {RadioButtonModule} from 'primeng/radiobutton';
-import {CardModule} from 'primeng/card';
-import {TabViewModule} from 'primeng/tabview';
 
 @NgModule({
   declarations: [],
@@ -31,11 +27,7 @@ import {TabViewModule} from 'primeng/tabview';
     ChartModule,
     AutoCompleteModule,
     TableModule,
-    PaginatorModule,
-    EditorModule,
-    RadioButtonModule,
-    TabViewModule,
-    CardModule
+    PaginatorModule
   ]
 })
 export class TMTPrimengModule { }
