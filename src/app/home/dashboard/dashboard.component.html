@@ -7,9 +7,9 @@
       <div class="select-by-main-div">
         <div class="select-by-align">
           <div class="select-by-1st-child">
-            <span>Select By : </span>
+            <span>Select By  </span>
             <span>
-              <p-dropdown [options]="cities4" [(ngModel)]="selectedCity4"></p-dropdown>
+              <p-dropdown [options]="selectDays" [(ngModel)]="selectedCity4"></p-dropdown>
             </span>
           </div>
           <div class="seprator"></div>
@@ -35,9 +35,9 @@
   <div class="content-panel-second col-md-4">
     <p-panel header="Account Type">
       <div class="account-type-panel">
-        <span class="account-label">Select Account Type : </span>
+        <span class="account-label">Select Account Type  </span>
         <span>
-          <p-dropdown [options]="cities1" [(ngModel)]="selectedCity1"></p-dropdown>
+          <p-dropdown [options]="accountType" [(ngModel)]="selectedCity1"></p-dropdown>
         </span>
         <div class="accont-info-label">
           112 Task open for AD with-Account

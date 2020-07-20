@@ -11,7 +11,6 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { HomeModule } from './home/home.module';
 import { dropdownDirective } from './shared/directives/dropdown.directive';
 import { LoginComponent } from './login/login.component';
-import { fakeBackendProvider } from './helpers/fakeBackend';
 import { HttpInterceptorService } from './services/http/http-interceptor.service';
 
 

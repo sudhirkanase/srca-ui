@@ -10,25 +10,27 @@ import { AuthenticationService } from '../services/auth/authentication.service';
 export class HeaderComponent implements OnInit {
   currentUser: any;
   open = false
-    constructor( 
-      private router: Router,
-      private authenticationService: AuthenticationService) { }
+
+  constructor(
+    private router: Router,
+    private authenticationService: AuthenticationService) {
+    //console.log("currentUser 12" + this.currentUser);
+  }
+
+  ngOnInit(): void {
   
-    ngOnInit(): void {
-      this.authenticationService.currentUser.subscribe(x =>
-        {
-          console.log("test" + x);
-          this.currentUser = x;
-        });
-      }
-  
-      logout() {
-        this.authenticationService.logout();
-        this.router.navigate(['/login']);
-    }
-    
-      myFunc(){
-        this.open =!this.open
-        console.log(open)
-      }
+    this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
+    this.currentUser = this.authenticationService.getLoggedInUser();
+    console.log( this.currentUser );
+  }
+
+  logout() {
+    this.authenticationService.logout();
+    this.router.navigate(['/login']);
+  }
+
+  myFunc() {
+    this.open = !this.open
+    console.log(open)
+  }
 }
