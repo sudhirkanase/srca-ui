@@ -24,4 +24,9 @@ export class CreateTaskService {
   getTasksByAccountNumber(accountNumber: number): Observable<any> {
     return this.httpClient.get('assets/json/task-list.json');
   }
+
+  getDocumentDetails(): Observable<any>{
+    return this.httpClient.get<any>('assets/json/document-details.json')
+  }
+
 }
