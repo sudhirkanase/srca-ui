@@ -1,1 +1,67 @@
-<p>Document works!</p>
+
+<div class="panel">
+    <p-panel header="Document">
+        <p-header>
+            <button pButton type="button" label="Add Document" class="float-r" (click)="openDialog()" *ngIf="!uploadDoc"></button>
+        </p-header>
+        <div *ngIf="!uploadDoc">
+            <p-table [columns]="cols" [value]="documents">
+                <ng-template pTemplate="header" let-columns>
+                    <tr>
+                        <th *ngFor="let col of columns">
+                            {{col.header}}
+                        </th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-rowData let-columns="columns">
+                    <tr>
+                        <td *ngFor="let col of columns">
+                            {{rowData[col.field]}}
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+            <p-panel header="Upload File" *ngIf="uploadDoc">
+        <form [formGroup]="documentDetailsForm" (ngSubmit)="onSubmit()">
+            <div class="panel-border">
+                Choose a document to attach to this request:
+                <div class="content-t-mar">
+                    <p-dropdown [options]="fileTypes" [(ngModel)]="selectedCity1" formControlName="fileType" required></p-dropdown>
+                    <div *ngIf="documentDetailsForm.controls['fileType'].invalid && (documentDetailsForm.controls['fileType'].dirty || documentDetailsForm.controls['fileType'].touched)" class="alert alert-danger form-danger">
+
+                        <div *ngIf="documentDetailsForm.controls['fileType'].errors.required">
+                           file type required
+                        </div>
+                    </div>
+                </div>
+               
+                This document requires a description
+                <div class="content-t-mar">
+                    <input type="text" pInputText formControlName="description" required>  
+                    <div *ngIf="documentDetailsForm.controls['description'].invalid && (documentDetailsForm.controls['description'].dirty || documentDetailsForm.controls['description'].touched)" class="alert alert-danger form-danger" role="alert">
+
+                        <div *ngIf="documentDetailsForm.controls['description'].errors.required">
+                          Description is required
+                        </div>
+                    </div>       
+                </div>
+                Choose file to attach now or you will be required to attach a file later
+                <div class="content-t-mar">
+                    <button pButton type="button" label="Choose File"></button>
+                    <span>No file selected</span>
+                </div>
+            </div>  
+            <div class="panel-btn">
+              <span><button pButton type="submit" label="Add Document" [disabled]="!documentDetailsForm.valid"></button></span> 
+                <span><button pButton type="button" label="Cancel" (click)="onCancel()"></button></span>
+            </div>
+        </form> 
+            </p-panel>     
+    </p-panel>
+  
+</div>
+
+
+
+

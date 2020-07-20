@@ -10,6 +10,10 @@ import { RadioButtonModule } from 'primeng/radiobutton';
 import { TabViewModule } from 'primeng/tabview';
 import { CardModule } from 'primeng/card';
 import { DropdownModule } from 'primeng/dropdown';
+import {TableModule} from 'primeng/table';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {PanelModule} from 'primeng/panel';
+import {ButtonModule} from 'primeng/button';
 
 @NgModule({
   declarations: [
@@ -19,12 +23,17 @@ import { DropdownModule } from 'primeng/dropdown';
   ],
   imports: [
     CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
     ActionsRoutingModule,
     EditorModule,
     RadioButtonModule,
     TabViewModule,
     CardModule,
-    DropdownModule
+    DropdownModule,
+    TableModule,
+    PanelModule,
+    ButtonModule
   ]
 })
 export class ActionsModule { }
