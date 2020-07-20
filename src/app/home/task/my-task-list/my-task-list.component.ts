@@ -1,8 +1,6 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { TaskService } from '../task.service';
 import { Table } from 'primeng/table/table';
-import { HomeService as HomeService } from 'src/app/services/home/home-data.service';
+import { HomeService} from 'src/app/home/services/home.service';
 
 @Component({
   selector: 'tmt-my-task-list',

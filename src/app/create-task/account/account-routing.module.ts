@@ -24,7 +24,7 @@ const routes: Routes = [
     pathMatch: 'full'
   },
   {
-    path: ':accountNumber/cost-center',
+    path: ':accountNumber/contact-center',
     component: ContactCenterComponent
   },
 ];
