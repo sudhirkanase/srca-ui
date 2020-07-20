@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, of, BehaviorSubject } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { Account } from './../model/Account';
+import { Account } from '../model/Account';
 
 @Injectable()
 export class CreateTaskService {
