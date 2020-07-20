@@ -1,14 +1,16 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { TASK_MANAGEMENT_SERVICES_URL } from 'src/app/app.constants';
+import { BaseService } from 'src/app/services/base.service';
 
 @Injectable()
-export class HomeService {
+export class HomeService extends BaseService<any> {
 
-  constructor(private http: HttpClient) { }
+  constructor(http: HttpClient) {
+    super(http);
+  }
 
   getTaskList(): Observable<any> {
-    return this.http.get<any>(`${TASK_MANAGEMENT_SERVICES_URL}/getServiceReqTasks`);
+    return this.get(`${this.taskManagementServiceUrl}/getServiceReqTasks`);
   }
 }
