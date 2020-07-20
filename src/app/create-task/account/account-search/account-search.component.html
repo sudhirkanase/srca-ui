@@ -66,8 +66,7 @@
                     <tr>
                         <td *ngFor="let col of columns">
                             <span *ngIf="col.field == 'select'">
-                                <a routerLink="../summary"
-                                    [state]="{ accountNumber: rowData['accountNumber'] }">Select</a>
+                                <a routerLink="../summary" [state]="{data: rowData['accountNumber']}">Select</a>
                             </span>
                             <span *ngIf="col.field != 'select'">
                                 {{rowData[col.field]}}

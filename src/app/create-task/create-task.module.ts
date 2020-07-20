@@ -2,7 +2,8 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { CreateTaskRoutingModule } from './create-task-routing.module';
-import { TaskManagementService } from './services/task-management.service';
+import { CreateTaskService } from './services/create-task.service';
+import { CreateTaskSharedService } from './services/create-task-shared.service';
 
 
 @NgModule({
@@ -12,7 +13,8 @@ import { TaskManagementService } from './services/task-management.service';
     CreateTaskRoutingModule
   ],
   providers: [
-    TaskManagementService
+    CreateTaskService,
+    CreateTaskSharedService
   ]
 })
 export class CreateTaskModule { }

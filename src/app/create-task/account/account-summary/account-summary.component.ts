@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { TaskManagementService } from '../../services/task-management.service';
+import { CreateTaskService } from '../../services/create-task.service';
 import { Account } from './../../model/Account';
-import { map } from 'rxjs/operators';
+import { isNullOrUndefined } from 'util';
+import { CreateTaskSharedService } from '../../services/create-task-shared.service';
 
 @Component({
   selector: 'tmt-account-summary',
@@ -18,11 +19,15 @@ export class AccountSummaryComponent implements OnInit {
   taskColumns: any[];
 
   constructor(
-    private taskManagementService: TaskManagementService,
+    private createTaskService: CreateTaskService,
     private route: ActivatedRoute,
-    private router: Router) { }
+    private router: Router,
+    private createTaskSharedService: CreateTaskSharedService) { }
 
   ngOnInit() {
+
+    this.getAccountNumber();
+
     this.taskColumns = [
       { field: 'id', header: 'ID' },
       { field: 'accountName', header: 'Account Name' },
@@ -32,26 +37,36 @@ export class AccountSummaryComponent implements OnInit {
     ];
     this.tasks = [];
 
-    this.route.paramMap
-      .pipe(map(() => window.history.state))
-      .subscribe(state => {
-        this.accountNumber = state && state.accountNumber;
+  }
 
-        // if account number is not present/invalid, return to search
-        if (!this.accountNumber) {
-          this.router.navigate(['./../search'], { relativeTo: this.route });
-          return;
-        }
+  // To get the account number from state property of route
+  getAccountNumber(): void {
 
-        this.taskManagementService.getAccountByAccountNumber(this.accountNumber).subscribe((accounts: Account[]) => {
-          this.accountDetails = accounts[0];
+    if (isNullOrUndefined(history.state.data)) {
+      this.createTaskSharedService.getAccountNumber.subscribe(accountNo => this.accountNumber = accountNo);
+    } else {
+      this.accountNumber = history.state.data;
+    }
 
-          this.taskManagementService.getTasksByAccountNumber(this.accountDetails.accountNumber)
-            .subscribe((tasks: any) => {
-              this.tasks = tasks.filter((task: any) => task.taskType === 'Contact Center');
-            });
+    //Set Account no to in shared service
+    this.createTaskSharedService.setAccountNumber(this.accountNumber);
+
+    this.getAccountDetails();
+  }
+
+  //To get account details using account number
+  getAccountDetails(): void {
+
+    this.createTaskService.getAccountByAccountNumber(this.accountNumber).subscribe((data: any) => {
+      this.accountDetails = data[0];
+    });
+
+    if (this.accountDetails && this.accountDetails.accountNumber) {
+      this.createTaskService.getTasksByAccountNumber(this.accountDetails.accountNumber)
+        .subscribe((tasks: any) => {
+          this.tasks = tasks.filter((task: any) => task.taskType === 'Contact Center');
         });
-      });
+    }
   }
 
   /**

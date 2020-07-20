@@ -12,7 +12,7 @@ const routes: Routes = [
   },
   {
     path: 'summary',
-    component: AccountSummaryComponent
+    component: AccountSummaryComponent,
   },
   {
     path: '',
