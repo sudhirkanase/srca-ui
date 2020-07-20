@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { CreateTaskService } from './../../services/create-task.service';
+import { CreateTaskService } from '../../services/create-task.service';
 import { Account } from './../../model/Account';
 import { isNullOrUndefined } from 'util';
 import { CreateTaskSharedService } from '../../services/create-task-shared.service';
@@ -13,10 +13,10 @@ import { CreateTaskSharedService } from '../../services/create-task-shared.servi
 })
 export class AccountSummaryComponent implements OnInit {
 
+  accountNumber: number;
   accountDetails: Account;
   tasks: any[];
   taskColumns: any[];
-  accountNumber: any;
 
   constructor(
     private createTaskService: CreateTaskService,
@@ -56,7 +56,7 @@ export class AccountSummaryComponent implements OnInit {
 
   //To get account details using account number
   getAccountDetails(): void {
-    
+
     this.createTaskService.getAccountByAccountNumber(this.accountNumber).subscribe((data: any) => {
       this.accountDetails = data[0];
     });
