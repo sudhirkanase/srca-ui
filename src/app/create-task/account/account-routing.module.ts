@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AccountSearchComponent } from './account-search/account-search.component';
 import { AccountSummaryComponent } from './account-summary/account-summary.component';
-import { AccountSummaryResolverService } from '../services/account-summary-resolver.service';
 import { ContactCenterComponent } from '../actions/contact-center/contact-center.component';
 
 
@@ -12,11 +11,8 @@ const routes: Routes = [
     component: AccountSearchComponent
   },
   {
-    path: ':accountNumber/summary',
+    path: 'summary',
     component: AccountSummaryComponent,
-    resolve: {
-      accounts: AccountSummaryResolverService
-    }
   },
   {
     path: '',
@@ -24,7 +20,7 @@ const routes: Routes = [
     pathMatch: 'full'
   },
   {
-    path: ':accountNumber/contact-center',
+    path: 'contact-center',
     component: ContactCenterComponent
   },
 ];
