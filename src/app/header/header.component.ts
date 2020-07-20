@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthenticationService } from '../auth/authentication.service';
+import { AuthenticationService } from '../services/auth/authentication.service';
 
 @Component({
   selector: 'tmt-header',
@@ -15,7 +15,11 @@ export class HeaderComponent implements OnInit {
       private authenticationService: AuthenticationService) { }
   
     ngOnInit(): void {
-      this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
+      this.authenticationService.currentUser.subscribe(x =>
+        {
+          console.log("test" + x);
+          this.currentUser = x;
+        });
       }
   
       logout() {
