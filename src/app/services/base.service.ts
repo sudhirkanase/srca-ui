@@ -2,8 +2,13 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams, HttpErrorResponse } from '@angular/common/http';
 import { Observable, of, throwError } from 'rxjs';
 
-import { TASK_MANAGEMENT_SERVICES_URL, LOGGEDIN_USER_INFO, AUTH_KEY } from './../../environments/environment';
+import {
+  TASK_MANAGEMENT_SERVICES_URL,
+  LOGGEDIN_USER_INFO,
+  AUTH_KEY
+} from './../../environments/environment';
 import { catchError } from 'rxjs/operators';
+import { UserInfoBean } from '../beans/userinfo-bean';
 
 type HTTP_OPTIONS = {
   headers?: HttpHeaders | { [header: string]: string | string[]; };
@@ -22,6 +27,8 @@ export class BaseService<T> {
   taskManagementServiceUrl = `${TASK_MANAGEMENT_SERVICES_URL}`;
   loggedinUserInfo = `${LOGGEDIN_USER_INFO}`;
   authKey = `${AUTH_KEY}`;
+
+  private sessionExpired: boolean;
 
   constructor(private http: HttpClient) { }
 
@@ -65,6 +72,26 @@ export class BaseService<T> {
       );
   }
 
+  // user authentication related methods
+  isUserAuthenticated(): boolean {
+    if (sessionStorage.getItem(this.authKey)) {
+      return true;
+    }
+    return false;
+  }
+
+  isSessionExpired(): boolean {
+    return this.sessionExpired;
+  }
+
+  setSessionExpired(value: boolean): void {
+    this.sessionExpired = value;
+  }
+
+  getLoggedInUser(): UserInfoBean {
+    return JSON.parse(sessionStorage.getItem(this.loggedinUserInfo));
+  }
+
   private handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {
       // TODO: send the error to remote logging infrastructure
@@ -75,15 +102,9 @@ export class BaseService<T> {
         `Backend returned code ${error.status}, ` +
         `body was: ${error.error}, ` +
         `message was: ${error.message}`);
-
-      // if authentication error, return human readable message
-      if (error.status === 401) {
-        return throwError(new Error('Username or password is invalid.'));
-      }
     }
     // return an observable with a user-facing error message
-    return throwError(
-      'Something went wrong; please try again later.');
+    return throwError(error);
   };
 
 }
