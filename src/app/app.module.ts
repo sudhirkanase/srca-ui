@@ -13,6 +13,7 @@ import { dropdownDirective } from './shared/directives/dropdown.directive';
 import { LoginComponent } from './login/login.component';
 import { HttpInterceptorService } from './services/http/http-interceptor.service';
 import { BaseService } from './services/base.service';
+import {AlertComponent} from './alert/alert.component'
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { BaseService } from './services/base.service';
     dropdownDirective,
     MenuBarComponent,
     LoginComponent,
+    AlertComponent
   ],
   imports: [
     BrowserModule,
