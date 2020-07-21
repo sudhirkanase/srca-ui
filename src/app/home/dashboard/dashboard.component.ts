@@ -23,11 +23,12 @@ export class DashboardComponent implements OnInit {
     this.accountType = [
       { label: 'AD With Account', value: 1 },
       { label: 'IFS With Account', value: 2 },
-      { label: 'IFS Without Account', value: 3 },
-      { label: 'PB With Client/Account', value: 4 },
-      { label: 'PB Without Client/Account', value: 5 },
-      { label: 'PB Compliance', value: 6 },
-      { label: 'PB Group Services', value: 7 }
+      { label: 'PB With Account', value: 3 }
+      //{ label: 'IFS Without Account', value: 3 },
+      //{ label: 'PB With Client/Account', value: 4 },
+      //{ label: 'PB Without Client/Account', value: 5 },
+      //{ label: 'PB Compliance', value: 6 },
+      //{ label: 'PB Group Services', value: 7 }
     ];
 
     this.selectDays = [
