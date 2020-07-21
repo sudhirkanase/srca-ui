@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { CreateTaskRoutingModule } from './create-task-routing.module';
 import { CreateTaskService } from './services/create-task.service';
 import { CreateTaskSharedService } from './services/create-task-shared.service';
+import { UploadFileService } from './services/UploadFileService.service';
 
 
 @NgModule({
@@ -14,6 +15,7 @@ import { CreateTaskSharedService } from './services/create-task-shared.service';
   ],
   providers: [
     CreateTaskService,
+    UploadFileService,
     CreateTaskSharedService
   ]
 })
