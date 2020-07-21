@@ -4,8 +4,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 
 import { AuthenticationService } from '../services/auth/authentication.service';
 import { first } from 'rxjs/operators';
-import { UserInfoBean } from '../beans/userinfo-bean';
-import {AlertService} from '../services/alert/alert.service'
+import { AlertService } from '../services/alert/alert.service'
 
 @Component({
   selector: 'app-login',
@@ -26,13 +25,17 @@ export class LoginComponent implements OnInit {
     private authenticationService: AuthenticationService,
     private alertService: AlertService) {
 
-   
+
   }
 
   ngOnInit() {
-    
+
     if (this.authenticationService.isUserAuthenticated()) {
       this.router.navigate(['/']);
+    }
+
+    if (this.authenticationService.isSessionExpired()) {
+      this.alertService.error('Session expired. Please login again.');
     }
 
     this.loginForm = this.formBuilder.group({
@@ -62,6 +65,7 @@ export class LoginComponent implements OnInit {
           // console.log( this.returnUrl);
           // this.userDetailsBean = data;
           //console.log( this.userDetailsBean);
+          this.authenticationService.setSessionExpired(false);
           this.router.navigate([this.returnUrl]);
         },
         error => {

@@ -28,6 +28,8 @@ export class BaseService<T> {
   loggedinUserInfo = `${LOGGEDIN_USER_INFO}`;
   authKey = `${AUTH_KEY}`;
 
+  private sessionExpired: boolean;
+
   constructor(private http: HttpClient) { }
 
   public get<T>(url: string): Observable<T> {
@@ -76,6 +78,14 @@ export class BaseService<T> {
       return true;
     }
     return false;
+  }
+
+  isSessionExpired(): boolean {
+    return this.sessionExpired;
+  }
+
+  setSessionExpired(value: boolean): void {
+    this.sessionExpired = value;
   }
 
   getLoggedInUser(): UserInfoBean {

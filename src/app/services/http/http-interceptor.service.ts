@@ -35,6 +35,7 @@ export class HttpInterceptorService implements HttpInterceptor {
           // If request is from any page other than login, that means token has expired.
           // Redirect to login page
           if (!request.url.includes('authenticate')) {
+            this.authService.setSessionExpired(true);
             this.router.navigate(['login']);
           } else {
             return throwError(new Error('Username or password is invalid.'));
