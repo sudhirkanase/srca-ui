@@ -65,22 +65,6 @@ export class BaseService<T> {
       );
   }
 
-  // public handleError<T>(operation = 'operation', result?: T) {
-  //   return (error: any): Observable<T> => {
-
-  //     // TODO: send the error to remote logging infrastructure
-  //     console.error(error); // log to console instead
-
-  //     // TODO: better job of transforming error for user consumption
-  //     console.log(`${operation} failed: ${error.message}`);
-
-  //     // Let the app keep running by returning an empty result.
-  //     return of(result as T);
-  //   };
-  // }
-
-  // TODO: send the error to remote logging infrastructure
-  // TODO: better job of transforming error for user consumption
   private handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {
       // TODO: send the error to remote logging infrastructure
@@ -89,7 +73,13 @@ export class BaseService<T> {
       // TODO: better job of transforming error for user consumption
       console.error(
         `Backend returned code ${error.status}, ` +
-        `body was: ${error.error}`);
+        `body was: ${error.error}, ` +
+        `message was: ${error.message}`);
+
+      // if authentication error, return human readable message
+      if (error.status === 401) {
+        return throwError(new Error('Username or password is invalid.'));
+      }
     }
     // return an observable with a user-facing error message
     return throwError(
