@@ -47,17 +47,6 @@ export class AuthenticationService extends BaseService<UserInfoBean> {
         sessionStorage.removeItem(this.authKey);
     }
 
-    isUserAuthenticated(): boolean {
-        if (sessionStorage.getItem(this.authKey)) {
-            return true;
-        }
-        return false;
-    }
-
-    getLoggedInUser(): UserInfoBean {
-        return JSON.parse(sessionStorage.getItem(this.loggedinUserInfo));
-    }
-
     getAuthToken() {
         return sessionStorage.getItem(this.authKey);
     }
