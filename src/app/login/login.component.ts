@@ -5,6 +5,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { AuthenticationService } from '../services/auth/authentication.service';
 import { first } from 'rxjs/operators';
 import { UserInfoBean } from '../beans/userinfo-bean';
+import {AlertService} from '../services/alert/alert.service'
 
 @Component({
   selector: 'app-login',
@@ -22,7 +23,8 @@ export class LoginComponent implements OnInit {
   constructor(private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
-    private authenticationService: AuthenticationService) {
+    private authenticationService: AuthenticationService,
+    private alertService: AlertService) {
 
    
   }
@@ -42,16 +44,18 @@ export class LoginComponent implements OnInit {
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
   }
 
+  get f() { return this.loginForm.controls; }
+
   onSubmit() {
     this.submitted = true;
-
+    this.alertService.clear();
     // stop here if form is invalid
     if (this.loginForm.invalid) {
       return;
     }
 
     this.loading = true;
-    this.authenticationService.login(this.loginForm.controls.username.value, this.loginForm.controls.password.value)
+    this.authenticationService.login(this.f.username.value, this.f.password.value)
       .pipe(first())
       .subscribe(
         data => {
@@ -61,7 +65,7 @@ export class LoginComponent implements OnInit {
           this.router.navigate([this.returnUrl]);
         },
         error => {
-          this.error = error;
+          this.alertService.error(error);
           this.loading = false;
         });
   }
