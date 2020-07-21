@@ -1,6 +1,6 @@
 .task-label{
     display: inline-block;
-    font-size: 25px;
+    font-size: 23px;
     padding-left: 15px;
 }
 .info-icon{
@@ -19,13 +19,22 @@
 .task-sum-label {
     display: inline-block;
     font-size: 18px;
+    font-family: initial;
 }
 .summary-pad {
     padding: 20px;
 }
 .task-sum-pad {
     padding-top: 10px;
+    margin-left: 14px;
+    margin-right: 10px;
 }
 .acc-detail-pad {
-    padding-top: 20px;
+    margin-top: 10px;
+    margin-left: 14px;
+    margin-right: 10px;
+}
+.acc-details-mar{
+    margin: 14px;
+    margin-right: 10px;
 }
