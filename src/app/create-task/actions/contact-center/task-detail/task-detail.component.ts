@@ -1,8 +1,10 @@
-import { Component, OnInit, Input, OnChanges, ChangeDetectorRef, SimpleChanges } from '@angular/core';
-import { SelectItem } from 'primeng/api/selectitem';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { isNullOrUndefined } from 'util';
+import { Component, OnInit, Input, OnChanges, ChangeDetectorRef, SimpleChanges, Output, EventEmitter } from '@angular/core';
 import { Location } from '@angular/common';
+import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
+import { SelectItem } from 'primeng/api/selectitem';
+import { isNullOrUndefined } from 'util';
+import { Account } from './../../../model/Account';
+import { CONTACT_CENTER_TASK_DROPDOWN_DATA } from 'src/app/app.constants';
 
 @Component({
   selector: 'tmt-task-detail',
@@ -11,10 +13,18 @@ import { Location } from '@angular/common';
 })
 export class TaskDetailComponent implements OnInit, OnChanges {
 
-  taskPriority: SelectItem[];
+  taskPriorityData: SelectItem[];
+  callCodes: SelectItem[];
+  actions: SelectItem[];
   taskDetailForm: FormGroup;
+  accountColumns: any[];
+  accounts: Account[];
+  dropdownData: { [key: string]: string[] };
+  isFormSubmitted: boolean;
+  message: any;
 
   @Input() taskDetailData: any;
+  @Output() saveTaskDetails = new EventEmitter<any>();
 
   constructor(private formBuilder: FormBuilder,
     private cd: ChangeDetectorRef,
@@ -29,23 +39,102 @@ export class TaskDetailComponent implements OnInit, OnChanges {
   }
 
   ngOnInit() {
+    this.dropdownData = CONTACT_CENTER_TASK_DROPDOWN_DATA;
 
     this.taskDetailForm = this.formBuilder.group({
-      callerName: [''],
-      callerPhone: [''],
-      action: [''],
-      callCode: [''],
+      callerName: ['', Validators.required],
+      callerPhone: [null, Validators.required],
+      action: ['', Validators.required],
+      callCode: ['', Validators.required],
       taxPayerID: ['', Validators.required],
       fullyAuthenticated: ['', Validators.required],
       taskPriority: [''],
+      taskNotes: [''],
       callDetails: ['', Validators.required]
     });
 
-    this.taskPriority = [
+    this.taskPriorityData = [
       { label: 'Low', value: 'low' },
       { label: 'High', value: 'high' }
     ];
 
+    this.accountColumns = [
+      { field: 'accountNumber', header: 'Account Number' },
+      { field: 'accountName', header: 'Account Short Name' },
+    ];
+    this.accounts = [];
+
+    this.loadCallCodes();
+
+    // check for taxPayerID value changes
+    this.taxPayerID.valueChanges
+      .subscribe((value: string) => {
+        if (value === 'yes') {
+          this.taskDetailForm.addControl('taxPayerIDValue', new FormControl(''));
+        } else {
+          this.taskDetailForm.removeControl('taxPayerIDValue');
+        }
+      });
+  }
+
+  loadCallCodes(): void {
+    const callCodeOptions = Object.keys(this.dropdownData).map((key: string) => {
+      return {
+        label: key, value: key
+      };
+    });
+
+    this.callCodes = [{ label: 'Select Call Code', value: null }, ...callCodeOptions];
+  }
+
+  loadActionByCallCode(callCodeValue: string): void {
+    if (!callCodeValue) {
+      return;
+    }
+
+    const actionOptions = this.dropdownData[callCodeValue].map(action => {
+      return {
+        label: action, value: action
+      };
+    });
+
+    this.actions = [{ label: 'Select Action', value: null }, ...actionOptions];
+  }
+
+  get callerName(): FormControl {
+    return this.taskDetailForm.get('callerName') as FormControl;
+  }
+
+  get callerPhone(): FormControl {
+    return this.taskDetailForm.get('callerPhone') as FormControl;
+  }
+
+  get callCode(): FormControl {
+    return this.taskDetailForm.get('callCode') as FormControl;
+  }
+
+  get action(): FormControl {
+    return this.taskDetailForm.get('action') as FormControl;
+  }
+
+  get taxPayerID(): FormControl {
+    return this.taskDetailForm.get('taxPayerID') as FormControl;
+  }
+
+  get fullyAuthenticated(): FormControl {
+    return this.taskDetailForm.get('fullyAuthenticated') as FormControl;
+  }
+
+  get taskPriority(): FormControl {
+    return this.taskDetailForm.get('taskPriority') as FormControl;
+  }
+
+  get callDetails(): FormControl {
+    return this.taskDetailForm.get('callDetails') as FormControl;
+  }
+
+  get taskNotes(): FormControl {
+    return this.taskDetailForm.get('taskNotes') as FormControl;
   }
 
   updateValues() {
@@ -58,7 +147,8 @@ export class TaskDetailComponent implements OnInit, OnChanges {
         taxPayerID: this.taskDetailData.taxPayerID,
         fullyAuthenticated: this.taskDetailData.fullyAuthenticated,
         taskPriority: this.taskDetailData.taskPriority,
-        callDetails: this.taskDetailData.callDetails
+        callDetails: this.taskDetailData.callDetails,
+        taskNotes: this.taskDetailData.taskNotes
       });
 
     }
@@ -66,10 +156,27 @@ export class TaskDetailComponent implements OnInit, OnChanges {
   }
 
   onSubmit() {
+    this.isFormSubmitted = true;
+    if (this.taskDetailForm.valid) {
+      // API call to persist data
+      this.saveTaskDetails.emit(this.taskDetailForm.value);
+
+      // on API success
+      this.message = {
+        text: 'Form submitted successfully',
+        cssClass: 'alert alert-success'
+      };
+    } else {
+      // show error
+      this.message = {
+        text: 'Please fill the mandatory values before proceeding.',
+        cssClass: 'alert alert-danger'
+      };
+    }
     console.log("Form control value", this.taskDetailForm.value);
   }
 
-  CancelClick() {
+  cancelClick() {
     this.location.back();
   }
 
