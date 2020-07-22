@@ -2,11 +2,9 @@
 <div class="col-md-12 no-pad">
     <div class="main-header">
         WELLS FARGO
-        <span class="dropdown" style="float: right;">
-            <a class="dropdown-toggle login-name" (click)="myFunc()">{{currentUser?.fullName}} <span class="caret"></span></a>
-            <ul class="dropdown-menu-item" *ngIf="open">
-                <li><a style="cursor: pointer;" (click)="logout()">Sign Out</a></li>
-            </ul>
+        <span class="login-header-btns">
+         <div #btn class="login-btn pointer" (click)="menu.toggle($event)">{{currentUser?.fullName}}<span class="fa fa-angle-down down-arrow pointer"></span></div>
+            <span class="header-panel"><p-slideMenu #menu [model]="items" [popup]="true"></p-slideMenu></span>
         </span>
         <span class="fa fa-user user-icon"></span>
         <span class="fa fa-question-circle question-icon"></span>

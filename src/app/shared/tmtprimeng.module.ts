@@ -11,6 +11,7 @@ import {ChartModule} from 'primeng/chart';
 import {AutoCompleteModule} from 'primeng/autocomplete';
 import {TableModule} from 'primeng/table';
 import {PaginatorModule} from 'primeng/paginator';
+import {SlideMenuModule} from 'primeng/slidemenu';
 
 @NgModule({
   declarations: [],
@@ -27,7 +28,8 @@ import {PaginatorModule} from 'primeng/paginator';
     ChartModule,
     AutoCompleteModule,
     TableModule,
-    PaginatorModule
+    PaginatorModule,
+    SlideMenuModule
   ]
 })
 export class TMTPrimengModule { }
