@@ -33,4 +33,12 @@ export class CreateTaskService extends BaseService<any> {
     return this.get<any>('assets/json/document-details.json')
   }
 
+  getContactDetailsByAccountNo(accountNumber: number) {
+    return this.get<any>('assets/json/contact-center-add.json');
+  }
+
+  getContactDetailsByTask(accountNumber: number) {
+    return this.get<any>('assets/json/contact-center-edit.json');
+  }
+
 }

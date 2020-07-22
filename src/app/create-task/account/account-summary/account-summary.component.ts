@@ -17,6 +17,7 @@ export class AccountSummaryComponent implements OnInit {
   accountDetails: Account;
   tasks: any[];
   taskColumns: any[];
+  contactCenterDetails: any;
 
   constructor(
     private createTaskService: CreateTaskService,
@@ -37,6 +38,11 @@ export class AccountSummaryComponent implements OnInit {
     ];
     this.tasks = [];
 
+    this.contactCenterDetails = {
+      accountNo: this.accountNumber,
+      taskID: 0,
+      accountAction: 'Add'
+    }
   }
 
   // To get the account number from state property of route

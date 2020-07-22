@@ -1,0 +1,24 @@
+{
+    "taskID": 12111,
+    "status": "Closed",
+    "phoneNo": "+(844) 235678",
+    "createdDate": "17/07/2020",
+    "email": "test@wellsfargo.com",
+    "assignedUser": "Update User Group",
+    "assignedEmail": "test-assign@wellsfargo.com",
+    "accountService": "Test Service",
+    "accountShortName": "Test name",
+    "mainAccountNo": 3410019,
+    "marketValue": "$10000",
+    "branchCode": 750121,
+    "taskDetail": {
+      "callerName": "Test",
+      "callerPhone": "+(944) 741101",
+      "action": "Action Test",
+      "callCode": 100,
+      "taxPayerID": "no",
+      "fullyAuthenticated":"yes",
+      "taskPriority": "high",
+      "callDetails":"Test edit details"
+    }
+}
