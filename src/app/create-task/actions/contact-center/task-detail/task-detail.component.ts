@@ -23,7 +23,6 @@ export class TaskDetailComponent implements OnInit, OnChanges {
   ngOnChanges(changes: SimpleChanges) {
     if (changes.taskDetailData.previousValue !== changes.taskDetailData.currentValue) {
       setTimeout(() => {
-        console.log("data task history", this.taskDetailData);
         this.updateValues();
       });
     }

@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { isNullOrUndefined } from 'util';
 import { CreateTaskService } from '../../services/create-task.service';
-import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'tmt-contact-center',

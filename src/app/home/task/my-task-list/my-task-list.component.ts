@@ -1,8 +1,7 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Table } from 'primeng/table/table';
 import { HomeService } from 'src/app/home/services/home.service';
 import { Router } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'tmt-my-task-list',
@@ -72,7 +71,7 @@ export class MyTaskListComponent implements OnInit {
   //Export to PDF
   exportPdf() {
     import("jspdf").then(jsPDF => {
-      import("jspdf-autotable").then(x => {
+      import("jspdf-autotable").then(() => {
         const doc = new jsPDF.default(0, 0);
         doc.autoTable(this.exportColumns, this.data);
         doc.save('myTaskList.pdf');
