@@ -81,12 +81,13 @@
     <p-card>
       <p-tabView>
         <p-tabPanel header="Task Detail">
-           <tmt-task-detail [taskDetailData]="contactCenterData?.taskDetail"></tmt-task-detail>
+          <tmt-task-detail [taskDetailData]="contactCenterData?.taskDetail" (saveTaskDetails)="saveTask($event)">
+          </tmt-task-detail>
         </p-tabPanel>
         <p-tabPanel header="Document">
-            <tmt-document></tmt-document>
+          <tmt-document></tmt-document>
         </p-tabPanel>
-    </p-tabView>
+      </p-tabView>
     </p-card>
   </div>
 </div>

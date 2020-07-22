@@ -1,3 +1,4 @@
+@import "./../../../../../assets/scss/variables.scss";
 .task-detail-label {
     width: 150px;
     float: left;
@@ -9,9 +10,23 @@
     padding-bottom: 10px;
 }
 .button-style {
-    float: right;
-    margin-top: -32px;
+    text-align: right;
+    margin-top: 25px;
 }
 .save-pad {
     padding-right: 14px;
+}
+.add-accounts-section {
+    font-weight: bold;
+    width: 100%;
+    span {
+        vertical-align: middle;
+    }
+    p-button {
+        float: right;
+    }
+}
+.required-indicator {
+    padding-left: 2px;
+    color: $orange-col;
 }

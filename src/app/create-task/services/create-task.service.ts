@@ -41,4 +41,11 @@ export class CreateTaskService extends BaseService<any> {
     return this.get<any>('assets/json/contact-center-edit.json');
   }
 
+  saveContactCenterTaskDetails(taskId: number, taskDetails: any): Observable<boolean> {
+    // TODO make the actual API call
+    // return mock success
+    console.log(`taskId: ${taskId}, taskDetails: `, taskDetails);
+    return of(true);
+  }
+
 }

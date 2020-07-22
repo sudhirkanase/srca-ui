@@ -50,4 +50,9 @@ export class ContactCenterComponent implements OnInit {
         this.contactCenterData = data;
       });
   }
+
+  saveTask(taskDetail: any): void {
+    const updatedTaskData = { ...this.contactCenterData, ...{ taskDetail: taskDetail } };
+    this.createTaskService.saveContactCenterTaskDetails(updatedTaskData.taskID, updatedTaskData);
+  }
 }
