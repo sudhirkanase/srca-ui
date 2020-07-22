@@ -1,0 +1,15 @@
+{
+    "taskID": 10001,
+    "status": "Open",
+    "phoneNo": "+(844) 235678",
+    "createdDate": "21/07/2020",
+    "email": "test@wellsfargo.com",
+    "assignedUser": "Add User Group",
+    "assignedEmail": "test-assign@wellsfargo.com",
+    "accountService": "Test Service",
+    "accountShortName": "Test name",
+    "mainAccountNo": 3410019,
+    "marketValue": "$200000",
+    "branchCode": 750121,
+    "taskDetail": null
+}

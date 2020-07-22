@@ -1,48 +1,59 @@
-<div>
-  <div class="row col-md-12 task-details-b-pad">
-    <div class="col-md-4">
-      <label class="task-detail-label">Caller Name</label>
-      <input type="text" pInputText />
+<form [formGroup]="taskDetailForm" (ngSubmit)="onSubmit()">
+  <div>
+    <div class="row col-md-12 task-details-b-pad">
+      <div class="col-md-4">
+        <label class="task-detail-label">Caller Name</label>
+        <input formControlName="callerName" type="text" pInputText />
+      </div>
+      <div class=" col-md-4">
+        <label class="task-detail-label">Caller Phone</label>
+        <input formControlName="callerPhone" type="text" pInputText />
+      </div>
     </div>
-    <div class=" col-md-4">
-      <label class="task-detail-label">Caller Phone</label>
-      <input type="text" pInputText />
+    <div class="row col-md-12 task-details-b-pad">
+      <div class=" col-md-4">
+        <label class="task-detail-label">Action</label>
+        <input formControlName="action" type="text" pInputText />
+      </div>
+      <div class=" col-md-4">
+        <label class="task-detail-label">Call Code</label>
+        <input formControlName="callCode" type="text" pInputText />
+      </div>
+    </div>
+    <div class="row col-md-12 task-details-b-pad">
+      <div class=" col-md-4">
+        <label class="task-detail-label">Fully Authenticated</label>
+        <p-radioButton name="fullAuth1" value="yes" formControlName="fullyAuthenticated" label="Yes" inputId="opt1">
+        </p-radioButton>
+        <p-radioButton name="fullAuth2" value="no" formControlName="fullyAuthenticated" label="No" inputId="opt2">
+        </p-radioButton>
+      </div>
+      <div class="col-md-4">
+        <label class="task-detail-label">Taxpayer ID</label>
+        <p-radioButton name="taxID1" value="yes" formControlName="taxPayerID" label="Yes" inputId="tax1">
+        </p-radioButton>
+        <p-radioButton name="taxID2" value="no" formControlName="taxPayerID" label="No" inputId="tax2"></p-radioButton>
+      </div>
+    </div>
+    <div class="row col-md-12 task-details-b-pad">
+      <div class=" col-md-4">
+        <label class="task-detail-label">Task Priority</label>
+        <p-dropdown formControlName="taskPriority" [options]="taskPriority"></p-dropdown>
+      </div>
+    </div>
+    <div class="row col-md-12 task-details-b-pad">
+      <div class=" col-md-1">
+        <label class="task-detail-label">Call Details</label>
+      </div>
+      <div class="editor-pad col-md-7">
+        <p-editor formControlName="callDetails" [style]="{'height':'200px'}"></p-editor>
+      </div>
+    </div>
+    <div class="button-style">
+      <p-button type="submit" label="Save" class="save-pad">
+      </p-button>
+      <p-button type="button" label="Cancel" (click)="CancelClick()">
+      </p-button>
     </div>
   </div>
-  <div class="row col-md-12 task-details-b-pad">
-    <div class=" col-md-4">
-      <label class="task-detail-label">Action</label>
-      <input type="text" pInputText />
-    </div>
-    <div class=" col-md-4">
-      <label class="task-detail-label">Call Code</label>
-      <input type="text" pInputText />
-    </div>
-  </div>
-  <div class="row col-md-12 task-details-b-pad">
-    <div class=" col-md-4">
-      <label class="task-detail-label">Fully Authenticated</label>
-      <p-radioButton name="group1" value="yes" label="Yes" inputId="opt1"></p-radioButton>
-      <p-radioButton name="group1" value="no" label="No" inputId="opt2"></p-radioButton>
-    </div>
-    <div class="col-md-4">
-      <label class="task-detail-label">Call Code</label>
-      <p-radioButton name="group1" value="yes" label="Yes" inputId="opt1"></p-radioButton>
-      <p-radioButton name="group1" value="no" label="No" inputId="opt2"></p-radioButton>
-    </div>
-  </div>
-  <div class="row col-md-12 task-details-b-pad">
-    <div class=" col-md-4">
-      <label class="task-detail-label">Task Priority</label>
-      <p-dropdown [options]="taskPriority"></p-dropdown>
-    </div>
-  </div>
-  <div class="row col-md-12 task-details-b-pad">
-    <div class=" col-md-1">
-      <label class="task-detail-label">Call Details</label>
-    </div>
-    <div class="editor-pad col-md-7">
-      <p-editor [style]="{'height':'200px'}"></p-editor>
-    </div>
-  </div>
-</div>
+</form>

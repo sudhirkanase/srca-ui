@@ -1,6 +1,7 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Table } from 'primeng/table/table';
-import { HomeService} from 'src/app/home/services/home.service';
+import { HomeService } from 'src/app/home/services/home.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'tmt-my-task-list',
@@ -14,9 +15,11 @@ export class MyTaskListComponent implements OnInit {
   first = 0;
   rows = 10;
   exportColumns: any[];
-  @ViewChild('dt', { static: false }) dt:Table;
+  contactCenterDetails: any;
+  @ViewChild('dt', { static: false }) dt: Table;
 
-  constructor(private homeService: HomeService) { }
+  constructor(private homeService: HomeService,
+    private router: Router) { }
 
   ngOnInit() {
 
@@ -39,10 +42,9 @@ export class MyTaskListComponent implements OnInit {
   }
 
   getTaskList() {
-    this.homeService.getTaskList().subscribe(data =>{
-      console.log(data);
+    this.homeService.getTaskList().subscribe(data => {
       this.data = data;
-    })
+    });
   }
 
   // Methods for pagination
@@ -69,7 +71,7 @@ export class MyTaskListComponent implements OnInit {
   //Export to PDF
   exportPdf() {
     import("jspdf").then(jsPDF => {
-      import("jspdf-autotable").then(x => {
+      import("jspdf-autotable").then(() => {
         const doc = new jsPDF.default(0, 0);
         doc.autoTable(this.exportColumns, this.data);
         doc.save('myTaskList.pdf');
@@ -113,4 +115,14 @@ export class MyTaskListComponent implements OnInit {
     this.dt.filterGlobal(searchValue, 'contains');
   }
 
+  onEditClick(rowData) {
+    this.contactCenterDetails = {
+      accountNo: rowData.accountNo,
+      taskID: rowData.id,
+      accountAction: 'Update'
+    }
+    if (rowData.taskType === 'Contact Center') {
+      this.router.navigateByUrl('/create/ad-account/contact-center', { state: { data: this.contactCenterDetails } });
+    }
+  }
 }

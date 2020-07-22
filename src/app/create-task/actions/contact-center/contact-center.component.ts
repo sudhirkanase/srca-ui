@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { map } from 'rxjs/operators';
 import { Location } from '@angular/common';
+import { isNullOrUndefined } from 'util';
+import { CreateTaskService } from '../../services/create-task.service';
 
 @Component({
   selector: 'tmt-contact-center',
@@ -11,24 +11,43 @@ import { Location } from '@angular/common';
 export class ContactCenterComponent implements OnInit {
 
   accountNumber: number;
+  contactDetailRequest: any;
+  contactCenterData: any;
 
   constructor(
-    private route: ActivatedRoute,
-    private router: Router,
+    private createTaskService: CreateTaskService,
     private location: Location
   ) { }
 
   ngOnInit() {
-    this.route.paramMap
-      .pipe(map(() => window.history.state))
-      .subscribe(state => {
-        this.accountNumber = state && state.accountNumber;
 
-        // if account number is not present/invalid, return to search
-        if (!this.accountNumber) {
-          this.location.back();
-          return;
-        }
+    this.contactDetailRequest = history.state.data;
+    if (!isNullOrUndefined(this.contactDetailRequest)) {
+      if (this.contactDetailRequest.taskID === 0 &&
+        this.contactDetailRequest.accountAction === 'Add') {
+        this.getContactInfo();
+      } else {
+        this.getContactDetailsByTask();
+      }
+    } else {
+      this.location.back();
+    }
+
+  }
+
+  // Add Contact center details
+  getContactInfo() {
+    this.createTaskService
+      .getContactDetailsByAccountNo(this.contactDetailRequest.accountNumber).subscribe(data => {
+        this.contactCenterData = data;
+      });
+  }
+
+  // Update Contact center details from home screen
+  getContactDetailsByTask() {
+    this.createTaskService
+      .getContactDetailsByTask(this.contactDetailRequest.accountNumber).subscribe(data => {
+        this.contactCenterData = data;
       });
   }
 }
