@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthenticationService } from '../services/auth/authentication.service';
+import { MenuItem } from 'primeng/api';
 
 @Component({
   selector: 'tmt-header',
@@ -10,7 +11,7 @@ import { AuthenticationService } from '../services/auth/authentication.service';
 export class HeaderComponent implements OnInit {
   currentUser: any;
   open = false
-
+  items: MenuItem[];
   constructor(
     private router: Router,
     private authenticationService: AuthenticationService) {
@@ -22,6 +23,7 @@ export class HeaderComponent implements OnInit {
     this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
     this.currentUser = this.authenticationService.getLoggedInUser();
     console.log( this.currentUser );
+    this.loadMenu()
   }
 
   logout() {
@@ -33,4 +35,14 @@ export class HeaderComponent implements OnInit {
     this.open = !this.open
     console.log(open)
   }
+  
+
+  loadMenu() {
+      this.items = [
+          {
+              label: 'Sign Out',icon:'pi pi-sign-out', command: () => this.logout()
+          }
+      ];
+  }
 }
+

@@ -20,5 +20,15 @@
       "fullyAuthenticated":"yes",
       "taskPriority": "high",
       "callDetails":"Test edit details"
+    },
+    "documentDetails":{
+    "document":"Document-2.pdf",
+    "dueBy":"25/5/2019",
+    "added":"yes",
+    "notes":"PDF file",
+    "additionalInst":"read",
+    "attchments":"yes",
+    "action":"read mode"
     }
+    
 }

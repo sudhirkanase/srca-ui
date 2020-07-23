@@ -1,5 +1,5 @@
 
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
 import { SelectItem } from 'primeng/api';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { CreateTaskService } from 'src/app/create-task/services/create-task.service';
@@ -26,7 +26,16 @@ export class DocumentComponent implements OnInit {
   currentFile: File;
   progress = 0;
   message = '';
+
+  @Input() DocumentDetailData: any;
   constructor(private documentService:CreateTaskService,private uploadService: UploadFileService) { }
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes.DocumentDetailData.previousValue !== changes.DocumentDetailData.currentValue) {
+      setTimeout(() => {
+        this.documents = this.DocumentDetailData
+      });
+    }
+  }
 
   ngOnInit() {
     this.getDocumentsdetails()   
