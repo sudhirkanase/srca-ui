@@ -18,7 +18,7 @@ import { HttpEventType, HttpResponse } from '@angular/common/http';
 export class DocumentComponent implements OnInit {
   uploadDoc:boolean =false
   cols: any[];
-  documents: any;
+  documents: [];
   fileTypes: SelectItem[];
 
   //document upload
@@ -81,10 +81,10 @@ export class DocumentComponent implements OnInit {
 }
 
 getDocumentsdetails(){
-  this.documentService.getDocumentDetails().subscribe(data =>{
-    console.log(data)
-    this.documents = data
-  })
+  // this.documentService.getDocumentDetails().subscribe(data =>{
+  //   console.log(data)
+  //   this.documents = data
+  // })
 }
 
 onSubmit(){

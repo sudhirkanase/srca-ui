@@ -21,7 +21,8 @@
       "taskPriority": "high",
       "callDetails":"Test edit details"
     },
-    "documentDetails":{
+    "documentDetails":[
+    {
     "document":"Document-2.pdf",
     "dueBy":"25/5/2019",
     "added":"yes",
@@ -30,5 +31,6 @@
     "attchments":"yes",
     "action":"read mode"
     }
+  ]
     
 }
