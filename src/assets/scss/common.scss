@@ -1,3 +1,5 @@
+@import "./variables.scss";
+
 .no-pad{
     padding: 0 !important;
 }
@@ -67,4 +69,16 @@
 }
 .position-abs{
     position: absolute;
+}
+
+p-radiobutton.invalid-radio .ui-radiobutton .ui-radiobutton-box {
+    border: 1px solid $invalid-input-border;
+}
+ 
+p-editor.invalid-editor .ui-editor-container {
+    border: 1px solid $invalid-input-border;
+}
+
+p-dropdown.invalid-dropdown .ui-dropdown {
+    border: 1px solid $invalid-input-border;
 }

@@ -7,27 +7,32 @@
       </div>
       <div class=" col-md-4">
         <label class="task-detail-label">Caller Phone<span class="required-indicator">*</span></label>
-        <input formControlName="callerPhone" type="number" pInputText />
+        <p-inputMask formControlName="callerPhone" mask="(999) 999-9999"></p-inputMask>
       </div>
     </div>
     <div class="row col-md-12 task-details-b-pad">
       <div class=" col-md-4">
         <label class="task-detail-label">Call Code<span class="required-indicator">*</span></label>
-        <p-dropdown formControlName="callCode" [options]="callCodes" (onChange)="loadActionByCallCode(callCode.value)">
+        <p-dropdown formControlName="callCode" [options]="callCodes" (onChange)="loadActionByCallCode(callCode.value)"
+          [ngClass]="{ 'invalid-dropdown': callCode.errors && callCode.touched }">
         </p-dropdown>
 
       </div>
       <div class=" col-md-4">
         <label class="task-detail-label">Action<span class="required-indicator">*</span></label>
-        <p-dropdown formControlName="action" [options]="actions"></p-dropdown>
+        <p-dropdown formControlName="action" [options]="actions"
+          [ngClass]="{ 'invalid-dropdown': action.errors && action.touched }">
+        </p-dropdown>
       </div>
     </div>
     <div class="row col-md-12 task-details-b-pad">
       <div class=" col-md-4">
         <label class="task-detail-label">Fully Authenticated<span class="required-indicator">*</span></label>
-        <p-radioButton name="fullAuth" value="yes" formControlName="fullyAuthenticated" label="Yes" inputId="opt1">
+        <p-radioButton name="fullAuth" value="yes" formControlName="fullyAuthenticated" label="Yes" inputId="opt1"
+          [ngClass]="{ 'invalid-radio': fullyAuthenticated.errors && fullyAuthenticated.touched }">
         </p-radioButton>
-        <p-radioButton name="fullAuth" value="no" formControlName="fullyAuthenticated" label="No" inputId="opt2">
+        <p-radioButton name="fullAuth" value="no" formControlName="fullyAuthenticated" label="No" inputId="opt2"
+          [ngClass]="{ 'invalid-radio': fullyAuthenticated.errors && fullyAuthenticated.touched }">
         </p-radioButton>
       </div>
 
@@ -35,9 +40,11 @@
     <div class="row col-md-12 task-details-b-pad">
       <div class="col-md-4">
         <label class="task-detail-label">Taxpayer ID<span class="required-indicator">*</span></label>
-        <p-radioButton name="taxID" value="yes" formControlName="taxPayerID" label="Yes" inputId="tax1">
+        <p-radioButton name="taxID" value="yes" formControlName="taxPayerID" label="Yes" inputId="tax1"
+          [ngClass]="{ 'invalid-radio': taxPayerID.errors && taxPayerID.touched }">
         </p-radioButton>
-        <p-radioButton name="taxID" value="no" formControlName="taxPayerID" label="No" inputId="tax2"></p-radioButton>
+        <p-radioButton name="taxID" value="no" formControlName="taxPayerID" label="No" inputId="tax2"
+          [ngClass]="{ 'invalid-radio': taxPayerID.errors && taxPayerID.touched }"></p-radioButton>
       </div>
       <div class="col-md-4" *ngIf="taxPayerID.value === 'yes'">
         <label class="task-detail-label">Taxpayer ID</label>
@@ -61,7 +68,9 @@
         <label class="task-detail-label">Call Details<span class="required-indicator">*</span></label>
       </div>
       <div class="editor-pad col-md-7">
-        <p-editor formControlName="callDetails" [style]="{'height':'200px'}"></p-editor>
+        <p-editor formControlName="callDetails" [style]="{'height':'200px'}"
+          [ngClass]="{ 'invalid-editor': callDetails.errors && (callDetails.touched || isFormSubmitted) }">
+        </p-editor>
       </div>
     </div>
     <div class="row col-md-12 task-details-b-pad">
