@@ -1,0 +1,10 @@
+.login-header-btn {
+    button.ui-button{
+        &:focus{
+            border: none;
+        }
+        &:hover{
+            background-color: red;
+        }
+        }
+}

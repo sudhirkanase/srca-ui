@@ -28,11 +28,11 @@
   display: $display-inline;
   padding-left: $pad-30;
   padding-right: $pad-8;
-  margin-top: $pad-5;
+  margin-top: 2px;
   float: $right;
 }
 .question-icon{
-    margin-top: 5px;
+    margin-top: 3px;
     float: $right;
 }
 .login-name{
@@ -68,4 +68,14 @@
     background-clip: padding-box;
     border: 1px solid rgba(0,0,0,.15);
 }
-  
+.login-btn{
+    float: right;
+    background-color: transparent;
+   font-weight: normal;
+   font-size: 14px;
+}
+.down-arrow{
+    display: inline-block;
+    margin-left: 6px;
+}
+

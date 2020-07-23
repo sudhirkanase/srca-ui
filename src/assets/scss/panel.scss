@@ -77,3 +77,20 @@
         }
     }
 }
+
+.header-panel p-slidemenu{
+    .ui-slidemenu.ui-slidemenu-dynamic{
+        z-index: 1001;
+        top: 34px;
+        left: 1258.59px;
+        transform: translateY(0px);
+        opacity: 1;
+        width: 122px;
+        .ui-slidemenu-wrapper{
+            .ui-slidemenu-content{
+                height: 39px !important;
+                overflow-y: hidden;
+            }
+        }
+    }
+}

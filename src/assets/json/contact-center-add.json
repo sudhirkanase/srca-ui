@@ -11,5 +11,6 @@
     "mainAccountNo": 3410019,
     "marketValue": "$200000",
     "branchCode": 750121,
-    "taskDetail": null
+    "taskDetail": null,
+    "documentDetails":null
 }
