@@ -10,7 +10,7 @@ export const environment = {
 //export const API_URL= "http://localhost:8080";
 
 // With JPA services URL locally
-export const TASK_MANAGEMENT_SERVICES_URL = "http://192.168.0.94:8080";
+export const TASK_MANAGEMENT_SERVICES_URL = "http://localhost:8080";
 
 export const AUTH_KEY = "AUTH_KEY";
 export const LOGGEDIN_USER_INFO = "SESSION_USER";
