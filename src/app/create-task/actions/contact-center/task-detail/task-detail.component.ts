@@ -42,15 +42,15 @@ export class TaskDetailComponent implements OnInit, OnChanges {
     this.dropdownData = CONTACT_CENTER_TASK_DROPDOWN_DATA;
 
     this.taskDetailForm = this.formBuilder.group({
-      callerName: ['', Validators.required],
+      callerName: [null, Validators.required],
       callerPhone: [null, Validators.required],
-      action: ['', Validators.required],
-      callCode: ['', Validators.required],
-      taxPayerID: ['', Validators.required],
-      fullyAuthenticated: ['', Validators.required],
-      taskPriority: [''],
-      taskNotes: [''],
-      callDetails: ['', Validators.required]
+      action: [null, Validators.required],
+      callCode: [null, Validators.required],
+      taxPayerID: [null, Validators.required],
+      fullyAuthenticated: [null, Validators.required],
+      taskPriority: ['low'],
+      taskNotes: [null],
+      callDetails: [null, Validators.required]
     });
 
     this.taskPriorityData = [
@@ -89,9 +89,11 @@ export class TaskDetailComponent implements OnInit, OnChanges {
 
   loadActionByCallCode(callCodeValue: string): void {
     if (!callCodeValue) {
+      this.actions = [];
       return;
     }
 
+    this.action.setValue(null);
     const actionOptions = this.dropdownData[callCodeValue].map(action => {
       return {
         label: action, value: action
