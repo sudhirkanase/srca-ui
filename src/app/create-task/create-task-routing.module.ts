@@ -13,6 +13,11 @@ const routes: Routes = [
     loadChildren: () => import('./account/account.module').then(m => m.AccountModule),
     data: { type: 'IFS' }
   },
+  {
+    path: 'pb-account',
+    loadChildren: () => import('./account/account.module').then(m => m.AccountModule),
+    data: { type: 'PB' }
+  },
 ];
 
 @NgModule({

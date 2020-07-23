@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { CreateTaskService } from '../../services/create-task.service';
 import { Account } from './../../model/Account';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'tmt-account-search',
@@ -14,10 +15,14 @@ export class AccountSearchComponent implements OnInit {
   accountName: string;
   cols: any[];
   accounts: Account[];
+  accountType: string;
 
-  constructor(private createTaskService: CreateTaskService) { }
+  constructor(private createTaskService: CreateTaskService,
+    private route: ActivatedRoute) { }
 
   ngOnInit() {
+    this.accountType = this.route.snapshot.data.type;
+
     this.cols = [
       { field: 'select', header: 'Select Account' },
       { field: 'accountNumber', header: 'Account Number' },
