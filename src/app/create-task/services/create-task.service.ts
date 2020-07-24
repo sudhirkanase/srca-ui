@@ -15,15 +15,11 @@ export class CreateTaskService extends BaseService<any> {
   }
 
   searchAccounts(account): Observable<Account[]> {
-   // return this.get<Account[]>('assets/json/account-list.json');
-   return this.get<Account[]>(`${this.taskManagementServiceUrl}/searchAccounts/${account.accountNumber}/${account.accountName}`);
+    return this.get<Account[]>(`${this.taskManagementServiceUrl}/searchAccounts/${account.accountNumber}/${account.accountName}`);
   }
 
-  getAccountByAccountNumber(accountNumber: number): Observable<Account[]> {
-    return this.get<Account[]>('assets/json/account-list.json')
-      .pipe(
-        map(accounts => accounts.filter((account: Account) => account.accountNumber === accountNumber))
-      );
+  getAccountByAccountNumber(accountNumber: number): Observable<Account> {
+    return this.get<Account>(`${this.taskManagementServiceUrl}/getAccount/${accountNumber}`);
   }
 
   getTasksByAccountNumber(accountNumber: number): Observable<any> {
