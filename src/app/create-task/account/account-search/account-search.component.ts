@@ -32,7 +32,7 @@ export class AccountSearchComponent implements OnInit {
   }
 
   search(searchForm: any): void {
-    this.createTaskService.searchAccounts().subscribe((searchedAccounts: Account[]) => {
+    this.createTaskService.searchAccounts(searchForm).subscribe((searchedAccounts: Account[]) => {
       this.accounts = searchedAccounts;
     });
   }
