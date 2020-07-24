@@ -7,7 +7,7 @@ describe('MenuService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(MenuService);
+    service = TestBed.get(MenuService);
   });
 
   it('should be created', () => {

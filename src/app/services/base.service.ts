@@ -10,7 +10,7 @@ import {
 import { catchError } from 'rxjs/operators';
 import { UserInfoBean } from '../beans/userinfo-bean';
 
-type HTTP_OPTIONS = {
+interface HTTP_OPTIONS {
   headers?: HttpHeaders | { [header: string]: string | string[]; };
   observe?: "body";
   params?: HttpParams | { [param: string]: string | string[]; };
