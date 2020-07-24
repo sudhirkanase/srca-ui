@@ -41,8 +41,11 @@
                             </div>
                             <div class="col-sm-8">
                                 <input type="text" pInputText name="accountName" id="accountName" #accountNameVal="ngModel"
-                                    class="form-control search-input" [(ngModel)]="accountName" required/>
+                                    class="form-control search-input" [(ngModel)]="accountName" minlength="3" required/>
                                     <div *ngIf="accountNameVal.invalid && (accountNameVal.dirty || accountNameVal.touched)" class="alert alert-danger form-danger">
+                                        <div *ngIf="accountNameVal.errors.minlength">
+                                            Please enter at least three letters
+                                          </div>
                                         <div *ngIf="accountNameVal.errors.required">
                                             Please enter Account Name
                                         </div>
