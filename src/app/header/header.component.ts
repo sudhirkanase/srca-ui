@@ -34,7 +34,7 @@ export class HeaderComponent implements OnInit {
   loadMenu() {
     this.items = [
       {
-        label: 'Sign Out', icon: 'pi pi-sign-out', command: () => this.logout()
+        label: 'Sign Out', command: () => this.logout()
       }
     ];
   }
