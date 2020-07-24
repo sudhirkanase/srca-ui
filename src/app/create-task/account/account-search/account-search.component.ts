@@ -5,7 +5,7 @@ import { Account } from './../../model/Account';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
-  selector: 'tmt-account-search',
+  selector: 'srca-account-search',
   templateUrl: './account-search.component.html',
   styleUrls: ['./account-search.component.scss']
 })

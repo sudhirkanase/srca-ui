@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "tmt-app": {
+    "srca-ui": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/tmt-app",
+            "outputPath": "dist/srca-ui",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -77,18 +77,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "tmt-app:build"
+            "browserTarget": "srca-ui:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "tmt-app:build:production"
+              "browserTarget": "srca-ui:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "tmt-app:build"
+            "browserTarget": "srca-ui:build"
           }
         },
         "test": {
@@ -125,16 +125,16 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "tmt-app:serve"
+            "devServerTarget": "srca-ui:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "tmt-app:serve:production"
+              "devServerTarget": "srca-ui:serve:production"
             }
           }
         }
       }
     }
   },
-  "defaultProject": "tmt-app"
+  "defaultProject": "srca-ui"
 }

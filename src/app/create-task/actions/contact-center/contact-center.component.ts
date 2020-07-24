@@ -4,7 +4,7 @@ import { isNullOrUndefined } from 'util';
 import { CreateTaskService } from '../../services/create-task.service';
 
 @Component({
-  selector: 'tmt-contact-center',
+  selector: 'srca-contact-center',
   templateUrl: './contact-center.component.html',
   styleUrls: ['./contact-center.component.scss']
 })

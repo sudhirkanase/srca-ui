@@ -7,7 +7,7 @@ import { isNullOrUndefined } from 'util';
 import { CreateTaskSharedService } from '../../services/create-task-shared.service';
 
 @Component({
-  selector: 'tmt-account-summary',
+  selector: 'srca-account-summary',
   templateUrl: './account-summary.component.html',
   styleUrls: ['./account-summary.component.scss']
 })

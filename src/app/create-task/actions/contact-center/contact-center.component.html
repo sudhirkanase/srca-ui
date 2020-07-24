@@ -81,11 +81,11 @@
     <p-card>
       <p-tabView>
         <p-tabPanel header="Task Detail">
-          <tmt-task-detail [taskDetailData]="contactCenterData?.taskDetail" (saveTaskDetails)="saveTask($event)">
-          </tmt-task-detail>
+          <srca-task-detail [taskDetailData]="contactCenterData?.taskDetail" (saveTaskDetails)="saveTask($event)">
+          </srca-task-detail>
         </p-tabPanel>
         <p-tabPanel header="Document">
-          <tmt-document [DocumentDetailData]="contactCenterData?.documentDetails"></tmt-document>
+          <srca-document [DocumentDetailData]="contactCenterData?.documentDetails"></srca-document>
         </p-tabPanel>
       </p-tabView>
     </p-card>

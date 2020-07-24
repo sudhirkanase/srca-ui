@@ -4,7 +4,7 @@ import { AuthenticationService } from '../services/auth/authentication.service';
 import { MenuItem } from 'primeng/api';
 
 @Component({
-  selector: 'tmt-header',
+  selector: 'srca-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })
@@ -19,10 +19,10 @@ export class HeaderComponent implements OnInit {
   }
 
   ngOnInit(): void {
-  
+
     this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
     this.currentUser = this.authenticationService.getLoggedInUser();
-    console.log( this.currentUser );
+    console.log(this.currentUser);
     this.loadMenu()
   }
 
@@ -35,14 +35,14 @@ export class HeaderComponent implements OnInit {
     this.open = !this.open
     console.log(open)
   }
-  
+
 
   loadMenu() {
-      this.items = [
-          {
-              label: 'Sign Out',icon:'pi pi-sign-out', command: () => this.logout()
-          }
-      ];
+    this.items = [
+      {
+        label: 'Sign Out', icon: 'pi pi-sign-out', command: () => this.logout()
+      }
+    ];
   }
 }
 
