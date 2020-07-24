@@ -18,14 +18,13 @@ export class MyTaskListComponent implements OnInit {
   contactCenterDetails: any;
   @ViewChild('dt', { static: false }) dt: Table;
 
-  constructor(private homeService: HomeService,
-    private router: Router) { }
+  constructor(private homeService: HomeService, private router: Router) { }
 
   ngOnInit() {
 
     this.getTaskList();
 
-    //Columns required
+    // Columns required
     this.cols = [
       { field: 'id', header: 'ID' },
       { field: 'taskType', header: 'Task Type' },
@@ -68,32 +67,32 @@ export class MyTaskListComponent implements OnInit {
     return this.first === 0;
   }
 
-  //Export to PDF
+  // Export to PDF
   exportPdf() {
-    import("jspdf").then(jsPDF => {
-      import("jspdf-autotable").then(() => {
+    import('jspdf').then(jsPDF => {
+      import('jspdf-autotable').then(() => {
         const doc = new jsPDF.default(0, 0);
         doc.autoTable(this.exportColumns, this.data);
         doc.save('myTaskList.pdf');
-      })
-    })
-  }
-
-  //Export to Excel
-  exportExcel() {
-    import("xlsx").then(xlsx => {
-      const worksheet = xlsx.utils.json_to_sheet(this.getTaskDataToString());
-      const workbook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
-      const excelBuffer: any = xlsx.write(workbook, { bookType: 'xlsx', type: 'array' });
-      this.saveAsExcelFile(excelBuffer, "myTaskList");
+      });
     });
   }
 
-  //Save the Excel File
+  // Export to Excel
+  exportExcel() {
+    import('xlsx').then(xlsx => {
+      const worksheet = xlsx.utils.json_to_sheet(this.getTaskDataToString());
+      const workbook = { Sheets: { data: worksheet }, SheetNames: ['data'] };
+      const excelBuffer: any = xlsx.write(workbook, { bookType: 'xlsx', type: 'array' });
+      this.saveAsExcelFile(excelBuffer, 'myTaskList');
+    });
+  }
+
+  // Save the Excel File
   saveAsExcelFile(buffer: any, fileName: string): void {
-    import("file-saver").then(FileSaver => {
-      let EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
-      let EXCEL_EXTENSION = '.xlsx';
+    import('file-saver').then(FileSaver => {
+      const EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
+      const EXCEL_EXTENSION = '.xlsx';
       const data: Blob = new Blob([buffer], {
         type: EXCEL_TYPE
       });
@@ -102,8 +101,8 @@ export class MyTaskListComponent implements OnInit {
   }
 
   getTaskDataToString() {
-    let dataToString = [];
-    for (let data of this.data) {
+    const dataToString = [];
+    for (const data of this.data) {
       data.id = data.id.toString();
       dataToString.push(data);
     }
@@ -120,7 +119,7 @@ export class MyTaskListComponent implements OnInit {
       accountNo: rowData.accountNo,
       taskID: rowData.id,
       accountAction: 'Update'
-    }
+    };
     if (rowData.taskType === 'Contact Center') {
       this.router.navigateByUrl('/create/ad-account/contact-center', { state: { data: this.contactCenterDetails } });
     }
