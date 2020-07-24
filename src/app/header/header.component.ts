@@ -11,6 +11,7 @@ import { MenuItem } from 'primeng/api';
 export class HeaderComponent implements OnInit {
   currentUser: any;
   items: MenuItem[];
+  open: boolean;
   constructor(
     private router: Router,
     private authenticationService: AuthenticationService) {
@@ -28,6 +29,10 @@ export class HeaderComponent implements OnInit {
   logout() {
     this.authenticationService.logout();
     this.router.navigate(['/login']);
+  }
+  myFunc() {
+    this.open = !this.open
+    console.log(open)
   }
 
 
