@@ -64,7 +64,7 @@ export class AccountSummaryComponent implements OnInit {
   getAccountDetails(): void {
 
     this.createTaskService.getAccountByAccountNumber(this.accountNumber).subscribe((data: any) => {
-      this.accountDetails = data[0];
+      this.accountDetails = data;
     });
 
     if (this.accountDetails && this.accountDetails.accountNumber) {
