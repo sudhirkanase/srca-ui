@@ -30,12 +30,7 @@ export class HeaderComponent implements OnInit {
     this.authenticationService.logout();
     this.router.navigate(['/login']);
   }
-  myFunc() {
-    this.open = !this.open
-    console.log(open)
-  }
-
-
+ 
   loadMenu() {
     this.items = [
       {
