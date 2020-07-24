@@ -9,14 +9,14 @@ import { HttpEventType, HttpResponse } from '@angular/common/http';
 
 
 @Component({
-  selector: 'tmt-document',
+  selector: 'srca-document',
   templateUrl: './document.component.html',
   styleUrls: ['./document.component.scss']
 })
 
 
 export class DocumentComponent implements OnInit {
-  uploadDoc:boolean =false
+  uploadDoc: boolean = false
   cols: any[];
   documents: [];
   fileTypes: SelectItem[];
@@ -28,7 +28,7 @@ export class DocumentComponent implements OnInit {
   message = '';
 
   @Input() DocumentDetailData: any;
-  constructor(private documentService:CreateTaskService,private uploadService: UploadFileService) { }
+  constructor(private documentService: CreateTaskService, private uploadService: UploadFileService) { }
   ngOnChanges(changes: SimpleChanges) {
     if (changes.DocumentDetailData.previousValue !== changes.DocumentDetailData.currentValue) {
       setTimeout(() => {
@@ -38,88 +38,88 @@ export class DocumentComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getDocumentsdetails()   
+    this.getDocumentsdetails()
 
     this.filetypes()
 
     this.cols = [
-      { field: 'document', header: 'Document'},
-      { field: 'dueBy', header: 'Due By'},
-      { field: 'added', header: 'Added'},
-      { field: 'notes', header: 'Notes'},
-      { field: 'additionalInst', header: 'Additional Instructions'},
-      { field: 'attchments', header: 'Attachments'},
-      { field: 'action', header: 'Action'}
+      { field: 'document', header: 'Document' },
+      { field: 'dueBy', header: 'Due By' },
+      { field: 'added', header: 'Added' },
+      { field: 'notes', header: 'Notes' },
+      { field: 'additionalInst', header: 'Additional Instructions' },
+      { field: 'attchments', header: 'Attachments' },
+      { field: 'action', header: 'Action' }
     ]
 
   }
 
   documentDetailsForm = new FormGroup(
     {
-      fileType : new FormControl('',Validators.required),
-      description : new FormControl('',Validators.required),
-      fileName : new FormControl('',Validators.required)
+      fileType: new FormControl('', Validators.required),
+      description: new FormControl('', Validators.required),
+      fileName: new FormControl('', Validators.required)
     }
   )
   get formAltaControls(): any {
     return this.documentDetailsForm['controls'];
- }
+  }
 
-  openDialog(){
+  openDialog() {
     console.log("btn clicked")
     this.uploadDoc = !this.uploadDoc
   }
 
-  filetypes(){
+  filetypes() {
     this.fileTypes = [
-      {label:'Miscellaneouse', value:null},
-      {label:'Text', value:{id:2, name: 'Text', code: 'TT'}},
-      {label:'PDF', value:{id:3, name: 'PDF', code: 'PD'}},
-      {label:'JPEG', value:{id:4, name: 'JPEG', code: 'JPG'}},
-      {label:'PNG', value:{id:5, name: 'PNG', code: 'PNG'}}
-  ];
-}
+      { label: 'Miscellaneouse', value: null },
+      { label: 'Text', value: { id: 2, name: 'Text', code: 'TT' } },
+      { label: 'PDF', value: { id: 3, name: 'PDF', code: 'PD' } },
+      { label: 'JPEG', value: { id: 4, name: 'JPEG', code: 'JPG' } },
+      { label: 'PNG', value: { id: 5, name: 'PNG', code: 'PNG' } }
+    ];
+  }
 
-getDocumentsdetails(){
-  // this.documentService.getDocumentDetails().subscribe(data =>{
-  //   console.log(data)
-  //   this.documents = data
-  // })
-}
+  getDocumentsdetails() {
+    // this.documentService.getDocumentDetails().subscribe(data =>{
+    //   console.log(data)
+    //   this.documents = data
+    // })
+  }
 
-onSubmit(){
-  console.log(this.documentDetailsForm.value)
-  this.upload()
-}
-onCancel(){
-  this.uploadDoc = !this.uploadDoc
-}
+  onSubmit() {
+    console.log(this.documentDetailsForm.value)
+    this.upload()
+  }
+  onCancel() {
+    this.uploadDoc = !this.uploadDoc
+  }
 
-//upload file code
-selectFile(event) {
-  this.selectedFiles = event.target.files;
-}
+  //upload file code
+  selectFile(event) {
+    this.selectedFiles = event.target.files;
+  }
 
-upload() {
-  this.progress = 0;
+  upload() {
+    this.progress = 0;
 
-  this.currentFile = this.selectedFiles.item(0);
-  this.uploadService.upload(this.currentFile).subscribe(
-    event => {
-      if (event.type === HttpEventType.UploadProgress) {
-        this.progress = Math.round(100 * event.loaded / event.total);
-      } else if (event instanceof HttpResponse) {
-        this.message = event.body.message;
-        console.log("uploaded")
-      }
-    },
-    err => {
-      this.progress = 0;
-      this.message = 'Could not upload the file!';
-      this.currentFile = undefined;
-    });
+    this.currentFile = this.selectedFiles.item(0);
+    this.uploadService.upload(this.currentFile).subscribe(
+      event => {
+        if (event.type === HttpEventType.UploadProgress) {
+          this.progress = Math.round(100 * event.loaded / event.total);
+        } else if (event instanceof HttpResponse) {
+          this.message = event.body.message;
+          console.log("uploaded")
+        }
+      },
+      err => {
+        this.progress = 0;
+        this.message = 'Could not upload the file!';
+        this.currentFile = undefined;
+      });
 
-  this.selectedFiles = undefined;
-}
+    this.selectedFiles = undefined;
+  }
 
 }

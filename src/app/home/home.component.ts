@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { SelectItem } from 'primeng/api';
 
 @Component({
-    selector: 'tmt-home',
+    selector: 'srca-home',
     templateUrl: './home.component.html',
     styleUrls: ['./home.component.scss']
 })

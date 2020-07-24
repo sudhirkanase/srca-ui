@@ -4,7 +4,7 @@ import { HomeService } from 'src/app/home/services/home.service';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'tmt-my-task-list',
+  selector: 'srca-my-task-list',
   templateUrl: './my-task-list.component.html',
   styleUrls: ['./my-task-list.component.scss']
 })

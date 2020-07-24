@@ -7,7 +7,7 @@ import { Account } from './../../../model/Account';
 import { CONTACT_CENTER_TASK_DROPDOWN_DATA } from 'src/app/app.constants';
 
 @Component({
-  selector: 'tmt-task-detail',
+  selector: 'srca-task-detail',
   templateUrl: './task-detail.component.html',
   styleUrls: ['./task-detail.component.scss']
 })
