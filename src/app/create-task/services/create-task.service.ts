@@ -21,6 +21,7 @@ export class CreateTaskService extends BaseService<any> {
   getAccountByAccountNumber(accountNumber: number): Observable<Account> {
     return this.get<Account>(`${this.taskManagementServiceUrl}/getAccount/${accountNumber}`);
   }
+  
 
   getTasksByAccountNumber(accountNumber: number): Observable<any> {
     return this.get<any>('assets/json/task-list.json');
