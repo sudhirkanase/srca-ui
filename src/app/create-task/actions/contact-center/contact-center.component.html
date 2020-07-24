@@ -8,7 +8,7 @@
         <div class="row col-md-12 bottom-border">
           <div class=" col-md-4">
             <label>Task ID</label>
-            <span class="label-pad">{{contactCenterData?.taskID}}</span>
+            <span class="label-pad">{{contactCenterData?.id}}</span>
           </div>
           <div class=" col-md-4">
             <label>Status</label>
@@ -16,7 +16,7 @@
           </div>
           <div class=" col-md-4">
             <label>Phone</label>
-            <span class="label-pad">{{contactCenterData?.phoneNo}}</span>
+            <span class="label-pad">{{contactCenterData?.phone}}</span>
           </div>
         </div>
         <div class="row col-md-12 bottom-border pad-t-5">
@@ -30,7 +30,7 @@
           </div>
           <div class=" col-md-4">
             <label>Assigned User</label>
-            <span class="label-pad">{{contactCenterData?.assignedUser}}</span>
+            <span class="label-pad">{{contactCenterData?.assignedUserGroup}}</span>
           </div>
         </div>
         <div class="row col-md-12 pad-t-5">
@@ -53,25 +53,25 @@
         <div class="row col-md-12 bottom-border">
           <div class=" col-md-4">
             <label>Account Number</label>
-            <span class="label-pad">{{contactDetailRequest?.accountNo}}</span>
+            <span class="label-pad">{{contactCenterData?.accountDetail?.accountNumber}}</span>
           </div>
           <div class=" col-md-4">
             <label>Account Short Name</label>
-            <span class="label-pad">{{contactCenterData?.accountShortName}}</span>
+            <span class="label-pad">{{contactCenterData?.accountDetail?.accountShortName}}</span>
           </div>
           <div class=" col-md-4">
             <label>Main Acct Number</label>
-            <span class="label-pad">{{contactCenterData?.mainAccountNo}}</span>
+            <span class="label-pad">{{contactCenterData?.accountDetail?.mainAccountNumber}}</span>
           </div>
         </div>
         <div class="row col-md-12 pad-t-5">
           <div class=" col-md-4">
             <label>Market Value</label>
-            <span class="label-pad">{{contactCenterData?.marketValue}}</span>
+            <span class="label-pad">{{contactCenterData?.accountDetail?.marketValue}}</span>
           </div>
           <div class=" col-md-4">
             <label>Branch Code</label>
-            <span class="label-pad">{{contactCenterData?.branchCode}}</span>
+            <span class="label-pad">{{contactCenterData?.accountDetail?.branchCode}}</span>
           </div>
         </div>
       </div>
@@ -81,11 +81,11 @@
     <p-card>
       <p-tabView>
         <p-tabPanel header="Task Detail">
-          <srca-task-detail [taskDetailData]="contactCenterData?.taskDetail" (saveTaskDetails)="saveTask($event)">
+          <srca-task-detail [taskDetailData]="contactCenterData" (saveTaskDetails)="saveTask($event)">
           </srca-task-detail>
         </p-tabPanel>
         <p-tabPanel header="Document">
-          <srca-document [DocumentDetailData]="contactCenterData?.documentDetails"></srca-document>
+          <srca-document [DocumentDetailData]="contactCenterData?.documents"></srca-document>
         </p-tabPanel>
       </p-tabView>
     </p-card>

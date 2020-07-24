@@ -146,7 +146,7 @@ export class TaskDetailComponent implements OnInit, OnChanges {
         callerPhone: this.taskDetailData.callerPhone,
         action: this.taskDetailData.action,
         callCode: this.taskDetailData.callCode,
-        taxPayerID: this.taskDetailData.taxPayerID,
+        taxPayerID: this.taskDetailData.taxpayerId,
         fullyAuthenticated: this.taskDetailData.fullyAuthenticated,
         taskPriority: this.taskDetailData.taskPriority,
         callDetails: this.taskDetailData.callDetails,

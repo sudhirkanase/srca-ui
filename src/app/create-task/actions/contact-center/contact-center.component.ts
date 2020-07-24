@@ -10,7 +10,6 @@ import { CreateTaskService } from '../../services/create-task.service';
 })
 export class ContactCenterComponent implements OnInit {
 
-  accountNumber: number;
   contactDetailRequest: any;
   contactCenterData: any;
 
@@ -23,31 +22,22 @@ export class ContactCenterComponent implements OnInit {
 
     this.contactDetailRequest = history.state.data;
     if (!isNullOrUndefined(this.contactDetailRequest)) {
-      if (this.contactDetailRequest.taskID === 0 &&
-        this.contactDetailRequest.accountAction === 'Add') {
-        this.getContactInfo();
-      } else {
-        this.getContactDetailsByTask();
-      }
+      this.getContactDetail();
     } else {
       this.location.back();
     }
-
   }
 
-  // Add Contact center details
-  getContactInfo() {
+  // API call to get contact center details
+  getContactDetail() {
+    let contactRequestBody = {
+      id: this.contactDetailRequest.taskID,
+      accountNo: this.contactDetailRequest.accountNo
+    }
     this.createTaskService
-      .getContactDetailsByAccountNo(this.contactDetailRequest.accountNumber).subscribe(data => {
+      .getContactDetail(contactRequestBody).subscribe(data => {
         this.contactCenterData = data;
-      });
-  }
-
-  // Update Contact center details from home screen
-  getContactDetailsByTask() {
-    this.createTaskService
-      .getContactDetailsByTask(this.contactDetailRequest.accountNumber).subscribe(data => {
-        this.contactCenterData = data;
+        console.log("backed", this.contactCenterData);
       });
   }
 

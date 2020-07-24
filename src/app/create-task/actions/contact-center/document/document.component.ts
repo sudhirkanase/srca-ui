@@ -29,6 +29,7 @@ export class DocumentComponent implements OnInit {
 
   @Input() DocumentDetailData: any;
   constructor(private documentService: CreateTaskService, private uploadService: UploadFileService) { }
+  
   ngOnChanges(changes: SimpleChanges) {
     if (changes.DocumentDetailData.previousValue !== changes.DocumentDetailData.currentValue) {
       setTimeout(() => {
@@ -43,13 +44,13 @@ export class DocumentComponent implements OnInit {
     this.filetypes()
 
     this.cols = [
-      { field: 'document', header: 'Document' },
-      { field: 'dueBy', header: 'Due By' },
+      { field: 'documentName', header: 'Document' },
+      { field: 'dueDate', header: 'Due By' },
       { field: 'added', header: 'Added' },
       { field: 'notes', header: 'Notes' },
       { field: 'additionalInst', header: 'Additional Instructions' },
-      { field: 'attchments', header: 'Attachments' },
-      { field: 'action', header: 'Action' }
+      { field: 'attachment', header: 'Attachments' },
+      { field: 'documentAction', header: 'Action' }
     ]
 
   }
