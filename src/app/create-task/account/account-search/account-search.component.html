@@ -28,7 +28,7 @@
                                           Please enter at least three letters
                                         </div>
                                         <div *ngIf="accountNumberVal.errors.required">
-                                            Please enter account number
+                                            Please enter Account Number
                                         </div>
                                     </div>
                             </div>
@@ -44,7 +44,7 @@
                                     class="form-control search-input" [(ngModel)]="accountName" required/>
                                     <div *ngIf="accountNameVal.invalid && (accountNameVal.dirty || accountNameVal.touched)" class="alert alert-danger form-danger">
                                         <div *ngIf="accountNameVal.errors.required">
-                                            Please enter account number
+                                            Please enter Account Name
                                         </div>
                                     </div>
                             </div>
@@ -53,7 +53,7 @@
                     <div class="col-sm-2">
                         <div class="row">
                             <div class="col-sm-8">
-                                <button type="submit" class="btn btn-primary" [disabled]="!searchForm.valid">
+                                <button type="submit" class="btn btn-primary" [disabled]="!accountNumberVal.valid && !accountNameVal.valid">
                                     Search
                                 </button>
                             </div>
