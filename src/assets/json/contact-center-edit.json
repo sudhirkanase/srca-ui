@@ -1,36 +1,46 @@
 {
-    "taskID": 12111,
-    "status": "Closed",
-    "phoneNo": "+(844) 235678",
-    "createdDate": "17/07/2020",
-    "email": "test@wellsfargo.com",
-    "assignedUser": "Update User Group",
-    "assignedEmail": "test-assign@wellsfargo.com",
-    "accountService": "Test Service",
-    "accountShortName": "Test name",
-    "mainAccountNo": 3410019,
-    "marketValue": "$10000",
-    "branchCode": 750121,
-    "taskDetail": {
-      "callerName": "Test",
-      "callerPhone": "+(944) 741101",
-      "action": "Action Test",
-      "callCode": 100,
-      "taxPayerID": "no",
-      "fullyAuthenticated":"yes",
-      "taskPriority": "high",
-      "callDetails":"Test edit details"
-    },
-    "documentDetails":[
-    {
-    "document":"Document-2.pdf",
-    "dueBy":"25/5/2019",
-    "added":"yes",
-    "notes":"PDF file",
-    "additionalInst":"read",
-    "attchments":"yes",
-    "action":"read mode"
-    }
-  ]
-    
+	"id": 100112,
+	"status": "Closed",
+	"phone": "+(844) 235678",
+	"createdDate": "17/07/2020",
+	"email": "test@wellsfargo.com",
+	"assignedUserGroup": "Update User Group",
+	"assignedEmail": "test-assign@wellsfargo.com",
+	"accountService": "Test Service",
+	"accountDetail": {
+		"accountShortName": "Test name",
+		"mainAccountNumber": 3410019,
+		"marketValue": 10000,
+		"branchCode": 750121,
+		"accountNumber": 11231100
+	},
+	"documents": [
+		{
+			"documentName": "Document-1.pdf",
+			"dueDate": "25/10/2020",
+			"added": "yes",
+			"notes": "PDF file",
+			"additionalInst": "read",
+			"attachment": "yes",
+			"documentAction": "read mode"
+		},
+		{
+			"documentName": "Document-2.pdf",
+			"dueDate": "02/12/2020",
+			"added": "yes",
+			"notes": "Excel file",
+			"additionalInst": "write",
+			"attachment": "yes",
+			"documentAction": "read/write mode"
+		}
+	],
+	"callerName": "Test",
+	"callerPhone": "+(944) 741101",
+	"action": "Action Test",
+	"callCode": 100,
+	"taxpayerId": "no",
+	"fullyAuthenticated": "yes",
+	"taskPriority": "high",
+	"taskNotes": "Test Task Notes",
+	"callDetails": "Test edit details"
 }

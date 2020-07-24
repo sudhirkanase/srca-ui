@@ -1,16 +1,17 @@
 {
-    "taskID": 10001,
-    "status": "Open",
-    "phoneNo": "+(844) 235678",
-    "createdDate": "21/07/2020",
+    "id": 100112,
+    "status": "Closed",
+    "phone": "+(844) 235678",
+    "createdDate": "17/07/2020",
     "email": "test@wellsfargo.com",
-    "assignedUser": "Add User Group",
+    "assignedUserGroup": "Update User Group",
     "assignedEmail": "test-assign@wellsfargo.com",
     "accountService": "Test Service",
-    "accountShortName": "Test name",
-    "mainAccountNo": 3410019,
-    "marketValue": "$200000",
-    "branchCode": 750121,
-    "taskDetail": null,
-    "documentDetails":null
+    "accountDetail": {
+        "accountShortName": "Test name",
+        "mainAccountNumber": 3410019,
+        "marketValue": 10000,
+        "branchCode": 750121,
+        "accountNumber": 11231100
+    }
 }
