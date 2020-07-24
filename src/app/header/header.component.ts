@@ -10,7 +10,6 @@ import { MenuItem } from 'primeng/api';
 })
 export class HeaderComponent implements OnInit {
   currentUser: any;
-  open = false
   items: MenuItem[];
   constructor(
     private router: Router,
@@ -31,16 +30,11 @@ export class HeaderComponent implements OnInit {
     this.router.navigate(['/login']);
   }
 
-  myFunc() {
-    this.open = !this.open
-    console.log(open)
-  }
-  
 
   loadMenu() {
       this.items = [
           {
-              label: 'Sign Out',icon:'pi pi-sign-out', command: () => this.logout()
+              label: 'Sign Out', command: () => this.logout()
           }
       ];
   }

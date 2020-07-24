@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, OnChanges } from '@angular/core';
 import { SelectItem } from 'primeng/api/selectitem';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'tmt-dashboard',
@@ -11,19 +13,19 @@ export class DashboardComponent implements OnInit {
   data: any;
   accountType: SelectItem[];
   selectDays: SelectItem[];
-
-  constructor() { }
+  selectedAccountType : 1
+  constructor(private router:Router) { }
 
   ngOnInit() {
     this.pChartData();
     this.dropDownData();
   }
-
+ 
   dropDownData() {
     this.accountType = [
-      { label: 'AD With Account', value: 1 },
-      { label: 'IFS With Account', value: 2 },
-      { label: 'PB With Account', value: 3 }
+      { label: 'AD', value: 1 },
+      { label: 'IFS', value: 2 },
+      { label: 'PB', value: 3 }
       //{ label: 'IFS Without Account', value: 3 },
       //{ label: 'PB With Client/Account', value: 4 },
       //{ label: 'PB Without Client/Account', value: 5 },
@@ -39,6 +41,7 @@ export class DashboardComponent implements OnInit {
     ]
   }
 
+  
   pChartData() {
     this.data = {
       labels: ['A', 'B', 'C'],
@@ -58,5 +61,15 @@ export class DashboardComponent implements OnInit {
         }]
     };
   }
-
+  onCreateTask(){
+    if(this.selectedAccountType == undefined){
+      this.selectedAccountType = 1
+    }
+    console.log("dropdown value "+this.selectedAccountType)
+    switch(this.selectedAccountType){
+      case 1 :
+     this.router.navigate(['create/ad-account/search'])  
+    }
+  }
+   
 }
