@@ -10,6 +10,7 @@
             Account.
         </p>
     </div>
+    
     <div class="panel">
         <p-panel header="Search Criteria - Account Type {{accountType}}">
             <form action="#" (ngSubmit)="search(searchForm.value); searchForm.reset();" #searchForm="ngForm">
@@ -20,8 +21,16 @@
                                 <label for="accountNumber">Account Number</label>
                             </div>
                             <div class="col-sm-8">
-                                <input type="text" pInputText name="accountNumber" id="accountNumber"
-                                    class="form-control search-input" [(ngModel)]="accountNumber">
+                                <input type="text" pInputText name="accountNumber" id="accountNumber" #accountNumberVal="ngModel"
+                                    class="form-control search-input" [(ngModel)]="accountNumber" minlength="3" required>
+                                    <div *ngIf="accountNumberVal.invalid && (accountNumberVal.dirty || accountNumberVal.touched)" class="alert alert-danger form-danger">
+                                        <div *ngIf="accountNumberVal.errors.minlength">
+                                          Please enter at least three letters
+                                        </div>
+                                        <div *ngIf="accountNumberVal.errors.required">
+                                            Please enter account number
+                                        </div>
+                                    </div>
                             </div>
                         </div>
                     </div>
@@ -31,15 +40,20 @@
                                 <label class="">Account Name</label>
                             </div>
                             <div class="col-sm-8">
-                                <input type="text" pInputText name="accountName" id="accountName"
-                                    class="form-control search-input" [(ngModel)]="accountName" />
+                                <input type="text" pInputText name="accountName" id="accountName" #accountNameVal="ngModel"
+                                    class="form-control search-input" [(ngModel)]="accountName" required/>
+                                    <div *ngIf="accountNameVal.invalid && (accountNameVal.dirty || accountNameVal.touched)" class="alert alert-danger form-danger">
+                                        <div *ngIf="accountNameVal.errors.required">
+                                            Please enter account number
+                                        </div>
+                                    </div>
                             </div>
                         </div>
                     </div>
                     <div class="col-sm-2">
                         <div class="row">
                             <div class="col-sm-8">
-                                <button type="submit" class="btn btn-primary">
+                                <button type="submit" class="btn btn-primary" [disabled]="!searchForm.valid">
                                     Search
                                 </button>
                             </div>
@@ -49,6 +63,7 @@
             </form>
         </p-panel>
     </div>
+
     <div class="second-container panel">
         <p-panel header="Account Search Results">
             <p-table [columns]="cols" [value]="accounts">

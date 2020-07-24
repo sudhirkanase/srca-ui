@@ -33,20 +33,20 @@
   </div>
 
   <div class="content-panel-second col-md-4">
-    <p-panel header="Account Type">
-      <div class="account-type-panel">
-        <span class="account-label">Select Account Type  </span>
-        <span>
-          <p-dropdown [options]="accountType" [(ngModel)]="selectedCity1"></p-dropdown>
-        </span>
-        <div class="accont-info-label">
-          112 Task open for AD with-Account
+      <p-panel header="Account Type">
+        <div class="account-type-panel">
+          <span class="account-label">Select Account Type  </span>
+          <span>
+            <p-dropdown [options]="accountType" [(ngModel)]="selectedAccountType"></p-dropdown>
+          </span>
+          <div class="accont-info-label">
+            112 Task open for AD with-Account
+          </div>
+          <div>
+            <p-button label="Create Task" (click)="onCreateTask()"></p-button>
+          </div>
         </div>
-        <div>
-          <p-button label="Create Task"></p-button>
-        </div>
-      </div>
-    </p-panel>
+      </p-panel>
   </div>
 
   <div class="content-panel-third col-md-4 pad-r-0">

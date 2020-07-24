@@ -1,0 +1,16 @@
+.my-task-list-table .ui-table{
+    .ui-table-thead{
+        tr{
+            th{
+                white-space: nowrap;
+            }
+        }
+    }
+    .ui-table-tbody {
+        tr {
+            td{
+                padding: 0.151em 0.457em !important;
+            }
+        }
+    } 
+}  
