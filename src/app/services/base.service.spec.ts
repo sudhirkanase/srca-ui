@@ -191,7 +191,7 @@ describe('BaseService', () => {
 
     const request = httpMock.expectOne(`testUrl`);
     expect(request.request.method).toBe('DELETE');
-    request.flush(null, { status: 404, statusText: "Item not found" });
+    request.flush(null, { status: 404, statusText: 'Item not found' });
   });
 
   it('should set or get sessionExpired value', () => {

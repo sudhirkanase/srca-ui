@@ -4,7 +4,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 
 import { AuthenticationService } from '../services/auth/authentication.service';
 import { first } from 'rxjs/operators';
-import { AlertService } from '../services/alert/alert.service'
+import { AlertService } from '../services/alert/alert.service';
 
 @Component({
   selector: 'app-login',
@@ -19,11 +19,8 @@ export class LoginComponent implements OnInit {
   returnUrl: string;
   error: string;
 
-  constructor(private formBuilder: FormBuilder,
-    private route: ActivatedRoute,
-    private router: Router,
-    private authenticationService: AuthenticationService,
-    private alertService: AlertService) {
+  constructor(private formBuilder: FormBuilder, private route: ActivatedRoute, private router: Router,
+    private authenticationService: AuthenticationService, private alertService: AlertService) {
 
 
   }
@@ -44,7 +41,7 @@ export class LoginComponent implements OnInit {
     });
 
     // get return url from route parameters or default to '/'
-    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+    this.returnUrl = this.route.snapshot.queryParams.returnUrl || '/';
   }
 
   get f() { return this.loginForm.controls; }
@@ -64,7 +61,7 @@ export class LoginComponent implements OnInit {
         data => {
           // console.log( this.returnUrl);
           // this.userDetailsBean = data;
-          //console.log( this.userDetailsBean);
+          // console.log( this.userDetailsBean);
           this.authenticationService.setSessionExpired(false);
           this.router.navigate([this.returnUrl]);
         },
