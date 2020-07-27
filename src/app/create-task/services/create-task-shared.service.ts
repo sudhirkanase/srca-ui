@@ -10,6 +10,6 @@ export class CreateTaskSharedService {
   constructor() { }
 
   setAccountNumber(accountNumber) {
-    this.accountNumber.next(accountNumber)
+    this.accountNumber.next(accountNumber);
   }
 }

@@ -21,14 +21,13 @@ export class CreateTaskService extends BaseService<any> {
   getAccountByAccountNumber(accountNumber: number): Observable<Account> {
     return this.get<Account>(`${this.taskManagementServiceUrl}/getAccount/${accountNumber}`);
   }
-  
 
   getTasksByAccountNumber(accountNumber: number): Observable<any> {
     return this.get<any>('assets/json/task-list.json');
   }
 
   getDocumentDetails(): Observable<any> {
-    return this.get<any>('assets/json/document-details.json')
+    return this.get<any>('assets/json/document-details.json');
   }
 
   saveContactCenterTaskDetails(taskId: number, taskDetails: any): Observable<boolean> {

@@ -30,19 +30,19 @@ export class ContactCenterComponent implements OnInit {
 
   // API call to get contact center details
   getContactDetail() {
-    let contactRequestBody = {
+    const contactRequestBody = {
       id: this.contactDetailRequest.taskID,
       accountNo: this.contactDetailRequest.accountNo
-    }
+    };
     this.createTaskService
       .getContactDetail(contactRequestBody).subscribe(data => {
         this.contactCenterData = data;
-        console.log("backed", this.contactCenterData);
+        console.log('backed', this.contactCenterData);
       });
   }
 
   saveTask(taskDetail: any): void {
-    const updatedTaskData = { ...this.contactCenterData, ...{ taskDetail: taskDetail } };
+    const updatedTaskData = { ...this.contactCenterData, ...{ taskDetail } };
     this.createTaskService.saveContactCenterTaskDetails(updatedTaskData.taskID, updatedTaskData);
   }
 }

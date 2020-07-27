@@ -17,8 +17,7 @@ export class AccountSearchComponent implements OnInit {
   accounts: Account[];
   accountType: string;
 
-  constructor(private createTaskService: CreateTaskService,
-    private route: ActivatedRoute) { }
+  constructor(private createTaskService: CreateTaskService, private route: ActivatedRoute) { }
 
   ngOnInit() {
     this.accountType = this.route.snapshot.data.type;
