@@ -12,7 +12,7 @@ export class MenuService {
   constructor() { }
 
   getMenuItem(menuName: string): MenuItem {
-    console.log("Menu -->" + menuName);
+    console.log('Menu -->' + menuName);
     let retMenuItem: MenuItem = null;
     switch (menuName) {
       case 'Home':
@@ -97,7 +97,8 @@ export class MenuService {
           label: 'IFS - Without Account', icon: 'pi pi-fw',
           items: [
             { label: 'Contact Center', icon: 'pi pi-fw', routerLink: 'create/ifs-without-account/contact-center' },
-            { label: 'FI Portfolio Diagnostic Review', icon: 'pi pi-fw', routerLink: 'create/ifs-without-account/portfolio-diagnostic-review' },
+            { label: 'FI Portfolio Diagnostic Review', icon: 'pi pi-fw',
+             routerLink: 'create/ifs-without-account/portfolio-diagnostic-review' },
             { label: 'Investments:Other', icon: 'pi pi-fw', routerLink: 'create/ifs-without-account/investments-other' },
             { label: 'Name & Address Record', icon: 'pi pi-fw', routerLink: 'create/ifs-without-account/name-address-record' },
             { label: 'Opportunity Report', icon: 'pi pi-fw', routerLink: 'create/ifs-without-account/opportunity-report' },

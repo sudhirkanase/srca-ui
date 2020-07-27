@@ -29,8 +29,7 @@ export class AuthenticationService extends BaseService<UserInfoBean> {
                     this.setUserLogginInfo(user);
                     this.currentUserSubject.next(user);
                     return user;
-                }
-                else {
+                } else {
                     throw new Error('Login Failed');
                 }
             }));
@@ -53,7 +52,7 @@ export class AuthenticationService extends BaseService<UserInfoBean> {
 
     logout() {
         // remove user from local storage and set current user to null
-        //localStorage.removeItem('currentUser');
+        // localStorage.removeItem('currentUser');
         this.removeUserLogginInfo();
         this.currentUserSubject.next(null);
     }

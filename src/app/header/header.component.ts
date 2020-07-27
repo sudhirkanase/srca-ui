@@ -15,7 +15,7 @@ export class HeaderComponent implements OnInit {
   constructor(
     private router: Router,
     private authenticationService: AuthenticationService) {
-    //console.log("currentUser 12" + this.currentUser);
+    // console.log("currentUser 12" + this.currentUser);
   }
 
   ngOnInit(): void {
@@ -23,14 +23,14 @@ export class HeaderComponent implements OnInit {
     this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
     this.currentUser = this.authenticationService.getLoggedInUser();
     console.log(this.currentUser);
-    this.loadMenu()
+    this.loadMenu();
   }
 
   logout() {
     this.authenticationService.logout();
     this.router.navigate(['/login']);
   }
- 
+
   loadMenu() {
     this.items = [
       {

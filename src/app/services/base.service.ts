@@ -12,12 +12,12 @@ import { UserInfoBean } from '../beans/userinfo-bean';
 
 interface HTTP_OPTIONS {
   headers?: HttpHeaders | { [header: string]: string | string[]; };
-  observe?: "body";
+  observe?: 'body';
   params?: HttpParams | { [param: string]: string | string[]; };
   reportProgress?: boolean;
-  responseType?: "json";
+  responseType?: 'json';
   withCredentials?: boolean;
-};
+}
 
 @Injectable({
   providedIn: 'root'
@@ -105,6 +105,6 @@ export class BaseService<T> {
     }
     // return an observable with a user-facing error message
     return throwError(error);
-  };
+  }
 
 }
