@@ -22,8 +22,8 @@ export class AuthenticationService extends BaseService<UserInfoBean> {
     }
 
     login(username, password) {
-        return this.post<UserInfoBean>(`${this.taskManagementServiceUrl}/authenticate`, { username, password })
-            .pipe(map(user => {
+        return this.post(`${this.taskManagementServiceUrl}/authenticate`, { username, password })
+            .pipe(map((user: UserInfoBean) => {
                 // check for authentication token
                 if (user.authToken) {
                     this.setUserLogginInfo(user);

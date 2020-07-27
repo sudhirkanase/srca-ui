@@ -13,7 +13,7 @@ import { MenuService } from 'src/app/services/menu/menu.service';
 })
 export class MenuBarComponent implements OnInit {
 
-  private menubar_items: string[] = ['Home', 'Create Task', 'Tasks', 'Reports', 'Security Administration', 'Administration'];
+  private menubarItems: string[] = ['Home', 'Create Task', 'Tasks', 'Reports', 'Security Administration', 'Administration'];
   menuItems: MenuItem[];
 
   constructor(private menuService: MenuService) { }
@@ -22,7 +22,7 @@ export class MenuBarComponent implements OnInit {
     let item: MenuItem;
     this.menuItems = [];
 
-    this.menubar_items.forEach(name => {
+    this.menubarItems.forEach(name => {
       item = this.menuService.getMenuItem(name);
       if (item != null) {
         this.menuItems.push(item);

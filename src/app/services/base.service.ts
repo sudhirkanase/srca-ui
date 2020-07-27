@@ -10,7 +10,7 @@ import {
 import { catchError } from 'rxjs/operators';
 import { UserInfoBean } from '../beans/userinfo-bean';
 
-interface HTTP_OPTIONS {
+interface HttpOptions {
   headers?: HttpHeaders | { [header: string]: string | string[]; };
   observe?: 'body';
   params?: HttpParams | { [param: string]: string | string[]; };
@@ -32,14 +32,14 @@ export class BaseService<T> {
 
   constructor(private http: HttpClient) { }
 
-  public get<T>(url: string): Observable<T> {
+  public get(url: string): Observable<T> {
     return this.http.get<T>(url)
       .pipe(
         catchError(this.handleError)
       );
   }
 
-  public post<T>(url: string, requestBody: any, options?: HTTP_OPTIONS): Observable<T> {
+  public post(url: string, requestBody: any, options?: HttpOptions): Observable<T> {
     if (!options) {
       options = {};
     }
@@ -50,7 +50,7 @@ export class BaseService<T> {
       );
   }
 
-  public put<T>(url: string, requestBody: any, options?: HTTP_OPTIONS): Observable<T> {
+  public put(url: string, requestBody: any, options?: HttpOptions): Observable<T> {
     if (!options) {
       options = {};
     }
@@ -61,7 +61,7 @@ export class BaseService<T> {
       );
   }
 
-  public delete<T>(url: string, options?: HTTP_OPTIONS): Observable<T> {
+  public delete(url: string, options?: HttpOptions): Observable<T> {
     if (!options) {
       options = {};
     }

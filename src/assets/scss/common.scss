@@ -71,6 +71,10 @@
     position: absolute;
 }
 
+p-inputMask.invalid-mask .ui-inputtext {
+    border: 1px solid $invalid-input-border;
+}
+
 p-radiobutton.invalid-radio .ui-radiobutton .ui-radiobutton-box {
     border: 1px solid $invalid-input-border;
 }

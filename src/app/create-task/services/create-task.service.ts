@@ -15,19 +15,19 @@ export class CreateTaskService extends BaseService<any> {
   }
 
   searchAccounts(account): Observable<Account[]> {
-    return this.get<Account[]>(`${this.taskManagementServiceUrl}/searchAccounts/${account.accountNumber}/${account.accountName}`);
+    return this.get(`${this.taskManagementServiceUrl}/searchAccounts/${account.accountNumber}/${account.accountName}`);
   }
 
   getAccountByAccountNumber(accountNumber: number): Observable<Account> {
-    return this.get<Account>(`${this.taskManagementServiceUrl}/getAccount/${accountNumber}`);
+    return this.get(`${this.taskManagementServiceUrl}/getAccount/${accountNumber}`);
   }
 
   getTasksByAccountNumber(accountNumber: number): Observable<any> {
-    return this.get<any>('assets/json/task-list.json');
+    return this.get('assets/json/task-list.json');
   }
 
   getDocumentDetails(): Observable<any> {
-    return this.get<any>('assets/json/document-details.json');
+    return this.get('assets/json/document-details.json');
   }
 
   saveContactCenterTaskDetails(taskId: number, taskDetails: any): Observable<boolean> {
