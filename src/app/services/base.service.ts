@@ -22,7 +22,7 @@ interface HttpOptions {
 @Injectable({
   providedIn: 'root'
 })
-export class BaseService<T> {
+export class BaseService {
 
   taskManagementServiceUrl = `${TASK_MANAGEMENT_SERVICES_URL}`;
   loggedinUserInfo = `${LOGGEDIN_USER_INFO}`;
@@ -32,41 +32,41 @@ export class BaseService<T> {
 
   constructor(private http: HttpClient) { }
 
-  public get(url: string): Observable<T> {
-    return this.http.get<T>(url)
+  public get(url: string): Observable<any> {
+    return this.http.get(url)
       .pipe(
         catchError(this.handleError)
       );
   }
 
-  public post(url: string, requestBody: any, options?: HttpOptions): Observable<T> {
+  public post(url: string, requestBody: any, options?: HttpOptions): Observable<any> {
     if (!options) {
       options = {};
     }
 
-    return this.http.post<T>(url, requestBody, options)
+    return this.http.post(url, requestBody, options)
       .pipe(
         catchError(this.handleError)
       );
   }
 
-  public put(url: string, requestBody: any, options?: HttpOptions): Observable<T> {
+  public put(url: string, requestBody: any, options?: HttpOptions): Observable<any> {
     if (!options) {
       options = {};
     }
 
-    return this.http.put<T>(url, requestBody, options)
+    return this.http.put(url, requestBody, options)
       .pipe(
         catchError(this.handleError)
       );
   }
 
-  public delete(url: string, options?: HttpOptions): Observable<T> {
+  public delete(url: string, options?: HttpOptions): Observable<any> {
     if (!options) {
       options = {};
     }
 
-    return this.http.delete<T>(url, options)
+    return this.http.delete(url, options)
       .pipe(
         catchError(this.handleError)
       );

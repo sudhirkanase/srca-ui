@@ -11,7 +11,7 @@ interface TypeModel {
 }
 
 describe('BaseService', () => {
-  let service: BaseService<TypeModel>;
+  let service: BaseService;
   let httpMock: HttpTestingController;
 
   beforeEach(() => {

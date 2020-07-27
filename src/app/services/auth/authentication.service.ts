@@ -6,7 +6,7 @@ import { UserInfoBean } from 'src/app/beans/userinfo-bean';
 import { BaseService } from '../base.service';
 
 @Injectable({ providedIn: 'root' })
-export class AuthenticationService extends BaseService<UserInfoBean> {
+export class AuthenticationService extends BaseService {
 
     private currentUserSubject: BehaviorSubject<any>;
     public currentUser: Observable<any>;
