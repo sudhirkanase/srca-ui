@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable, of, BehaviorSubject } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { Observable, of, BehaviorSubject, throwError } from 'rxjs';
+import { map, catchError } from 'rxjs/operators';
 
 import { Account } from '../model/Account';
 import { BaseService } from 'src/app/services/base.service';
@@ -15,7 +15,12 @@ export class CreateTaskService extends BaseService {
   }
 
   searchAccounts(account: any): Observable<Account[]> {
-    return this.get(`${this.taskManagementServiceUrl}/searchAccounts/${account.accountNumber}/${account.accountName}`);
+    return this.get(`${this.taskManagementServiceUrl}/searchAccounts/${account.accountNumber}/${account.accountName}`).pipe(
+      catchError(this.errorHandler)
+    );
+  }
+  errorHandler(error: HttpErrorResponse) {
+    return throwError(JSON.stringify(error.error.errorMessage));
   }
 
   getAccountByAccountNumber(accountNumber: number): Observable<Account> {

@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { CreateTaskService } from '../../services/create-task.service';
 import { Account } from './../../model/Account';
 import { ActivatedRoute } from '@angular/router';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'srca-account-search',
@@ -16,9 +17,15 @@ export class AccountSearchComponent implements OnInit {
   cols: any[];
   accounts: Account[];
   accountType: string;
+  message: any;
 
   constructor(private createTaskService: CreateTaskService, private route: ActivatedRoute) { }
-
+  AccountSearchForm = new FormGroup(
+    {
+      accountNumber: new FormControl('', Validators.required),
+      accountName: new FormControl('', Validators.required),
+    }
+  )
   ngOnInit() {
     this.accountType = this.route.snapshot.data.type;
 
@@ -33,7 +40,11 @@ export class AccountSearchComponent implements OnInit {
   search(searchForm: any): void {
     this.createTaskService.searchAccounts(searchForm).subscribe((searchedAccounts: Account[]) => {
       this.accounts = searchedAccounts;
-    });
+      this.message = "";
+    },(error)=>{
+      this.message = error;
+      this.accounts = []
+    })
   }
 
 }
