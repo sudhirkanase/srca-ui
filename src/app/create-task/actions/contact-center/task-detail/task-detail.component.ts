@@ -81,6 +81,11 @@ export class TaskDetailComponent implements OnInit, OnChanges {
       .subscribe((value: string) => {
         if (value === 'yes') {
           this.taskDetailForm.addControl('taxPayerID', new FormControl(null, Validators.required));
+          if (!isNullOrUndefined(this.taskDetailData) && this.taskDetailData.taxpayerId) {
+            this.taskDetailForm.patchValue({
+              taxPayerID: this.taskDetailData.taxpayerId
+            })
+          }
         } else {
           this.taskDetailForm.removeControl('taxPayerID');
         }
@@ -160,13 +165,18 @@ export class TaskDetailComponent implements OnInit, OnChanges {
         callerPhone: this.taskDetailData.callerPhone,
         action: this.taskDetailData.action,
         callCode: this.taskDetailData.callCode,
-        taxPayerIDAvailable: this.taskDetailData.taxpayerId,
+        taxPayerIDAvailable: this.taskDetailData.isTaxpayerId,
         fullyAuthenticated: this.taskDetailData.fullyAuthenticated,
         taskPriority: this.taskDetailData.taskPriority,
         callDetails: this.taskDetailData.callDetails,
         taskNotes: this.taskDetailData.taskNotes
       });
-
+      this.loadActionByCallCode(this.taskDetailData.callCode);
+      if(this.taskDetailData.action){
+        this.taskDetailForm.patchValue({
+          action: this.taskDetailData.action
+        })
+      }
     }
     this.cd.detectChanges();
   }
