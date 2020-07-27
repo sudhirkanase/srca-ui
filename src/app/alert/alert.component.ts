@@ -3,7 +3,7 @@ import { Subscription } from 'rxjs';
 
 import { AlertService } from '../services/alert/alert.service';
 
-@Component({ selector: 'alert', templateUrl: 'alert.component.html' })
+@Component({ selector: 'srca-alert', templateUrl: 'alert.component.html' })
 export class AlertComponent implements OnInit, OnDestroy {
     private subscription: Subscription;
     message: any;

@@ -7,7 +7,7 @@ import { first } from 'rxjs/operators';
 import { AlertService } from '../services/alert/alert.service';
 
 @Component({
-  selector: 'app-login',
+  selector: 'srca-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
@@ -19,8 +19,12 @@ export class LoginComponent implements OnInit {
   returnUrl: string;
   error: string;
 
-  constructor(private formBuilder: FormBuilder, private route: ActivatedRoute, private router: Router,
-    private authenticationService: AuthenticationService, private alertService: AlertService) {
+  constructor(
+    private formBuilder: FormBuilder,
+    private route: ActivatedRoute,
+    private router: Router,
+    private authenticationService: AuthenticationService,
+    private alertService: AlertService) {
 
 
   }
