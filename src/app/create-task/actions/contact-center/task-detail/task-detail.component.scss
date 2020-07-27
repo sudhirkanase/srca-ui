@@ -32,6 +32,6 @@
     color: $orange-col;
 }
 
-input[type=text].ng-invalid.ng-touched {
+input[type=text].ui-inputtext.invalid-input {
     border: 1px solid $invalid-input-border;
 }

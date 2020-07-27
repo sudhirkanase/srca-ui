@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, OnChanges, ChangeDetectorRef, SimpleChanges, Output, EventEmitter } from '@angular/core';
 import { Location } from '@angular/common';
-import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormControl, AbstractControl } from '@angular/forms';
 import { SelectItem } from 'primeng/api/selectitem';
 import { isNullOrUndefined } from 'util';
 import { Account } from './../../../model/Account';
@@ -20,8 +20,9 @@ export class TaskDetailComponent implements OnInit, OnChanges {
   accountColumns: any[];
   accounts: Account[];
   dropdownData: { [key: string]: string[] };
-  isFormSubmitted: boolean;
-  message: any;
+  isSaveBtnClicked: boolean;
+  message: { [key: string]: string };
+  formControlLabelMapping: { [key: string]: string };
 
   @Input() taskDetailData: any;
   @Output() saveTaskDetails = new EventEmitter<any>();
@@ -44,12 +45,23 @@ export class TaskDetailComponent implements OnInit, OnChanges {
       callerPhone: [null, Validators.required],
       action: [null, Validators.required],
       callCode: [null, Validators.required],
-      taxPayerID: [null, Validators.required],
+      taxPayerIDAvailable: [null, Validators.required],
       fullyAuthenticated: [null, Validators.required],
       taskPriority: ['low'],
       taskNotes: [null],
       callDetails: [null, Validators.required]
     });
+
+    this.formControlLabelMapping = {
+      callerName: 'Caller name',
+      callerPhone: 'Caller phone',
+      action: 'Action',
+      callCode: 'Call code',
+      taxPayerIDAvailable: 'TaxPayer ID Selection',
+      taxPayerID: 'TaxPayer ID',
+      fullyAuthenticated: 'Fully authenticated',
+      callDetails: 'Call details'
+    };
 
     this.taskPriorityData = [
       { label: 'Low', value: 'low' },
@@ -64,13 +76,13 @@ export class TaskDetailComponent implements OnInit, OnChanges {
 
     this.loadCallCodes();
 
-    // check for taxPayerID value changes
-    this.taxPayerID.valueChanges
+    // check for taxPayerIDAvailable value changes
+    this.taxPayerIDAvailable.valueChanges
       .subscribe((value: string) => {
         if (value === 'yes') {
-          this.taskDetailForm.addControl('taxPayerIDValue', new FormControl(''));
+          this.taskDetailForm.addControl('taxPayerID', new FormControl(null, Validators.required));
         } else {
-          this.taskDetailForm.removeControl('taxPayerIDValue');
+          this.taskDetailForm.removeControl('taxPayerID');
         }
       });
   }
@@ -121,6 +133,10 @@ export class TaskDetailComponent implements OnInit, OnChanges {
     return this.taskDetailForm.get('taxPayerID') as FormControl;
   }
 
+  get taxPayerIDAvailable(): FormControl {
+    return this.taskDetailForm.get('taxPayerIDAvailable') as FormControl;
+  }
+
   get fullyAuthenticated(): FormControl {
     return this.taskDetailForm.get('fullyAuthenticated') as FormControl;
   }
@@ -144,7 +160,7 @@ export class TaskDetailComponent implements OnInit, OnChanges {
         callerPhone: this.taskDetailData.callerPhone,
         action: this.taskDetailData.action,
         callCode: this.taskDetailData.callCode,
-        taxPayerID: this.taskDetailData.taxpayerId,
+        taxPayerIDAvailable: this.taskDetailData.taxpayerId,
         fullyAuthenticated: this.taskDetailData.fullyAuthenticated,
         taskPriority: this.taskDetailData.taskPriority,
         callDetails: this.taskDetailData.callDetails,
@@ -156,24 +172,37 @@ export class TaskDetailComponent implements OnInit, OnChanges {
   }
 
   onSubmit() {
-    this.isFormSubmitted = true;
+    this.isSaveBtnClicked = true;
     if (this.taskDetailForm.valid) {
       // API call to persist data
       this.saveTaskDetails.emit(this.taskDetailForm.value);
-
+      // update taxPayerIDAvailable before form reset to hide the taxPayerID field
+      this.taxPayerIDAvailable.setValue(null);
+      this.taskDetailForm.reset();
       // on API success
       this.message = {
-        text: 'Form submitted successfully',
-        cssClass: 'alert alert-success'
+        cssClass: 'alert alert-success',
+        text: 'Form submitted successfully'
       };
     } else {
-      // show error
+      // find error controls and show error message
+      let errorControls = '';
+      let errorControlsCount = 0;
+      Object.entries(this.taskDetailForm.controls)
+        .filter((control: [string, AbstractControl]) => !control[1].valid)
+        .forEach((control: [string, AbstractControl], index: number, controls: [string, AbstractControl][]) => {
+          errorControls += this.formControlLabelMapping[control[0]];
+          errorControlsCount++;
+          if (index < controls.length - 1) {
+            errorControls += ', ';
+          }
+        });
       this.message = {
-        text: 'Please fill the mandatory values before proceeding.',
-        cssClass: 'alert alert-danger'
+        cssClass: 'alert alert-danger',
+        text: `${errorControls} ${errorControlsCount === 1 ? 'field is' : 'fields are'} mandatory.`
       };
+      this.taskDetailForm.markAllAsTouched();
     }
-    console.log('Form control value', this.taskDetailForm.value);
   }
 
   cancelClick() {
