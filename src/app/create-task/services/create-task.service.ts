@@ -8,13 +8,13 @@ import { BaseService } from 'src/app/services/base.service';
 
 
 @Injectable()
-export class CreateTaskService extends BaseService<any> {
+export class CreateTaskService extends BaseService {
 
   constructor(http: HttpClient) {
     super(http);
   }
 
-  searchAccounts(account): Observable<Account[]> {
+  searchAccounts(account: any): Observable<Account[]> {
     return this.get(`${this.taskManagementServiceUrl}/searchAccounts/${account.accountNumber}/${account.accountName}`);
   }
 

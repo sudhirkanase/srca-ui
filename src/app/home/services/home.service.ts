@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { BaseService } from 'src/app/services/base.service';
 
 @Injectable()
-export class HomeService extends BaseService<any> {
+export class HomeService extends BaseService {
 
   constructor(http: HttpClient) {
     super(http);
