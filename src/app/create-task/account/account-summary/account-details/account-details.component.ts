@@ -8,7 +8,7 @@ import { Account } from './../../../model/Account';
   styleUrls: ['./account-details.component.scss']
 })
 export class AccountDetailsComponent implements OnInit {
-  @Input('accountDetails') accountDetails: Account;
+ @Input() accountDetails: Account;
 
   constructor() { }
 

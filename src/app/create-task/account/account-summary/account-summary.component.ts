@@ -42,7 +42,7 @@ export class AccountSummaryComponent implements OnInit {
       accountNo: this.accountNumber,
       taskID: 0,
       accountAction: 'Add'
-    }
+    };
   }
 
   // To get the account number from state property of route
@@ -54,13 +54,13 @@ export class AccountSummaryComponent implements OnInit {
       this.accountNumber = history.state.data;
     }
 
-    //Set Account no to in shared service
+    // Set Account no to in shared service
     this.createTaskSharedService.setAccountNumber(this.accountNumber);
 
     this.getAccountDetails();
   }
 
-  //To get account details using account number
+  // To get account details using account number
   getAccountDetails(): void {
 
     this.createTaskService.getAccountByAccountNumber(this.accountNumber).subscribe((account: Account) => {

@@ -26,9 +26,7 @@ export class TaskDetailComponent implements OnInit, OnChanges {
   @Input() taskDetailData: any;
   @Output() saveTaskDetails = new EventEmitter<any>();
 
-  constructor(private formBuilder: FormBuilder,
-    private cd: ChangeDetectorRef,
-    private location: Location) { }
+  constructor(private formBuilder: FormBuilder, private cd: ChangeDetectorRef, private location: Location) { }
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes.taskDetailData.previousValue !== changes.taskDetailData.currentValue) {
@@ -175,7 +173,7 @@ export class TaskDetailComponent implements OnInit, OnChanges {
         cssClass: 'alert alert-danger'
       };
     }
-    console.log("Form control value", this.taskDetailForm.value);
+    console.log('Form control value', this.taskDetailForm.value);
   }
 
   cancelClick() {
