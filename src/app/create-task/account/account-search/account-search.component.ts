@@ -19,7 +19,7 @@ export class AccountSearchComponent implements OnInit {
   accountType: string;
   message: any;
 
-  constructor(private createTaskService: CreateTaskService, private route: ActivatedRoute) { }
+  constructor(private route: ActivatedRoute, public createTaskService: CreateTaskService) { }
   AccountSearchForm = new FormGroup(
     {
       accountNumber: new FormControl('', Validators.required),
@@ -41,7 +41,7 @@ export class AccountSearchComponent implements OnInit {
     this.createTaskService.searchAccounts(searchForm).subscribe((searchedAccounts: Account[]) => {
       this.accounts = searchedAccounts;
       this.message = "";
-    },(error)=>{
+    }, (error) => {
       this.message = error;
       this.accounts = []
     })
