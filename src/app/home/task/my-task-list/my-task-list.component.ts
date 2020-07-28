@@ -14,6 +14,7 @@ export class MyTaskListComponent implements OnInit {
   data: any;
   first = 0;
   rows = 10;
+  noOfRowsPerPage = 10;
   exportColumns: any[];
   contactCenterDetails: any;
   @ViewChild('dt', { static: false }) dt: Table;
@@ -26,14 +27,14 @@ export class MyTaskListComponent implements OnInit {
 
     // Columns required
     this.cols = [
-      { field: 'id', header: 'ID' },
-      { field: 'taskType', header: 'Task Type' },
-      { field: 'taskSpecific', header: 'Task Specifics' },
-      { field: 'workflowStep', header: 'Workflow Step' },
-      { field: 'accountNo', header: 'Account#' },
-      { field: 'accountName', header: 'Account Name' },
-      { field: 'requesterName', header: 'Requester' },
-      { field: 'dueDate', header: 'Due(IST)' }
+      { field: 'id', header: 'ID' , width: '144px'},
+      { field: 'taskType', header: 'Task Type', width: '144px' },
+      { field: 'taskSpecific', header: 'Task Specifics', width: '144px' },
+      { field: 'workflowStep', header: 'Workflow Step', width: '144px' },
+      { field: 'accountNo', header: 'Account#', width: '144px' },
+      { field: 'accountName', header: 'Account Name', width: '145px' },
+      { field: 'requesterName', header: 'Requester', width: '145px' },
+      { field: 'dueDate', header: 'Due(IST)', width: '145px' }
     ];
 
     this.exportColumns = this.cols.map(col => ({ title: col.header, dataKey: col.field }));
@@ -60,7 +61,9 @@ export class MyTaskListComponent implements OnInit {
   }
 
   isLastPage(): boolean {
-    return this.first === (this.data.length - this.rows);
+    if(this.data){
+      return this.first === (this.data.length - this.rows);
+    }
   }
 
   isFirstPage(): boolean {
