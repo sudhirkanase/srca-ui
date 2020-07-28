@@ -15,7 +15,7 @@ export class CreateTaskService extends BaseService {
   }
 
   searchAccounts(account: any): Observable<Account[]> {
-    return this.post(`${this.taskManagementServiceUrl}/searchAccounts`,account).pipe(
+    return this.post(`${this.taskManagementServiceUrl}/searchAccounts`, account).pipe(
       catchError(this.errorHandler)
     );
   }
