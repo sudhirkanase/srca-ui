@@ -121,6 +121,42 @@ describe('AccountSearchComponent', () => {
     expect(component.accounts.length).toEqual(0);
   });
 
+  it('should show validation error if input is less than 3 characters', () => {
+    const acctNumberInput: HTMLInputElement = fixture.debugElement.query(By.css('input[formControlName=accountNumber]')).nativeElement;
+
+    acctNumberInput.value = '12';
+    acctNumberInput.dispatchEvent(new Event('input', { bubbles: true, cancelable: true }));
+    fixture.detectChanges();
+
+    acctNumberInput.dispatchEvent(new Event('blur', { bubbles: true, cancelable: true }));
+    fixture.detectChanges();
+
+    const errorMessageDiv: HTMLDivElement = fixture.nativeElement.querySelector('div.error-class');
+    expect(errorMessageDiv).toBeDefined();
+    expect(errorMessageDiv.textContent).toEqual(' * Please enter three letters ');
+  });
+
+  it('should show validation error if input is less than 3 characters', () => {
+    const acctNumberInput: HTMLInputElement = fixture.debugElement.query(By.css('input[formControlName=accountNumber]')).nativeElement;
+    const acctNameInput: HTMLInputElement = fixture.debugElement.query(By.css('input[formControlName=accountName]')).nativeElement;
+
+    acctNumberInput.dispatchEvent(new Event('focus', { bubbles: true, cancelable: true }));
+    fixture.detectChanges();
+
+    acctNumberInput.dispatchEvent(new Event('blur', { bubbles: true, cancelable: true }));
+    fixture.detectChanges();
+
+    acctNameInput.dispatchEvent(new Event('focus', { bubbles: true, cancelable: true }));
+    fixture.detectChanges();
+
+    acctNameInput.dispatchEvent(new Event('blur', { bubbles: true, cancelable: true }));
+    fixture.detectChanges();
+
+    const errorMessageDiv: HTMLDivElement = fixture.nativeElement.querySelector('div.error-class');
+    expect(errorMessageDiv).toBeDefined();
+    expect(errorMessageDiv.textContent).toEqual(' * At least one field is required ');
+  });
+
   it('should make the search button disabled on landing on the search page', () => {
     fixture.detectChanges();
     const searchBtn: HTMLButtonElement = fixture.nativeElement.querySelector('button[type=submit]');
