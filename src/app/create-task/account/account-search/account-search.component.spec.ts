@@ -132,5 +132,5 @@ describe('AccountSearchComponent', () => {
     searchForm = { accountNumber: undefined, accountName: 'null' };
     component.search(searchForm);
     expect(component.createTaskService.searchAccounts).toHaveBeenCalledWith(searchForm);
-  })
+  });
 });

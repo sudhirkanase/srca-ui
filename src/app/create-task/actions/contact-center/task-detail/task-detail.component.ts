@@ -84,7 +84,7 @@ export class TaskDetailComponent implements OnInit, OnChanges {
           if (!isNullOrUndefined(this.taskDetailData) && this.taskDetailData.taxpayerId) {
             this.taskDetailForm.patchValue({
               taxPayerID: this.taskDetailData.taxpayerId
-            })
+            });
           }
         } else {
           this.taskDetailForm.removeControl('taxPayerID');
@@ -172,10 +172,10 @@ export class TaskDetailComponent implements OnInit, OnChanges {
         taskNotes: this.taskDetailData.taskNotes
       });
       this.loadActionByCallCode(this.taskDetailData.callCode);
-      if(this.taskDetailData.action){
+      if (this.taskDetailData.action) {
         this.taskDetailForm.patchValue({
           action: this.taskDetailData.action
-        })
+        });
       }
     }
     this.cd.detectChanges();
