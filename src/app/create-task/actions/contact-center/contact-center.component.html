@@ -81,13 +81,20 @@
     <p-card>
       <p-tabView>
         <p-tabPanel header="Task Detail">
-          <srca-task-detail [taskDetailData]="contactCenterData" (saveTaskDetails)="saveTask($event)">
+          <srca-task-detail  #srcaTaskDetails [taskDetailData]="contactCenterData" (saveTaskDetails)="saveTask($event)">
           </srca-task-detail>
         </p-tabPanel>
         <p-tabPanel header="Document">
           <srca-document [DocumentDetailData]="contactCenterData?.documents"></srca-document>
         </p-tabPanel>
       </p-tabView>
+      <div class="button-style">
+        <p-button type="submit" label="Save" class="save-pad" (click)="srcaTaskDetails.onSubmit()">
+        </p-button>
+        <p-button type="button" label="Cancel" (click)="cancelClick()">
+        </p-button>
+      </div>
     </p-card>
+    
   </div>
 </div>

@@ -214,9 +214,4 @@ export class TaskDetailComponent implements OnInit, OnChanges {
       this.taskDetailForm.markAllAsTouched();
     }
   }
-
-  cancelClick() {
-    this.location.back();
-  }
-
 }

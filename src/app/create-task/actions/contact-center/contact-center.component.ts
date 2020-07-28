@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Location } from '@angular/common';
 import { isNullOrUndefined } from 'util';
 import { CreateTaskService } from '../../services/create-task.service';
+import {TaskDetailComponent} from './task-detail/task-detail.component';
 
 @Component({
   selector: 'srca-contact-center',
@@ -17,6 +18,8 @@ export class ContactCenterComponent implements OnInit {
     private createTaskService: CreateTaskService,
     private location: Location
   ) { }
+
+  @ViewChild(TaskDetailComponent, {static: false}) srcaTaskDetails: TaskDetailComponent;
 
   ngOnInit() {
 
@@ -37,12 +40,15 @@ export class ContactCenterComponent implements OnInit {
     this.createTaskService
       .getContactDetail(contactRequestBody).subscribe(data => {
         this.contactCenterData = data;
-        console.log('backed', this.contactCenterData);
       });
   }
 
   saveTask(taskDetail: any): void {
     const updatedTaskData = { ...this.contactCenterData, ...{ taskDetail } };
     this.createTaskService.saveContactCenterTaskDetails(updatedTaskData.taskID, updatedTaskData);
+  }
+
+  cancelClick() {
+    this.location.back();
   }
 }
