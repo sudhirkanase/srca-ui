@@ -14,6 +14,8 @@ import { LoginComponent } from './login/login.component';
 import { HttpInterceptorService } from './services/http/http-interceptor.service';
 import { BaseService } from './services/base.service';
 import { AlertComponent } from './alert/alert.component';
+import { AppSharedService } from './services/app-shared.service';
+import { SpinnerComponent } from './shared/components/spinner/spinner.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +24,8 @@ import { AlertComponent } from './alert/alert.component';
     DropdownDirective,
     MenuBarComponent,
     LoginComponent,
-    AlertComponent
+    AlertComponent,
+    SpinnerComponent
   ],
   imports: [
     BrowserModule,
@@ -35,7 +38,8 @@ import { AlertComponent } from './alert/alert.component';
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: HttpInterceptorService, multi: true },
-    BaseService
+    BaseService,
+    AppSharedService
   ],
 
   bootstrap: [AppComponent]
