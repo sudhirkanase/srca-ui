@@ -42,7 +42,7 @@ export class AccountSearchComponent implements OnInit {
       accountNumber: searchForm.accountNumber,
       accountName: searchForm.accountName
     };
-   
+
     this.createTaskService.searchAccounts(accountType).subscribe((searchedAccounts: Account[]) => {
       this.accounts = searchedAccounts;
       this.message = '';
