@@ -27,7 +27,7 @@ export class MyTaskListComponent implements OnInit {
 
     // Columns required
     this.cols = [
-      { field: 'id', header: 'ID' , width: '144px'},
+      { field: 'id', header: 'ID', width: '144px' },
       { field: 'taskType', header: 'Task Type', width: '144px' },
       { field: 'taskSpecific', header: 'Task Specifics', width: '144px' },
       { field: 'workflowStep', header: 'Workflow Step', width: '144px' },
@@ -61,7 +61,7 @@ export class MyTaskListComponent implements OnInit {
   }
 
   isLastPage(): boolean {
-    if(this.data){
+    if (this.data) {
       return this.first === (this.data.length - this.rows);
     }
   }
