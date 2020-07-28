@@ -2,7 +2,8 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Location } from '@angular/common';
 import { isNullOrUndefined } from 'util';
 import { CreateTaskService } from '../../services/create-task.service';
-import {TaskDetailComponent} from './task-detail/task-detail.component';
+import { TaskDetailComponent } from './task-detail/task-detail.component';
+import { TaskState } from '../../../app.constants';
 
 @Component({
   selector: 'srca-contact-center',
@@ -13,15 +14,19 @@ export class ContactCenterComponent implements OnInit {
 
   contactDetailRequest: any;
   contactCenterData: any;
+  taskStateEnum = TaskState;
+  contactCenterTaskState: TaskState;
 
   constructor(
     private createTaskService: CreateTaskService,
     private location: Location
   ) { }
 
-  @ViewChild(TaskDetailComponent, {static: false}) srcaTaskDetails: TaskDetailComponent;
+  @ViewChild(TaskDetailComponent, { static: false }) srcaTaskDetails: TaskDetailComponent;
 
   ngOnInit() {
+
+    this.contactCenterTaskState = this.taskStateEnum.ADD;
 
     this.contactDetailRequest = history.state.data;
     if (!isNullOrUndefined(this.contactDetailRequest)) {
@@ -48,7 +53,15 @@ export class ContactCenterComponent implements OnInit {
     this.createTaskService.saveContactCenterTaskDetails(updatedTaskData.taskID, updatedTaskData);
   }
 
-  cancelClick() {
+  cancelClick(): void {
     this.location.back();
+  }
+
+  updateTaskState(): void {
+    if (this.contactCenterTaskState === this.taskStateEnum.ADD) {
+      this.contactCenterTaskState = this.taskStateEnum.REVIEW;
+    } else {
+      this.contactCenterTaskState = this.taskStateEnum.ADD;
+    }
   }
 }

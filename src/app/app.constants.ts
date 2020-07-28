@@ -20,3 +20,11 @@ export const CONTACT_CENTER_TASK_DROPDOWN_DATA = {
         'Multiple client request'
     ]
 };
+
+export enum TaskState {
+    ADD,
+    EDIT,
+    REVIEW,
+    ASSIGNED,
+    COMPLETED
+}
