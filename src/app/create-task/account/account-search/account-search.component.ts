@@ -18,15 +18,15 @@ export class AccountSearchComponent implements OnInit {
   accounts: Account[];
   accountType: string;
   message: any;
+  accountSearchForm: FormGroup;
 
   constructor(private route: ActivatedRoute, public createTaskService: CreateTaskService) { }
-  AccountSearchForm = new FormGroup(
-    {
+  ngOnInit() {
+    this.accountSearchForm = new FormGroup({
       accountNumber: new FormControl('', Validators.required),
       accountName: new FormControl('', Validators.required),
-    }
-  )
-  ngOnInit() {
+    });
+
     this.accountType = this.route.snapshot.data.type;
 
     this.cols = [
@@ -40,11 +40,11 @@ export class AccountSearchComponent implements OnInit {
   search(searchForm: any): void {
     this.createTaskService.searchAccounts(searchForm).subscribe((searchedAccounts: Account[]) => {
       this.accounts = searchedAccounts;
-      this.message = "";
+      this.message = '';
     }, (error) => {
       this.message = error;
-      this.accounts = []
-    })
+      this.accounts = [];
+    });
   }
 
 }

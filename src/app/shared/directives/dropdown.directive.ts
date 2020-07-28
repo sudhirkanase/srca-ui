@@ -1,7 +1,7 @@
 import { Directive, ElementRef, HostListener, Renderer2, HostBinding } from '@angular/core';
 
 @Directive({
-    selector: '[dropdown]'
+    selector: '[srcaDropdown]'
 })
 export class DropdownDirective {
     @HostBinding('class.open') clicked = false;
