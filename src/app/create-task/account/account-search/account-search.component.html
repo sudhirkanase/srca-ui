@@ -54,7 +54,7 @@
                 <div *ngIf="(accountSearchForm.controls['accountNumber'].touched && accountSearchForm.controls['accountNumber'].invalid) && accountSearchForm.controls['accountNumber'].errors.minlength ||
             (accountSearchForm.controls['accountName'].touched && accountSearchForm.controls['accountName'].invalid) && accountSearchForm.controls['accountName'].errors.minlength"
                     class="error-class">
-                    * Please enter three letters
+                    * Please enter at least three letters
                 </div>
                 <div *ngIf="(accountSearchForm.controls['accountNumber'].touched && accountSearchForm.controls['accountNumber'].invalid)&& accountSearchForm.controls['accountNumber'].errors.required &&
             (accountSearchForm.controls['accountName'].touched  && accountSearchForm.controls['accountName'].invalid) && accountSearchForm.controls['accountName'].errors.required"
