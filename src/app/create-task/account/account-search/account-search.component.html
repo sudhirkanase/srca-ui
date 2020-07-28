@@ -10,56 +10,60 @@
             Account.
         </p>
     </div>
-    
+
     <div class="panel panel-aacount-search">
         <p-panel header="Search Criteria - Account Type {{accountType}}">
-        <form [formGroup]="AccountSearchForm" (ngSubmit)="search(AccountSearchForm.value); AccountSearchForm.reset();">
-            <div class="row">
-                <div class="col-sm-5">
-                    <div class="row">
-                        <div class="col-sm-4 acc-label-pad">
-                            <label for="accountNumber">Account Number</label>
+            <form [formGroup]="accountSearchForm"
+                (ngSubmit)="search(accountSearchForm.value); accountSearchForm.reset();">
+                <div class="row">
+                    <div class="col-sm-5">
+                        <div class="row">
+                            <div class="col-sm-4 acc-label-pad">
+                                <label for="accountNumber">Account Number</label>
+                            </div>
+                            <div class="col-sm-8">
+                                <input type="text" pInputText formControlName="accountNumber" class="search-input"
+                                    [(ngModel)]="accountNumber" minlength="3" required>
+                            </div>
                         </div>
-                        <div class="col-sm-8">
-                            <input type="text" pInputText formControlName="accountNumber"
-                                class="search-input" [(ngModel)]="accountNumber" minlength="3" required> 
+                    </div>
+                    <div class="col-sm-5">
+                        <div class="row">
+                            <div class="col-sm-4 acc-label-pad">
+                                <label class="">Account Name</label>
+                            </div>
+                            <div class="col-sm-8">
+                                <input type="text" pInputText formControlName="accountName" class="search-input"
+                                    [(ngModel)]="accountName" minlength="3" required />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-2">
+                        <div class="row">
+                            <div class="col-sm-8">
+                                <button type="submit" class="btn btn-primary"
+                                    [disabled]="!accountSearchForm.controls['accountNumber'].valid && !accountSearchForm.controls['accountName'].valid">
+                                    Search
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-5">
-                    <div class="row">
-                        <div class="col-sm-4 acc-label-pad">
-                            <label class="">Account Name</label>
-                        </div>
-                        <div class="col-sm-8">
-                            <input type="text" pInputText formControlName="accountName"
-                                class="search-input" [(ngModel)]="accountName" minlength="3" required/> 
-                        </div>
-                    </div>
+                <div>
                 </div>
-                <div class="col-sm-2">
-                    <div class="row">
-                        <div class="col-sm-8">
-                            <button type="submit" class="btn btn-primary" [disabled]="!AccountSearchForm.controls['accountNumber'].valid && !AccountSearchForm.controls['accountName'].valid">
-                                Search
-                            </button>
-                        </div>
-                    </div>
+                <div *ngIf="(accountSearchForm.controls['accountNumber'].touched && accountSearchForm.controls['accountNumber'].invalid) && accountSearchForm.controls['accountNumber'].errors.minlength ||
+            (accountSearchForm.controls['accountName'].touched && accountSearchForm.controls['accountName'].invalid) && accountSearchForm.controls['accountName'].errors.minlength"
+                    class="error-class">
+                    * Please enter three letters
                 </div>
-            </div>
-            <div>
-            </div>
-            <div *ngIf="(AccountSearchForm.controls['accountNumber'].touched && AccountSearchForm.controls['accountNumber'].invalid) && AccountSearchForm.controls['accountNumber'].errors.minlength ||
-            (AccountSearchForm.controls['accountName'].touched && AccountSearchForm.controls['accountName'].invalid) && AccountSearchForm.controls['accountName'].errors.minlength" class="error-class">
-              * Please enter three letters
-            </div>
-            <div *ngIf="(AccountSearchForm.controls['accountNumber'].touched && AccountSearchForm.controls['accountNumber'].invalid)&& AccountSearchForm.controls['accountNumber'].errors.required &&
-            (AccountSearchForm.controls['accountName'].touched  && AccountSearchForm.controls['accountName'].invalid) && AccountSearchForm.controls['accountName'].errors.required" class="error-class">
-              * At least one field is required 
-            </div>
-        </form>
-        </p-panel> 
-    </div> 
+                <div *ngIf="(accountSearchForm.controls['accountNumber'].touched && accountSearchForm.controls['accountNumber'].invalid)&& accountSearchForm.controls['accountNumber'].errors.required &&
+            (accountSearchForm.controls['accountName'].touched  && accountSearchForm.controls['accountName'].invalid) && accountSearchForm.controls['accountName'].errors.required"
+                    class="error-class">
+                    * At least one field is required
+                </div>
+            </form>
+        </p-panel>
+    </div>
 
     <div class="second-container panel">
         <p-panel header="Account Search Results">
