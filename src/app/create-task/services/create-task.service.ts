@@ -36,7 +36,7 @@ export class CreateTaskService extends BaseService {
   }
 
   saveContactCenterTaskDetails(taskDetails): Observable<any> {
-    return this.post(`${this.taskManagementServiceUrl}/saveTask`, taskDetails, { responseType: 'text' });
+    return this.post(`${this.taskManagementServiceUrl}/saveTask`, taskDetails);
   }
 
   getTaskDetails(contactCenterReq): Observable<any> {
