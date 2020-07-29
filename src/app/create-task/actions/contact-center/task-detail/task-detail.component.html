@@ -37,12 +37,14 @@
     </div>
     <div class="row col-md-12 task-details-b-pad">
       <div class=" col-md-4">
-        <label class="task-detail-label">Fully Authenticated<span *ngIf="!isTaskInReview"
-            class="required-indicator">*</span></label>
-        <p-radioButton *ngIf="!isTaskInReview" name="fullAuth" value="yes" formControlName="fullyAuthenticated"
-          label="Yes" inputId="opt1"
-          [ngClass]="{ 'invalid-radio': fullyAuthenticated.errors && fullyAuthenticated.touched }">
-        </p-radioButton>
+        <span style="margin-right: 10px;">
+          <label class="task-detail-label">Fully Authenticated<span *ngIf="!isTaskInReview"
+              class="required-indicator">*</span></label>
+          <p-radioButton *ngIf="!isTaskInReview" name="fullAuth" value="yes" formControlName="fullyAuthenticated"
+            label="Yes" inputId="opt1"
+            [ngClass]="{ 'invalid-radio': fullyAuthenticated.errors && fullyAuthenticated.touched }">
+          </p-radioButton>
+        </span>
         <p-radioButton *ngIf="!isTaskInReview" name="fullAuth" value="no" formControlName="fullyAuthenticated"
           label="No" inputId="opt2"
           [ngClass]="{ 'invalid-radio': fullyAuthenticated.errors && fullyAuthenticated.touched }">
@@ -53,12 +55,14 @@
     </div>
     <div class="row col-md-12 task-details-b-pad">
       <div class="col-md-4">
-        <label class="task-detail-label">Taxpayer ID<span *ngIf="!isTaskInReview"
-            class="required-indicator">*</span></label>
-        <p-radioButton *ngIf="!isTaskInReview" name="taxID" value="yes" formControlName="taxPayerIDAvailable"
-          label="Yes" inputId="tax1"
-          [ngClass]="{ 'invalid-radio': taxPayerIDAvailable.errors && taxPayerIDAvailable.touched }">
-        </p-radioButton>
+        <span style="margin-right: 10px;">
+          <label class="task-detail-label">Taxpayer ID<span *ngIf="!isTaskInReview"
+              class="required-indicator">*</span></label>
+          <p-radioButton *ngIf="!isTaskInReview" name="taxID" value="yes" formControlName="taxPayerIDAvailable"
+            label="Yes" inputId="tax1"
+            [ngClass]="{ 'invalid-radio': taxPayerIDAvailable.errors && taxPayerIDAvailable.touched }">
+          </p-radioButton>
+        </span>
         <p-radioButton *ngIf="!isTaskInReview" name="taxID" value="no" formControlName="taxPayerIDAvailable" label="No"
           inputId="tax2" [ngClass]="{ 'invalid-radio': taxPayerIDAvailable.errors && taxPayerIDAvailable.touched }">
         </p-radioButton>

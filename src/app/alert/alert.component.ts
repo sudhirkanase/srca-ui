@@ -30,3 +30,4 @@ export class AlertComponent implements OnInit, OnDestroy {
         this.subscription.unsubscribe();
     }
 }
+

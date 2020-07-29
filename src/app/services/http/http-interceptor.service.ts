@@ -33,8 +33,9 @@ export class HttpInterceptorService implements HttpInterceptor {
     return next.handle(request)
       .pipe(
         tap(() => this.appSharedService.setIsLoading(false)),
-        catchError(err => {
-          if (err.status === 401) {
+        catchError(response => {
+          let errorMessage = '';
+          if (response.status === 401) {
             // auto logout if 401 response returned from api
             this.authService.logout();
             localStorage.removeItem('currentUser');
@@ -48,8 +49,16 @@ export class HttpInterceptorService implements HttpInterceptor {
               return throwError(new Error('Username or password is invalid.'));
             }
           }
+          // setting error message to show toast message popup
+          if (response.error instanceof ErrorEvent) {
+            errorMessage = response.error.message;
+          } else {
+            errorMessage = response.error.errorMessage;
+          }
 
-          return throwError(err);
+          this.appSharedService.setToastErrorMessage(errorMessage);
+
+          return throwError(response);
         }));
   }
 

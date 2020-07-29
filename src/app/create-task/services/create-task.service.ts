@@ -35,15 +35,12 @@ export class CreateTaskService extends BaseService {
     return this.get('assets/json/document-details.json');
   }
 
-  saveContactCenterTaskDetails(taskId: number, taskDetails: any): Observable<boolean> {
-    // TODO make the actual API call
-    // return mock success
-    console.log(`taskId: ${taskId}, taskDetails: `, taskDetails);
-    return of(true);
+  saveContactCenterTaskDetails(taskDetails): Observable<any> {
+    return this.post(`${this.taskManagementServiceUrl}/saveTask`, taskDetails, { responseType: 'text' });
   }
 
-  getContactDetail(requestBody): Observable<any> {
-    return this.post(`${this.taskManagementServiceUrl}/contactCenterDetail`, requestBody);
+  getTaskDetails(contactCenterReq): Observable<any> {
+    return this.post(`${this.taskManagementServiceUrl}/getTaskDetails`, contactCenterReq);
   }
 
 }
