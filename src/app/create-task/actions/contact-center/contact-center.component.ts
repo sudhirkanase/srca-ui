@@ -16,6 +16,7 @@ export class ContactCenterComponent implements OnInit {
   contactCenterData: any;
   taskStateEnum = TaskState;
   contactCenterTaskState: TaskState;
+  requestBody: any;
 
   constructor(
     private createTaskService: CreateTaskService,
@@ -52,11 +53,24 @@ export class ContactCenterComponent implements OnInit {
   }
   }
 
+  createRequestBody(taskDetail): void {
+    this.requestBody.callCode = taskDetail.callCode;
+    this.requestBody.callDetails = taskDetail.callDetails;
+    this.requestBody.callerName = taskDetail.callerName;
+    this.requestBody.callerPhone = taskDetail.callerPhone;
+    this.requestBody.action = taskDetail.action;
+    this.requestBody.fullyAuthenticated = taskDetail.fullyAuthenticated;
+    this.requestBody.taskNotes = taskDetail.taskNotes; 
+    this.requestBody.taskPriority = taskDetail.taskPriority;
+    this.requestBody.isTaxpayerId = taskDetail.taxPayerIDAvailable;
+  }
+
   saveTask(taskDetail: any): void {
-    const updatedTaskData =  {...this.contactCenterData, ...{taskDetail}};
-    updatedTaskData.taskType = 'Contact Center';
-    this.createTaskService.saveContactCenterTaskDetails(updatedTaskData).subscribe(saveTaskResponse => {
-      if(saveTaskResponse && saveTaskResponse === 'success') {
+    this.requestBody = this.contactCenterData;
+    this.requestBody.taskType = 'Contact Center';
+    this.createRequestBody(taskDetail);
+    this.createTaskService.saveContactCenterTaskDetails(this.requestBody).subscribe(saveTaskResponse => {
+      if(saveTaskResponse) {
         this.location.back();
       }
     });
