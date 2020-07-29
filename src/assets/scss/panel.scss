@@ -72,7 +72,7 @@
             color: $white-col;
         }
         .ui-panel-content{
-            height: 329px;
+            height: 403px;
             overflow-y: auto
         }
     }
@@ -101,4 +101,16 @@
             height: 77px;
         }
     }
+}
+
+.documents-panel{
+    .ui-panel{
+        .ui-panel-content{
+            height: 753px;
+        }
+    }
+}
+
+.contact-center-details .ui-tabview .ui-tabview-panels {
+    height: 397px;
 }
