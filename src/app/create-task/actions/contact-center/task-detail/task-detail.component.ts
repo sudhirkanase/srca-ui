@@ -1,17 +1,18 @@
-import { Component, OnInit, Input, OnChanges, ChangeDetectorRef, SimpleChanges, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, OnChanges, ChangeDetectorRef, SimpleChanges, Output, EventEmitter, OnDestroy } from '@angular/core';
 import { Location } from '@angular/common';
 import { FormBuilder, FormGroup, Validators, FormControl, AbstractControl } from '@angular/forms';
 import { SelectItem } from 'primeng/api/selectitem';
 import { isNullOrUndefined } from 'util';
 import { Account } from './../../../model/Account';
-import { CONTACT_CENTER_TASK_DROPDOWN_DATA, TaskState } from 'src/app/app.constants';
+import { CONTACT_CENTER_TASK_DROPDOWN_DATA, TaskState, ASSIGN_TO_DROPDOWN_DATA } from 'src/app/app.constants';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'srca-task-detail',
   templateUrl: './task-detail.component.html',
   styleUrls: ['./task-detail.component.scss']
 })
-export class TaskDetailComponent implements OnInit, OnChanges {
+export class TaskDetailComponent implements OnInit, OnChanges, OnDestroy {
 
   taskPriorityData: SelectItem[];
   callCodes: SelectItem[];
@@ -20,11 +21,15 @@ export class TaskDetailComponent implements OnInit, OnChanges {
   accountColumns: any[];
   accounts: Account[];
   dropdownData: { [key: string]: string[] };
+  assignToData: string[];
   isSaveBtnClicked: boolean;
   message: { [key: string]: string };
   formControlLabelMapping: { [key: string]: string };
   isTaskInReview: boolean;
   taskStateEnum = TaskState;
+  taskCompleteSubscription: Subscription;
+  assignToOptions: SelectItem[];
+  individualOptions: SelectItem[];
 
   @Input() taskDetailData: any;
   @Input() taskState: any;
@@ -33,8 +38,37 @@ export class TaskDetailComponent implements OnInit, OnChanges {
   constructor(private formBuilder: FormBuilder, private cd: ChangeDetectorRef, private location: Location) { }
 
   ngOnChanges(changes: SimpleChanges) {
-    if (changes.taskState) {
-    this.isTaskInReview = (changes.taskState.currentValue === this.taskStateEnum.ADD);
+    if (changes.taskState && changes.taskState.previousValue !== changes.taskState.currentValue) {
+      this.isTaskInReview = (changes.taskState.currentValue === this.taskStateEnum.REVIEW);
+      if (this.isTaskInReview) {
+        // add task complete form control
+        this.taskDetailForm.addControl('taskComplete', new FormControl('', Validators.required));
+
+        // check if task complete subscription exist
+        if (this.taskCompleteSubscription) {
+          this.taskCompleteSubscription.unsubscribe();
+          this.taskCompleteSubscription = null;
+        }
+
+        this.taskCompleteSubscription = this.taskComplete.valueChanges.subscribe((value: string) => {
+          if (value === 'yes') {
+            this.loadAssignToOptions();
+            this.loadIndividualOptions();
+
+            this.taskDetailForm = this.formBuilder.group({
+              ...this.taskDetailForm.controls,
+              assignTo: [null, Validators.required],
+              individual: [null, Validators.required],
+              userGroup: [null]
+            });
+          }
+        });
+      }
+      // else {
+      //   if (this.taskDetailForm && this.taskComplete) {
+      //     this.taskDetailForm.removeControl('taskComplete');
+      //   }
+      // }
     }
     if (changes.taskDetailData && changes.taskDetailData.previousValue !== changes.taskDetailData.currentValue) {
       setTimeout(() => {
@@ -45,6 +79,7 @@ export class TaskDetailComponent implements OnInit, OnChanges {
 
   ngOnInit() {
     this.dropdownData = CONTACT_CENTER_TASK_DROPDOWN_DATA;
+    this.assignToData = ASSIGN_TO_DROPDOWN_DATA;
 
     this.taskDetailForm = this.formBuilder.group({
       callerName: [null, Validators.required],
@@ -124,6 +159,31 @@ export class TaskDetailComponent implements OnInit, OnChanges {
     this.actions = [{ label: 'Select Action', value: null }, ...actionOptions];
   }
 
+  loadAssignToOptions(): void {
+    const assignToValues = this.assignToData.map((key: string) => {
+      return {
+        label: key, value: key
+      };
+    });
+
+    this.assignToOptions = [{ label: 'Select Assign To', value: null }, ...assignToValues];
+  }
+
+  loadIndividualOptions(): void {
+    // TODO - fetch from API
+    this.individualOptions = [
+      { label: 'Select Individual', value: null },
+      { label: 'Pascal, Chan', value: 'Pascal, Chan' },
+      { label: 'Meyer, Steffie', value: 'Meyer, Steffie' },
+      { label: 'Cranston, John', value: 'Cranston, John' },
+    ];
+  }
+
+  onIndividualSelection(): void {
+    // TODO - fetch from API
+    this.userGroup.setValue('WM NC-Philanthropic CS (Inactive)');
+  }
+
   get callerName(): FormControl {
     return this.taskDetailForm.get('callerName') as FormControl;
   }
@@ -162,6 +222,22 @@ export class TaskDetailComponent implements OnInit, OnChanges {
 
   get taskNotes(): FormControl {
     return this.taskDetailForm.get('taskNotes') as FormControl;
+  }
+
+  get taskComplete(): FormControl {
+    return this.taskDetailForm.get('taskComplete') as FormControl;
+  }
+
+  get assignTo(): FormControl {
+    return this.taskDetailForm.get('assignTo') as FormControl;
+  }
+
+  get individual(): FormControl {
+    return this.taskDetailForm.get('individual') as FormControl;
+  }
+
+  get userGroup(): FormControl {
+    return this.taskDetailForm.get('userGroup') as FormControl;
   }
 
   updateValues() {
@@ -218,6 +294,13 @@ export class TaskDetailComponent implements OnInit, OnChanges {
         text: `${errorControls} ${errorControlsCount === 1 ? 'field is' : 'fields are'} mandatory.`
       };
       this.taskDetailForm.markAllAsTouched();
+    }
+  }
+
+  ngOnDestroy() {
+    if (this.taskCompleteSubscription) {
+      this.taskCompleteSubscription.unsubscribe();
+      this.taskCompleteSubscription = null;
     }
   }
 }
