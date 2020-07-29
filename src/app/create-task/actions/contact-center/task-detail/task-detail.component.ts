@@ -4,7 +4,7 @@ import { FormBuilder, FormGroup, Validators, FormControl, AbstractControl } from
 import { SelectItem } from 'primeng/api/selectitem';
 import { isNullOrUndefined } from 'util';
 import { Account } from './../../../model/Account';
-import { CONTACT_CENTER_TASK_DROPDOWN_DATA } from 'src/app/app.constants';
+import { CONTACT_CENTER_TASK_DROPDOWN_DATA, TaskState } from 'src/app/app.constants';
 
 @Component({
   selector: 'srca-task-detail',
@@ -23,14 +23,20 @@ export class TaskDetailComponent implements OnInit, OnChanges {
   isSaveBtnClicked: boolean;
   message: { [key: string]: string };
   formControlLabelMapping: { [key: string]: string };
+  isTaskInReview: boolean;
+  taskStateEnum = TaskState;
 
   @Input() taskDetailData: any;
+  @Input() taskState: any;
   @Output() saveTaskDetails = new EventEmitter<any>();
 
   constructor(private formBuilder: FormBuilder, private cd: ChangeDetectorRef, private location: Location) { }
 
   ngOnChanges(changes: SimpleChanges) {
-    if (changes.taskDetailData.previousValue !== changes.taskDetailData.currentValue) {
+    if (changes.taskState) {
+    this.isTaskInReview = (changes.taskState.currentValue === this.taskStateEnum.ADD);
+    }
+    if (changes.taskDetailData && changes.taskDetailData.previousValue !== changes.taskDetailData.currentValue) {
       setTimeout(() => {
         this.updateValues();
       });

@@ -81,7 +81,7 @@
     <p-card>
       <p-tabView>
         <p-tabPanel header="Task Detail">
-          <srca-task-detail #srcaTaskDetails [taskDetailData]="contactCenterData" (saveTaskDetails)="saveTask($event)">
+          <srca-task-detail #srcaTaskDetails [taskState]="contactCenterTaskState" [taskDetailData]="contactCenterData"  (saveTaskDetails)="saveTask($event)">
           </srca-task-detail>
         </p-tabPanel>
         <p-tabPanel header="Document">
