@@ -21,6 +21,12 @@ export const CONTACT_CENTER_TASK_DROPDOWN_DATA = {
     ]
 };
 
+export const ASSIGN_TO_DROPDOWN_DATA = [
+    'Team',
+    'Individual',
+    'Contact Center - WF.com'
+];
+
 export enum TaskState {
     ADD,
     EDIT,

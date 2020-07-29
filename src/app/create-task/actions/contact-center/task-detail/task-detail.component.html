@@ -2,94 +2,105 @@
   <div>
     <div class="row col-md-12 task-details-b-pad">
       <div class="col-md-4">
-        <label class="task-detail-label">Caller Name<span *ngIf="isTaskInReview" class="required-indicator">*</span></label>
-        <input *ngIf="isTaskInReview" formControlName="callerName" type="text" pInputText
+        <label class="task-detail-label">Caller Name<span *ngIf="!isTaskInReview"
+            class="required-indicator">*</span></label>
+        <input *ngIf="!isTaskInReview" formControlName="callerName" type="text" pInputText
           [ngClass]="{ 'invalid-input': callerName.errors && callerName.touched }" />
-          <span *ngIf="!isTaskInReview">{{callerName.value}}</span>
+        <span *ngIf="isTaskInReview">{{callerName.value}}</span>
       </div>
       <div class=" col-md-4">
-        <label class="task-detail-label">Caller Phone<span *ngIf="isTaskInReview" class="required-indicator">*</span></label>
-        <p-inputMask *ngIf="isTaskInReview" formControlName="callerPhone" mask="(999) 999-9999"
+        <label class="task-detail-label">Caller Phone<span *ngIf="!isTaskInReview"
+            class="required-indicator">*</span></label>
+        <p-inputMask *ngIf="!isTaskInReview" formControlName="callerPhone" mask="(999) 999-9999"
           [ngClass]="{ 'invalid-mask': callerPhone.errors && callerPhone.touched }">
         </p-inputMask>
-        <span *ngIf="!isTaskInReview">{{callerPhone.value}}</span>
+        <span *ngIf="isTaskInReview">{{callerPhone.value}}</span>
       </div>
     </div>
     <div class="row col-md-12 task-details-b-pad">
       <div class=" col-md-4">
-        <label class="task-detail-label">Call Code<span *ngIf="isTaskInReview" class="required-indicator">*</span></label>
-        <p-dropdown *ngIf="isTaskInReview" formControlName="callCode" [options]="callCodes" (onChange)="loadActionByCallCode(callCode.value)"
+        <label class="task-detail-label">Call Code<span *ngIf="!isTaskInReview"
+            class="required-indicator">*</span></label>
+        <p-dropdown *ngIf="!isTaskInReview" formControlName="callCode" [options]="callCodes"
+          (onChange)="loadActionByCallCode(callCode.value)"
           [ngClass]="{ 'invalid-dropdown': callCode.errors && callCode.touched }">
         </p-dropdown>
-        <span *ngIf="!isTaskInReview">{{callCode.value}}</span>
+        <span *ngIf="isTaskInReview">{{callCode.value}}</span>
       </div>
       <div class=" col-md-4">
-        <label class="task-detail-label">Action<span *ngIf="isTaskInReview" class="required-indicator">*</span></label>
-        <p-dropdown *ngIf="isTaskInReview" formControlName="action" [options]="actions"
+        <label class="task-detail-label">Action<span *ngIf="!isTaskInReview" class="required-indicator">*</span></label>
+        <p-dropdown *ngIf="!isTaskInReview" formControlName="action" [options]="actions"
           [ngClass]="{ 'invalid-dropdown': action.errors && action.touched }">
         </p-dropdown>
-        <span *ngIf="!isTaskInReview">{{action.value}}</span>
+        <span *ngIf="isTaskInReview">{{action.value}}</span>
       </div>
     </div>
     <div class="row col-md-12 task-details-b-pad">
       <div class=" col-md-4">
         <span style="margin-right: 10px;">
-        <label class="task-detail-label">Fully Authenticated<span *ngIf="isTaskInReview" class="required-indicator">*</span></label>
-        <p-radioButton *ngIf="isTaskInReview" name="fullAuth" value="yes" formControlName="fullyAuthenticated" label="Yes" inputId="opt1"
-          [ngClass]="{ 'invalid-radio': fullyAuthenticated.errors && fullyAuthenticated.touched }">
-        </p-radioButton>
+          <label class="task-detail-label">Fully Authenticated<span *ngIf="!isTaskInReview"
+              class="required-indicator">*</span></label>
+          <p-radioButton *ngIf="!isTaskInReview" name="fullAuth" value="yes" formControlName="fullyAuthenticated"
+            label="Yes" inputId="opt1"
+            [ngClass]="{ 'invalid-radio': fullyAuthenticated.errors && fullyAuthenticated.touched }">
+          </p-radioButton>
         </span>
-        <p-radioButton *ngIf="isTaskInReview" name="fullAuth" value="no" formControlName="fullyAuthenticated" label="No" inputId="opt2"
+        <p-radioButton *ngIf="!isTaskInReview" name="fullAuth" value="no" formControlName="fullyAuthenticated"
+          label="No" inputId="opt2"
           [ngClass]="{ 'invalid-radio': fullyAuthenticated.errors && fullyAuthenticated.touched }">
         </p-radioButton>
-        <span *ngIf="!isTaskInReview">{{fullyAuthenticated.value}}</span>
+        <span *ngIf="isTaskInReview">{{fullyAuthenticated.value}}</span>
       </div>
 
     </div>
     <div class="row col-md-12 task-details-b-pad">
       <div class="col-md-4">
         <span style="margin-right: 10px;">
-        <label class="task-detail-label">Taxpayer ID<span *ngIf="isTaskInReview" class="required-indicator">*</span></label>
-        <p-radioButton *ngIf="isTaskInReview" name="taxID" value="yes" formControlName="taxPayerIDAvailable" label="Yes" inputId="tax1"
-          [ngClass]="{ 'invalid-radio': taxPayerIDAvailable.errors && taxPayerIDAvailable.touched }">
+          <label class="task-detail-label">Taxpayer ID<span *ngIf="!isTaskInReview"
+              class="required-indicator">*</span></label>
+          <p-radioButton *ngIf="!isTaskInReview" name="taxID" value="yes" formControlName="taxPayerIDAvailable"
+            label="Yes" inputId="tax1"
+            [ngClass]="{ 'invalid-radio': taxPayerIDAvailable.errors && taxPayerIDAvailable.touched }">
+          </p-radioButton>
+        </span>
+        <p-radioButton *ngIf="!isTaskInReview" name="taxID" value="no" formControlName="taxPayerIDAvailable" label="No"
+          inputId="tax2" [ngClass]="{ 'invalid-radio': taxPayerIDAvailable.errors && taxPayerIDAvailable.touched }">
         </p-radioButton>
-      </span>
-        <p-radioButton *ngIf="isTaskInReview" name="taxID" value="no" formControlName="taxPayerIDAvailable" label="No" inputId="tax2"
-          [ngClass]="{ 'invalid-radio': taxPayerIDAvailable.errors && taxPayerIDAvailable.touched }">
-        </p-radioButton>
-        <span *ngIf="!isTaskInReview">{{taxPayerIDAvailable.value}}</span>
+        <span *ngIf="isTaskInReview">{{taxPayerIDAvailable.value}}</span>
       </div>
       <div class="col-md-4" *ngIf="taxPayerIDAvailable.value === 'yes'">
-        <label class="task-detail-label">Taxpayer ID<span *ngIf="isTaskInReview" class="required-indicator">*</span></label>
-        <input *ngIf="isTaskInReview" type="text" formControlName="taxPayerID" pInputText />
-        <span *ngIf="!isTaskInReview">{{taxPayerID.value}}</span>
+        <label class="task-detail-label">Taxpayer ID<span *ngIf="!isTaskInReview"
+            class="required-indicator">*</span></label>
+        <input *ngIf="!isTaskInReview" type="text" formControlName="taxPayerID" pInputText />
+        <span *ngIf="isTaskInReview">{{taxPayerID.value}}</span>
       </div>
     </div>
     <div class="row col-md-12 task-details-b-pad">
       <div class=" col-md-4">
         <label class="task-detail-label">Task Priority</label>
-        <p-dropdown *ngIf="isTaskInReview" formControlName="taskPriority" [options]="taskPriorityData"></p-dropdown>
-        <span *ngIf="!isTaskInReview">{{taskPriority.value}}</span>
+        <p-dropdown *ngIf="!isTaskInReview" formControlName="taskPriority" [options]="taskPriorityData"></p-dropdown>
+        <span *ngIf="isTaskInReview">{{taskPriority.value}}</span>
       </div>
     </div>
     <div class="row col-md-12 task-details-b-pad">
       <div class=" col-md-12">
         <label class="task-detail-label">Task Notes</label>
-        <textarea *ngIf="isTaskInReview" [rows]="5" [cols]="30" pInputTextarea formControlName="taskNotes"></textarea>
-        <span *ngIf="!isTaskInReview">{{taskNotes.value}}</span>
+        <textarea *ngIf="!isTaskInReview" [rows]="5" [cols]="30" pInputTextarea formControlName="taskNotes"></textarea>
+        <span *ngIf="isTaskInReview">{{taskNotes.value}}</span>
       </div>
     </div>
-    <div  class="row col-md-12 task-details-b-pad">
+    <div class="row col-md-12 task-details-b-pad">
       <div class=" col-md-1">
-        <label class="task-detail-label">Call Details<span *ngIf="isTaskInReview" class="required-indicator">*</span></label>
+        <label class="task-detail-label">Call Details<span *ngIf="!isTaskInReview"
+            class="required-indicator">*</span></label>
       </div>
-      <div  class="editor-pad col-md-7">
-        <p-editor *ngIf="isTaskInReview" formControlName="callDetails" [style]="{'height':'200px'}"
+      <div class="editor-pad col-md-7">
+        <p-editor *ngIf="!isTaskInReview" formControlName="callDetails" [style]="{'height':'200px'}"
           [ngClass]="{ 'invalid-editor': callDetails.errors && callDetails.touched }">
         </p-editor>
-        <span *ngIf="!isTaskInReview">{{callDetails.value}}</span>
+        <span *ngIf="isTaskInReview">{{callDetails.value}}</span>
       </div>
-      
+
     </div>
     <div class="row col-md-12 task-details-b-pad">
       <div class="add-accounts-section task-details-b-pad">
@@ -112,6 +123,44 @@
           </tr>
         </ng-template>
       </p-table>
+    </div>
+
+    <!-- fields for review screen -->
+    <!--
+      Questions regarding review screen inputs
+      dropdown Assign To - does select individual change to team/something else?
+    -->
+    <div class="review-section" *ngIf="isTaskInReview">
+      <div class="row col-md-12 task-details-b-pad">
+        <div class=" col-md-4">
+          <label class="task-detail-label">Task Complete<span class="required-indicator">*</span></label>
+          <p-radioButton name="taskComplete" value="yes" formControlName="taskComplete" label="Yes" inputId="opt1"
+            [ngClass]="{ 'invalid-radio': taskComplete.errors && taskComplete.touched }">
+          </p-radioButton>
+          <p-radioButton name="taskComplete" value="no" formControlName="taskComplete" label="No" inputId="opt2"
+            [ngClass]="{ 'invalid-radio': taskComplete.errors && taskComplete.touched }">
+          </p-radioButton>
+        </div>
+        <div class=" col-md-4" *ngIf="taskComplete.value === 'yes'">
+          <label class="task-detail-label">Assign to<span class="required-indicator">*</span></label>
+          <p-dropdown formControlName="assignTo" [options]="assignToOptions"
+            [ngClass]="{ 'invalid-dropdown': assignTo.errors && assignTo.touched }">
+          </p-dropdown>
+        </div>
+      </div>
+
+      <div class="row col-md-12 task-details-b-pad" *ngIf="taskComplete.value === 'yes'">
+        <div class=" col-md-4">
+          <label class="task-detail-label">Select Individual<span class="required-indicator">*</span></label>
+          <p-dropdown formControlName="individual" [options]="individualOptions" (onChange)="onIndividualSelection()"
+            [ngClass]="{ 'invalid-dropdown': individual.errors && individual.touched }">
+          </p-dropdown>
+        </div>
+        <div class=" col-md-8">
+          <label class="task-detail-label">User Group</label>
+          <label>{{userGroup?.value}}</label>
+        </div>
+      </div>
     </div>
 
     <div *ngIf="isSaveBtnClicked">
