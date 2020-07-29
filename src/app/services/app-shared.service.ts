@@ -15,7 +15,6 @@ export class AppSharedService {
   }
 
   setIsLoading(flag: boolean) {
-    console.log('isFlagUpdating?', flag);
     this.isLoadingSubject.next(flag);
   }
 }
