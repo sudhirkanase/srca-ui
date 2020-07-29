@@ -8,7 +8,7 @@ export class AppSharedService {
 
   isLoadingSubject = new BehaviorSubject<boolean>(false);
   // To show error message on toast popup
-  toastErrorMessageSubject = new Subject<any>();
+  toastErrorMessageSubject = new Subject<string>();
 
   constructor() { }
 
