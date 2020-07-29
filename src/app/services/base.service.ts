@@ -10,15 +10,6 @@ import {
 import { catchError } from 'rxjs/operators';
 import { UserInfoBean } from '../beans/userinfo-bean';
 
-interface HttpOptions {
-  headers?: HttpHeaders | { [header: string]: string | string[]; };
-  observe?: 'body';
-  params?: HttpParams | { [param: string]: string | string[]; };
-  reportProgress?: boolean;
-  responseType?: 'json';
-  withCredentials?: boolean;
-}
-
 @Injectable({
   providedIn: 'root'
 })
@@ -39,7 +30,7 @@ export class BaseService {
       );
   }
 
-  public post(url: string, requestBody: any, options?: HttpOptions): Observable<any> {
+  public post(url: string, requestBody: any, options?: any): Observable<any> {
     if (!options) {
       options = {};
     }
@@ -50,7 +41,7 @@ export class BaseService {
       );
   }
 
-  public put(url: string, requestBody: any, options?: HttpOptions): Observable<any> {
+  public put(url: string, requestBody: any, options?: any): Observable<any> {
     if (!options) {
       options = {};
     }
@@ -61,7 +52,7 @@ export class BaseService {
       );
   }
 
-  public delete(url: string, options?: HttpOptions): Observable<any> {
+  public delete(url: string, options?: any): Observable<any> {
     if (!options) {
       options = {};
     }

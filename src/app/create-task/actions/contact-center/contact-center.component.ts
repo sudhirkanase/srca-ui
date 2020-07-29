@@ -29,28 +29,37 @@ export class ContactCenterComponent implements OnInit {
     this.contactCenterTaskState = this.taskStateEnum.ADD;
 
     this.contactDetailRequest = history.state.data;
+
+
     if (!isNullOrUndefined(this.contactDetailRequest)) {
-      this.getContactDetail();
+      this.getTaskDetails();
     } else {
       this.location.back();
     }
   }
 
-  // API call to get contact center details
-  getContactDetail() {
-    const contactRequestBody = {
-      id: this.contactDetailRequest.taskID,
-      accountNo: this.contactDetailRequest.accountNo
-    };
-    this.createTaskService
-      .getContactDetail(contactRequestBody).subscribe(data => {
+  getTaskDetails() {
+    if (!isNullOrUndefined(this.contactDetailRequest)) {
+      let contactCenterReq = {
+        accountNo: this.contactDetailRequest.accountNo,
+        id: this.contactDetailRequest.taskID,
+        taskType: 'Contact Center'
+      }
+      this.createTaskService.
+      getTaskDetails(contactCenterReq).subscribe(data => {
         this.contactCenterData = data;
       });
   }
+  }
 
   saveTask(taskDetail: any): void {
-    const updatedTaskData = { ...this.contactCenterData, ...{ taskDetail } };
-    this.createTaskService.saveContactCenterTaskDetails(updatedTaskData.taskID, updatedTaskData);
+    const updatedTaskData =  {...this.contactCenterData, ...{taskDetail}};
+    updatedTaskData.taskType = 'Contact Center';
+    this.createTaskService.saveContactCenterTaskDetails(updatedTaskData).subscribe(saveTaskResponse => {
+      if(saveTaskResponse && saveTaskResponse === 'success') {
+        this.location.back();
+      }
+    });
   }
 
   cancelClick(): void {
