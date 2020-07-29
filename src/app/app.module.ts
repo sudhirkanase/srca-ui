@@ -16,6 +16,7 @@ import { BaseService } from './services/base.service';
 import { AlertComponent } from './alert/alert.component';
 import { AppSharedService } from './services/app-shared.service';
 import { SpinnerComponent } from './shared/components/spinner/spinner.component';
+import { ToasterComponent } from './shared/toaster/toaster.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { SpinnerComponent } from './shared/components/spinner/spinner.component'
     MenuBarComponent,
     LoginComponent,
     AlertComponent,
-    SpinnerComponent
+    SpinnerComponent,
+    ToasterComponent
   ],
   imports: [
     BrowserModule,

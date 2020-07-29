@@ -14,6 +14,9 @@ import { PaginatorModule } from 'primeng/paginator';
 import { SlideMenuModule } from 'primeng/slidemenu';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { BlockUIModule } from 'primeng/blockui';
+import {ToastModule} from 'primeng/toast';
+import {MessageService} from 'primeng/api';
+import { ToasterComponent } from './toaster/toaster.component';
 
 @NgModule({
   declarations: [],
@@ -33,7 +36,11 @@ import { BlockUIModule } from 'primeng/blockui';
     PaginatorModule,
     SlideMenuModule,
     BlockUIModule,
-    ProgressSpinnerModule
+    ProgressSpinnerModule,
+    ToastModule
+  ],
+  providers: [
+    MessageService
   ]
 })
 export class TMTPrimengModule { }
