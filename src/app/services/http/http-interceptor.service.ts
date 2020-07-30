@@ -5,6 +5,7 @@ import { catchError, tap } from 'rxjs/operators';
 import { throwError } from 'rxjs';
 import { AuthenticationService } from '../auth/authentication.service';
 import { AppSharedService } from './../app-shared.service';
+import { isNullOrUndefined } from 'util';
 
 @Injectable({
   providedIn: 'root'
@@ -50,14 +51,16 @@ export class HttpInterceptorService implements HttpInterceptor {
             }
           }
           // setting error message to show toast message popup
-          if (response.error instanceof ErrorEvent) {
+          if (!isNullOrUndefined(response) && !isNullOrUndefined(response.error)
+            && response.error instanceof ErrorEvent) {
             errorMessage = response.error.message;
-          } else {
+          } else if (!isNullOrUndefined(response) && !isNullOrUndefined(response.error)) {
             errorMessage = response.error.errorMessage;
           }
 
-          this.appSharedService.setToastErrorMessage(errorMessage);
-
+          if (errorMessage !== '') {
+            this.appSharedService.setToastErrorMessage(errorMessage);
+          }
           return throwError(response);
         }));
   }
