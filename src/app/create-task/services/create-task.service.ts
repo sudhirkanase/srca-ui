@@ -28,10 +28,6 @@ export class CreateTaskService extends BaseService {
     return this.get(`${this.taskManagementServiceUrl}/getAccount/${accountNumber}`);
   }
 
-  getTasksByAccountNumber(accountNumber: number): Observable<any> {
-    return this.get('assets/json/task-list.json');
-  }
-
   getDocumentDetails(): Observable<any> {
     return this.get('assets/json/document-details.json');
   }
@@ -44,4 +40,7 @@ export class CreateTaskService extends BaseService {
     return this.post(`${this.taskManagementServiceUrl}/getTaskDetails`, contactCenterReq);
   }
 
+  getTaskListByAccountNo(accountNo): Observable<any> {
+    return this.post(`${this.taskManagementServiceUrl}/getTaskList`, accountNo);
+  }
 }

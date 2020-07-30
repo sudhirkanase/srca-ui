@@ -43,6 +43,16 @@ export class AccountSummaryComponent implements OnInit {
       taskID: 0,
       accountAction: 'Add'
     };
+
+  }
+
+  getTaskListByAccountNo() {
+    if (!isNullOrUndefined(this.accountNumber)) {
+      this.createTaskService.getTaskListByAccountNo(this.accountNumber).subscribe(taskListRes => {
+        this.tasks = taskListRes;
+      })
+    }
+
   }
 
   // To get the account number from state property of route
@@ -58,21 +68,14 @@ export class AccountSummaryComponent implements OnInit {
     this.createTaskSharedService.setAccountNumber(this.accountNumber);
 
     this.getAccountDetails();
+    this.getTaskListByAccountNo();
   }
 
   // To get account details using account number
   getAccountDetails(): void {
-
     this.createTaskService.getAccountByAccountNumber(this.accountNumber).subscribe((account: Account) => {
       this.accountDetails = account;
     });
-
-    if (this.accountDetails && this.accountDetails.accountNumber) {
-      this.createTaskService.getTasksByAccountNumber(this.accountDetails.accountNumber)
-        .subscribe((tasks: any) => {
-          this.tasks = tasks.filter((task: any) => task.taskType === 'Contact Center');
-        });
-    }
   }
 
   /**
