@@ -314,7 +314,7 @@ export class TaskDetailComponent implements OnInit, OnChanges, OnDestroy {
         fullyAuthenticated: this.taskDetailData.fullyAuthenticated,
         taskPriority: this.taskDetailData.taskPriority,
         callDetails: this.taskDetailData.callDetails,
-        taskNotes: this.taskDetailData.taskNotes
+        taskNotes: this.taskDetailData.taskNotes,
       });
       this.loadActionByCallCode(this.taskDetailData.callCode);
       if (this.taskDetailData.action) {
