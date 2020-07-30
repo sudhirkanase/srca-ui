@@ -17,19 +17,25 @@ export class TaskDetailComponent implements OnInit, OnChanges, OnDestroy {
   taskPriorityData: SelectItem[];
   callCodes: SelectItem[];
   actions: SelectItem[];
+  assignToOptions: SelectItem[];
+  individualOptions: SelectItem[];
+
   taskDetailForm: FormGroup;
+
   accountColumns: any[];
   accounts: Account[];
+
   dropdownData: { [key: string]: string[] };
   assignToData: string[];
+
   isSaveBtnClicked: boolean;
   message: { [key: string]: string };
   formControlLabelMapping: { [key: string]: string };
+
   isTaskInReview: boolean;
   taskStateEnum = TaskState;
+
   taskCompleteSubscription: Subscription;
-  assignToOptions: SelectItem[];
-  individualOptions: SelectItem[];
 
   @Input() taskDetailData: any;
   @Input() taskState: any;
@@ -42,7 +48,11 @@ export class TaskDetailComponent implements OnInit, OnChanges, OnDestroy {
       this.isTaskInReview = (changes.taskState.currentValue === this.taskStateEnum.REVIEW);
       if (this.isTaskInReview) {
         // add task complete form control
-        this.taskDetailForm.addControl('taskComplete', new FormControl('', Validators.required));
+        // this.taskDetailForm.addControl('taskComplete', new FormControl('', Validators.required));
+
+        const taskNotCompleteFields = ['assignTo', 'individual', 'userGroup'];
+
+        this.updateControlValidators('taskComplete');
 
         // check if task complete subscription exist
         if (this.taskCompleteSubscription) {
@@ -55,14 +65,25 @@ export class TaskDetailComponent implements OnInit, OnChanges, OnDestroy {
             this.loadAssignToOptions();
             this.loadIndividualOptions();
 
-            this.taskDetailForm = this.formBuilder.group({
-              ...this.taskDetailForm.controls,
-              assignTo: [null, Validators.required],
-              individual: [null, Validators.required],
-              userGroup: [null]
+            taskNotCompleteFields.forEach(controlName => this.updateControlValidators(controlName));
+
+            // this.taskDetailForm = this.formBuilder.group({
+            //   ...this.taskDetailForm.controls,
+            //   assignTo: [null, Validators.required],
+            //   individual: [null, Validators.required],
+            //   userGroup: [null]
+            // });
+          } else {
+            taskNotCompleteFields.forEach(controlName => {
+              this.taskDetailForm.get(controlName).setValue(null);
+              this.updateControlValidators(controlName, true);
             });
           }
         });
+      } else {
+        if (this.taskDetailForm) {
+          this.updateControlValidators('taskComplete', true);
+        }
       }
       // else {
       //   if (this.taskDetailForm && this.taskComplete) {
@@ -75,6 +96,17 @@ export class TaskDetailComponent implements OnInit, OnChanges, OnDestroy {
         this.updateValues();
       });
     }
+  }
+
+  updateControlValidators(controlName: string, remove: boolean = false): void {
+    const control: FormControl = this.taskDetailForm.get(controlName) as FormControl;
+    if (remove) {
+      control.clearValidators();
+    } else {
+      control.setValidators(Validators.required);
+    }
+    control.updateValueAndValidity();
+    control.markAsUntouched();
   }
 
   ngOnInit() {
@@ -90,7 +122,11 @@ export class TaskDetailComponent implements OnInit, OnChanges, OnDestroy {
       fullyAuthenticated: [null, Validators.required],
       taskPriority: ['low'],
       taskNotes: [null],
-      callDetails: [null, Validators.required]
+      callDetails: [null, Validators.required],
+      taskComplete: [null],
+      assignTo: [null],
+      individual: [null],
+      userGroup: [null]
     });
 
     this.formControlLabelMapping = {
@@ -101,7 +137,10 @@ export class TaskDetailComponent implements OnInit, OnChanges, OnDestroy {
       taxPayerIDAvailable: 'TaxPayer ID Selection',
       taxPayerID: 'TaxPayer ID',
       fullyAuthenticated: 'Fully authenticated',
-      callDetails: 'Call details'
+      callDetails: 'Call details',
+      taskComplete: 'Task complete',
+      assignTo: 'Assign to',
+      individual: 'Individual'
     };
 
     this.taskPriorityData = [

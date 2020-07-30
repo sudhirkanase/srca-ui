@@ -22,7 +22,7 @@ export class ContactCenterComponent implements OnInit {
     private location: Location
   ) { }
 
-  @ViewChild(TaskDetailComponent, { static: false }) srcaTaskDetails: TaskDetailComponent;
+  @ViewChild(TaskDetailComponent, { static: false }) srcaTaskDetailsVC: TaskDetailComponent;
 
   ngOnInit() {
 
@@ -40,23 +40,23 @@ export class ContactCenterComponent implements OnInit {
 
   getTaskDetails() {
     if (!isNullOrUndefined(this.contactDetailRequest)) {
-      let contactCenterReq = {
+      const contactCenterReq: any = {
         accountNo: this.contactDetailRequest.accountNo,
         id: this.contactDetailRequest.taskID,
         taskType: 'Contact Center'
       }
       this.createTaskService.
-      getTaskDetails(contactCenterReq).subscribe(data => {
-        this.contactCenterData = data;
-      });
-  }
+        getTaskDetails(contactCenterReq).subscribe(data => {
+          this.contactCenterData = data;
+        });
+    }
   }
 
   saveTask(taskDetail: any): void {
-    const updatedTaskData =  {...this.contactCenterData, ...{taskDetail}};
+    const updatedTaskData = { ...this.contactCenterData, ...{ taskDetail } };
     updatedTaskData.taskType = 'Contact Center';
     this.createTaskService.saveContactCenterTaskDetails(updatedTaskData).subscribe(saveTaskResponse => {
-      if(saveTaskResponse && saveTaskResponse === 'success') {
+      if (saveTaskResponse && saveTaskResponse === 'success') {
         this.location.back();
       }
     });
