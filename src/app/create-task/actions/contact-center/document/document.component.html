@@ -1,11 +1,11 @@
 
 <div class="panel">
-    <p-panel header="Document" class="documents-panel">
+    <p-panel header="Document">
         <p-header>
             <button pButton type="button" label="Add Document" class="float-r" (click)="openDialog()" *ngIf="!uploadDoc"></button>
         </p-header>
-        <div *ngIf="!uploadDoc">
-            <p-table [columns]="cols" [value]="documents">
+        <div *ngIf="!uploadDoc" style="height: 364px;">
+            <p-table [columns]="cols" [value]="documents" >
                 <ng-template pTemplate="header" let-columns>
                     <tr>
                         <th *ngFor="let col of columns">
@@ -22,7 +22,8 @@
                 </ng-template>
             </p-table>
         </div>
-            <p-panel header="Upload File" *ngIf="uploadDoc">
+        <div>
+        <p-panel header="Upload File" *ngIf="uploadDoc">
         <form [formGroup]="documentDetailsForm" (ngSubmit)="onSubmit()">
             <div class="panel-border">
                 Choose a document to attach to this request:
@@ -64,7 +65,8 @@
                 <span><button pButton type="button" label="Cancel" (click)="onCancel()"></button></span>
             </div>
         </form> 
-            </p-panel>     
+            </p-panel> 
+        </div>    
     </p-panel>
   
 </div>
