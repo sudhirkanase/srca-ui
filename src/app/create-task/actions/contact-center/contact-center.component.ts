@@ -45,7 +45,7 @@ export class ContactCenterComponent implements OnInit {
         accountNo: this.contactDetailRequest.accountNo,
         id: this.contactDetailRequest.taskID,
         taskType: 'Contact Center'
-      }
+      };
       this.createTaskService.
         getTaskDetails(contactCenterReq).subscribe(data => {
           this.contactCenterData = data;
