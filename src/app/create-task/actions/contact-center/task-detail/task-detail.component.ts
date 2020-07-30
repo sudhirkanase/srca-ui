@@ -37,6 +37,9 @@ export class TaskDetailComponent implements OnInit, OnChanges, OnDestroy {
 
   taskCompleteSubscription: Subscription;
 
+  officerListColumns: any[];
+  officerListData: any[];
+
   @Input() taskDetailData: any;
   @Input() taskState: any;
   @Output() saveTaskDetails = new EventEmitter<any>();
@@ -135,6 +138,22 @@ export class TaskDetailComponent implements OnInit, OnChanges, OnDestroy {
     ];
     this.accounts = [];
 
+
+    this.officerListColumns = [
+      { field: 'Select', header: 'Select' },
+      { field: 'Officer', header: 'Officer' },
+      { field: 'AdminCode', header: 'AdminCode' },
+      { field: 'Name', header: 'Name' },
+      { field: 'Email', header: 'Email' },
+    ];
+
+    this.officerListData = [
+      { Officer: 'Administrator', AdminCode: '6006', Name: 'Josh Stephen', Email: 'josh.stephen@gmail.com' },
+      { Officer: 'Backup Administrator', AdminCode: '1001', Name: 'Mary Steph', Email: 'mary.steph@gmail.com' },
+      { Officer: 'Sr. Administrator', AdminCode: '2002', Name: 'John Wilsons', Email: 'john.wilsons@gmail.com' },
+      { Officer: 'Investment Manager', AdminCode: '2300', Name: 'Jorge Effison', Email: 'jorge.effison@gmail.com' },
+      { Officer: 'Backup Investment Mgr', AdminCode: '4589', Name: 'Josh Effison', Email: 'josh.effison@gmail.com' }
+    ];
     this.initializeTaskDetailsForm();
     this.loadCallCodes();
     this.subscribeForTaxPayerIDAvailability();

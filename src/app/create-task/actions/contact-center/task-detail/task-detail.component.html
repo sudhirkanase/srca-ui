@@ -161,6 +161,33 @@
         </div>
       </div>
     </div>
+    <div *ngIf="isTaskInReview" class="row col-md-12 task-details-b-pad">
+      <div class="add-accounts-section task-details-b-pad">
+        <span>Officer List</span>
+      </div>
+      <p-table [columns]="officerListColumns" dataKey="AdminCode" [value]="officerListData">
+        <ng-template pTemplate="header" let-columns>
+          <tr>
+            <th *ngFor="let col of columns" class="text-center">
+              {{col.header}}
+            </th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-rowData let-columns="columns" let-rowIndex="rowIndex">
+          <tr>
+            <td *ngFor="let col of columns" class="text-center">
+              <p-tableCheckbox *ngIf="col.header == 'Select'" [value]="rowData" [index]="rowIndex"></p-tableCheckbox>
+              {{rowData[col.field]}}
+            </td>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="emptymessage">
+          <tr class="text-center">
+              <td colspan="5">No officers list found.</td>
+          </tr>
+      </ng-template>
+      </p-table>
+    </div>
 
     <div *ngIf="isSaveBtnClicked && message">
       <div [ngClass]="message.cssClass" *ngIf="!taskDetailForm.valid || !taskDetailForm.touched">
