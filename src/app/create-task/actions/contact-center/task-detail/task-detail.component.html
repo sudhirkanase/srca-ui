@@ -155,14 +155,14 @@
             [ngClass]="{ 'invalid-dropdown': individual.errors && individual.touched }">
           </p-dropdown>
         </div>
-        <div class=" col-md-8">
+        <div class=" col-md-8" *ngIf="userGroup?.value">
           <label class="task-detail-label">User Group</label>
           <label>{{userGroup?.value}}</label>
         </div>
       </div>
     </div>
 
-    <div *ngIf="isSaveBtnClicked">
+    <div *ngIf="isSaveBtnClicked && message">
       <div [ngClass]="message.cssClass" *ngIf="!taskDetailForm.valid || !taskDetailForm.touched">
         {{message.text}}
       </div>
