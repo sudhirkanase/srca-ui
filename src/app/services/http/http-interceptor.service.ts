@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { HttpInterceptor, HttpRequest, HttpHandler, HttpErrorResponse } from '@angular/common/http';
-import { catchError, tap } from 'rxjs/operators';
+import { HttpInterceptor, HttpRequest, HttpHandler } from '@angular/common/http';
+import { catchError } from 'rxjs/operators';
 import { throwError } from 'rxjs';
 import { AuthenticationService } from '../auth/authentication.service';
 import { AppSharedService } from './../app-shared.service';
@@ -23,7 +23,6 @@ export class HttpInterceptorService implements HttpInterceptor {
     //     Authorization: this.createBasicAuthStr()
     //   }
     // });
-    this.appSharedService.setIsLoading(true);
     if (this.authService.isUserAuthenticated() && this.authService.getAuthToken()) {
       request = request.clone({
         setHeaders: {
@@ -33,7 +32,6 @@ export class HttpInterceptorService implements HttpInterceptor {
     }
     return next.handle(request)
       .pipe(
-        tap(() => this.appSharedService.setIsLoading(false)),
         catchError(response => {
           let errorMessage = '';
           if (response.status === 401) {

@@ -5,13 +5,14 @@ import { map, catchError } from 'rxjs/operators';
 
 import { Account } from '../model/Account';
 import { BaseService } from 'src/app/services/base.service';
+import { AppSharedService } from 'src/app/services/app-shared.service';
 
 
 @Injectable()
 export class CreateTaskService extends BaseService {
 
-  constructor(http: HttpClient) {
-    super(http);
+  constructor(http: HttpClient, appSharedService: AppSharedService) {
+    super(http, appSharedService);
   }
 
   searchAccounts(account: any): Observable<Account[]> {

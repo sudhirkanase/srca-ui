@@ -3,6 +3,7 @@ import { HttpTestingController, HttpClientTestingModule } from '@angular/common/
 
 import { BaseService } from './base.service';
 import { HttpHeaders, HttpErrorResponse } from '@angular/common/http';
+import { AppSharedService } from './app-shared.service';
 
 interface TypeModel {
   booleanProperty: boolean;
@@ -13,11 +14,17 @@ interface TypeModel {
 describe('BaseService', () => {
   let service: BaseService;
   let httpMock: HttpTestingController;
+  let mockAppSharedService: AppSharedService;
 
   beforeEach(() => {
+    mockAppSharedService = jasmine.createSpyObj('AppSharedService', ['setIsLoading']);
+
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
-      providers: [BaseService]
+      providers: [
+        BaseService,
+        { provide: AppSharedService, useValue: mockAppSharedService }
+      ]
     });
     service = TestBed.get(BaseService);
     httpMock = TestBed.get(HttpTestingController);

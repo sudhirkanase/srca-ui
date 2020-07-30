@@ -133,7 +133,7 @@ describe('AccountSearchComponent', () => {
 
     const errorMessageDiv: HTMLDivElement = fixture.nativeElement.querySelector('div.error-class');
     expect(errorMessageDiv).toBeDefined();
-    expect(errorMessageDiv.textContent).toEqual(' * Please enter three letters ');
+    expect(errorMessageDiv.textContent).toEqual(' * Please enter at least three letters ');
   });
 
   it('should show validation error if input is less than 3 characters', () => {

@@ -7,8 +7,9 @@ import {
   LOGGEDIN_USER_INFO,
   AUTH_KEY
 } from './../../environments/environment';
-import { catchError } from 'rxjs/operators';
+import { catchError, map } from 'rxjs/operators';
 import { UserInfoBean } from '../beans/userinfo-bean';
+import { AppSharedService } from './app-shared.service';
 
 @Injectable({
   providedIn: 'root'
@@ -21,12 +22,14 @@ export class BaseService {
 
   private sessionExpired: boolean;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private appSharedService: AppSharedService) { }
 
   public get(url: string): Observable<any> {
+    this.appSharedService.setIsLoading(true);
     return this.http.get(url)
       .pipe(
-        catchError(this.handleError)
+        map(this.handleResponse.bind(this)),
+        catchError(this.handleError.bind(this))
       );
   }
 
@@ -35,9 +38,11 @@ export class BaseService {
       options = {};
     }
 
+    this.appSharedService.setIsLoading(true);
     return this.http.post(url, requestBody, options)
       .pipe(
-        catchError(this.handleError)
+        map(this.handleResponse.bind(this)),
+        catchError(this.handleError.bind(this))
       );
   }
 
@@ -46,9 +51,11 @@ export class BaseService {
       options = {};
     }
 
+    this.appSharedService.setIsLoading(true);
     return this.http.put(url, requestBody, options)
       .pipe(
-        catchError(this.handleError)
+        map(this.handleResponse.bind(this)),
+        catchError(this.handleError.bind(this))
       );
   }
 
@@ -57,9 +64,11 @@ export class BaseService {
       options = {};
     }
 
+    this.appSharedService.setIsLoading(true);
     return this.http.delete(url, options)
       .pipe(
-        catchError(this.handleError)
+        map(this.handleResponse.bind(this)),
+        catchError(this.handleError.bind(this))
       );
   }
 
@@ -83,7 +92,13 @@ export class BaseService {
     return JSON.parse(sessionStorage.getItem(this.loggedinUserInfo));
   }
 
+  private handleResponse(response: any) {
+    this.appSharedService.setIsLoading(false);
+    return response;
+  }
+
   private handleError(error: HttpErrorResponse) {
+    this.appSharedService.setIsLoading(false);
     if (error.error instanceof ErrorEvent) {
       // TODO: send the error to remote logging infrastructure
       console.error('An error occurred:', error.error.message);
