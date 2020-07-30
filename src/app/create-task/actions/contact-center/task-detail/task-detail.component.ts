@@ -17,19 +17,25 @@ export class TaskDetailComponent implements OnInit, OnChanges, OnDestroy {
   taskPriorityData: SelectItem[];
   callCodes: SelectItem[];
   actions: SelectItem[];
+  assignToOptions: SelectItem[];
+  individualOptions: SelectItem[];
+
   taskDetailForm: FormGroup;
+
   accountColumns: any[];
   accounts: Account[];
+
   dropdownData: { [key: string]: string[] };
   assignToData: string[];
+
   isSaveBtnClicked: boolean;
   message: { [key: string]: string };
   formControlLabelMapping: { [key: string]: string };
+
   isTaskInReview: boolean;
   taskStateEnum = TaskState;
+
   taskCompleteSubscription: Subscription;
-  assignToOptions: SelectItem[];
-  individualOptions: SelectItem[];
 
   @Input() taskDetailData: any;
   @Input() taskState: any;
@@ -37,12 +43,17 @@ export class TaskDetailComponent implements OnInit, OnChanges, OnDestroy {
 
   constructor(private formBuilder: FormBuilder, private cd: ChangeDetectorRef, private location: Location) { }
 
+  /**
+   * Determine if the task is in review state and update form accordingly.
+   * @param changes contains the detailed change information for all input properties
+   */
   ngOnChanges(changes: SimpleChanges) {
     if (changes.taskState && changes.taskState.previousValue !== changes.taskState.currentValue) {
       this.isTaskInReview = (changes.taskState.currentValue === this.taskStateEnum.REVIEW);
       if (this.isTaskInReview) {
-        // add task complete form control
-        this.taskDetailForm.addControl('taskComplete', new FormControl('', Validators.required));
+        const taskNotCompleteFields = ['assignTo', 'individual', 'userGroup'];
+
+        this.updateControlValidators('taskComplete');
 
         // check if task complete subscription exist
         if (this.taskCompleteSubscription) {
@@ -52,23 +63,22 @@ export class TaskDetailComponent implements OnInit, OnChanges, OnDestroy {
 
         this.taskCompleteSubscription = this.taskComplete.valueChanges.subscribe((value: string) => {
           if (value === 'yes') {
+            this.message = null;
             this.loadAssignToOptions();
             this.loadIndividualOptions();
 
-            this.taskDetailForm = this.formBuilder.group({
-              ...this.taskDetailForm.controls,
-              assignTo: [null, Validators.required],
-              individual: [null, Validators.required],
-              userGroup: [null]
+            taskNotCompleteFields.forEach(controlName => this.updateControlValidators(controlName));
+          } else {
+            taskNotCompleteFields.forEach(controlName => {
+              this.updateControlValidators(controlName, true);
             });
           }
         });
+      } else {
+        if (this.taskDetailForm) {
+          this.updateControlValidators('taskComplete', true);
+        }
       }
-      // else {
-      //   if (this.taskDetailForm && this.taskComplete) {
-      //     this.taskDetailForm.removeControl('taskComplete');
-      //   }
-      // }
     }
     if (changes.taskDetailData && changes.taskDetailData.previousValue !== changes.taskDetailData.currentValue) {
       setTimeout(() => {
@@ -77,21 +87,28 @@ export class TaskDetailComponent implements OnInit, OnChanges, OnDestroy {
     }
   }
 
+  /**
+   * Helper method to set or clear form control validators
+   * @param controlName - name of the control
+   * @param remove - should the control validations be set or clear
+   */
+  updateControlValidators(controlName: string, remove: boolean = false): void {
+    const control: FormControl = this.taskDetailForm.get(controlName) as FormControl;
+    if (remove) {
+      control.clearValidators();
+    } else {
+      control.setValidators(Validators.required);
+    }
+    control.updateValueAndValidity();
+    control.markAsUntouched();
+  }
+
+  /**
+   * initialize the task details
+   */
   ngOnInit() {
     this.dropdownData = CONTACT_CENTER_TASK_DROPDOWN_DATA;
     this.assignToData = ASSIGN_TO_DROPDOWN_DATA;
-
-    this.taskDetailForm = this.formBuilder.group({
-      callerName: [null, Validators.required],
-      callerPhone: [null, Validators.required],
-      action: [null, Validators.required],
-      callCode: [null, Validators.required],
-      taxPayerIDAvailable: [null, Validators.required],
-      fullyAuthenticated: [null, Validators.required],
-      taskPriority: ['low'],
-      taskNotes: [null],
-      callDetails: [null, Validators.required]
-    });
 
     this.formControlLabelMapping = {
       callerName: 'Caller name',
@@ -101,7 +118,10 @@ export class TaskDetailComponent implements OnInit, OnChanges, OnDestroy {
       taxPayerIDAvailable: 'TaxPayer ID Selection',
       taxPayerID: 'TaxPayer ID',
       fullyAuthenticated: 'Fully authenticated',
-      callDetails: 'Call details'
+      callDetails: 'Call details',
+      taskComplete: 'Task complete',
+      assignTo: 'Assign to',
+      individual: 'Individual'
     };
 
     this.taskPriorityData = [
@@ -115,9 +135,33 @@ export class TaskDetailComponent implements OnInit, OnChanges, OnDestroy {
     ];
     this.accounts = [];
 
+    this.initializeTaskDetailsForm();
     this.loadCallCodes();
+    this.subscribeForTaxPayerIDAvailability();
+  }
 
-    // check for taxPayerIDAvailable value changes
+  initializeTaskDetailsForm(): void {
+    this.taskDetailForm = this.formBuilder.group({
+      callerName: [null, Validators.required],
+      callerPhone: [null, Validators.required],
+      action: [null, Validators.required],
+      callCode: [null, Validators.required],
+      taxPayerIDAvailable: [null, Validators.required],
+      fullyAuthenticated: [null, Validators.required],
+      taskPriority: ['low'],
+      taskNotes: [null],
+      callDetails: [null, Validators.required],
+      taskComplete: [null],
+      assignTo: [null],
+      individual: [null],
+      userGroup: [null]
+    });
+  }
+
+  /**
+   * Show Tax Payer ID input if client has indicated availability.
+   */
+  subscribeForTaxPayerIDAvailability(): void {
     this.taxPayerIDAvailable.valueChanges
       .subscribe((value: string) => {
         if (value === 'yes') {
@@ -133,6 +177,9 @@ export class TaskDetailComponent implements OnInit, OnChanges, OnDestroy {
       });
   }
 
+  /**
+   * Populate call code dropdown values
+   */
   loadCallCodes(): void {
     const callCodeOptions = Object.keys(this.dropdownData).map((key: string) => {
       return {
@@ -143,6 +190,10 @@ export class TaskDetailComponent implements OnInit, OnChanges, OnDestroy {
     this.callCodes = [{ label: 'Select Call Code', value: null }, ...callCodeOptions];
   }
 
+  /**
+   * Update the action dropdown depending on selected call code value
+   * @param callCodeValue value of call code dropdown
+   */
   loadActionByCallCode(callCodeValue: string): void {
     if (!callCodeValue) {
       this.actions = [];
@@ -159,6 +210,9 @@ export class TaskDetailComponent implements OnInit, OnChanges, OnDestroy {
     this.actions = [{ label: 'Select Action', value: null }, ...actionOptions];
   }
 
+  /**
+   * If task is incomplete, populate assign to dropdown for task assignment
+   */
   loadAssignToOptions(): void {
     const assignToValues = this.assignToData.map((key: string) => {
       return {
@@ -169,6 +223,9 @@ export class TaskDetailComponent implements OnInit, OnChanges, OnDestroy {
     this.assignToOptions = [{ label: 'Select Assign To', value: null }, ...assignToValues];
   }
 
+  /**
+   * Populate individual dropdown data if assignTo is individual
+   */
   loadIndividualOptions(): void {
     // TODO - fetch from API
     this.individualOptions = [
@@ -179,6 +236,9 @@ export class TaskDetailComponent implements OnInit, OnChanges, OnDestroy {
     ];
   }
 
+  /**
+   * Update user group based on the value selected in the individual field
+   */
   onIndividualSelection(): void {
     // TODO - fetch from API
     this.userGroup.setValue('WM NC-Philanthropic CS (Inactive)');
@@ -240,6 +300,9 @@ export class TaskDetailComponent implements OnInit, OnChanges, OnDestroy {
     return this.taskDetailForm.get('userGroup') as FormControl;
   }
 
+  /**
+   * In case of task edit scenario, update the form with existing task information
+   */
   updateValues() {
     if (!isNullOrUndefined(this.taskDetailData)) {
       this.taskDetailForm.setValue({
@@ -263,6 +326,10 @@ export class TaskDetailComponent implements OnInit, OnChanges, OnDestroy {
     this.cd.detectChanges();
   }
 
+  /**
+   * If the form is valid, submit the contact center task details form.
+   * Else, show error message to the user
+   */
   onSubmit() {
     this.isSaveBtnClicked = true;
     if (this.taskDetailForm.valid) {
@@ -297,6 +364,9 @@ export class TaskDetailComponent implements OnInit, OnChanges, OnDestroy {
     }
   }
 
+  /**
+   * Component cleanup
+   */
   ngOnDestroy() {
     if (this.taskCompleteSubscription) {
       this.taskCompleteSubscription.unsubscribe();

@@ -23,7 +23,7 @@ export class ContactCenterComponent implements OnInit {
     private location: Location
   ) { }
 
-  @ViewChild(TaskDetailComponent, { static: false }) srcaTaskDetails: TaskDetailComponent;
+  @ViewChild(TaskDetailComponent, { static: false }) srcaTaskDetailsVC: TaskDetailComponent;
 
   ngOnInit() {
 
@@ -41,16 +41,16 @@ export class ContactCenterComponent implements OnInit {
 
   getTaskDetails() {
     if (!isNullOrUndefined(this.contactDetailRequest)) {
-      let contactCenterReq = {
+      const contactCenterReq: any = {
         accountNo: this.contactDetailRequest.accountNo,
         id: this.contactDetailRequest.taskID,
         taskType: 'Contact Center'
       }
       this.createTaskService.
-      getTaskDetails(contactCenterReq).subscribe(data => {
-        this.contactCenterData = data;
-      });
-  }
+        getTaskDetails(contactCenterReq).subscribe(data => {
+          this.contactCenterData = data;
+        });
+    }
   }
 
   createRequestBody(taskDetail): void {
@@ -60,7 +60,7 @@ export class ContactCenterComponent implements OnInit {
     this.requestBody.callerPhone = taskDetail.callerPhone;
     this.requestBody.action = taskDetail.action;
     this.requestBody.fullyAuthenticated = taskDetail.fullyAuthenticated;
-    this.requestBody.taskNotes = taskDetail.taskNotes; 
+    this.requestBody.taskNotes = taskDetail.taskNotes;
     this.requestBody.taskPriority = taskDetail.taskPriority;
     this.requestBody.isTaxpayerId = taskDetail.taxPayerIDAvailable;
   }
@@ -70,7 +70,7 @@ export class ContactCenterComponent implements OnInit {
     this.requestBody.taskType = 'Contact Center';
     this.createRequestBody(taskDetail);
     this.createTaskService.saveContactCenterTaskDetails(this.requestBody).subscribe(saveTaskResponse => {
-      if(saveTaskResponse) {
+      if (saveTaskResponse) {
         this.location.back();
       }
     });

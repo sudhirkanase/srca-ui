@@ -81,7 +81,8 @@
     <p-card>
       <p-tabView>
         <p-tabPanel header="Task Detail">
-          <srca-task-detail #srcaTaskDetails [taskState]="contactCenterTaskState" [taskDetailData]="contactCenterData"  (saveTaskDetails)="saveTask($event)">
+          <srca-task-detail #srcaTaskDetails [taskState]="contactCenterTaskState" [taskDetailData]="contactCenterData"
+            (saveTaskDetails)="saveTask($event)">
           </srca-task-detail>
         </p-tabPanel>
         <p-tabPanel header="Document">
@@ -89,11 +90,15 @@
         </p-tabPanel>
       </p-tabView>
       <div class="button-style">
-        <p-button type="button" label="{{(contactCenterTaskState === taskStateEnum.REVIEW) ? 'Return' : 'Next'}}"
-          class="save-pad" (click)="updateTaskState()">
+        <button pButton *ngIf="contactCenterTaskState !== taskStateEnum.REVIEW" class="save-pad" type="button"
+          label="Next" [disabled]="!srcaTaskDetails.taskDetailForm.valid" (click)="updateTaskState()">
+        </button>
+        <p-button *ngIf="contactCenterTaskState === taskStateEnum.REVIEW" type="button" label="Return" class="save-pad"
+          (click)="updateTaskState()">
         </p-button>
-        <p-button type="submit" label="Save" class="save-pad" (click)="srcaTaskDetails.onSubmit()">
-        </p-button>
+        <button pButton type="submit" label="Submit" [disabled]="contactCenterTaskState !== taskStateEnum.REVIEW"
+          class="save-pad" (click)="srcaTaskDetails.onSubmit()">
+        </button>
         <p-button type="button" label="Cancel" (click)="cancelClick()">
         </p-button>
       </div>
