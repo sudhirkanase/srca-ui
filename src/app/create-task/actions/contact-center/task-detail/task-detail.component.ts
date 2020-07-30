@@ -65,7 +65,7 @@ export class TaskDetailComponent implements OnInit, OnChanges, OnDestroy {
         }
 
         this.taskCompleteSubscription = this.taskComplete.valueChanges.subscribe((value: string) => {
-          if (value === 'yes') {
+          if (value === 'no') {
             this.message = null;
             this.loadAssignToOptions();
             this.loadIndividualOptions();

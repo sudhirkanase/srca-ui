@@ -123,6 +123,11 @@
             </td>
           </tr>
         </ng-template>
+        <ng-template pTemplate="emptymessage">
+          <tr class="text-center">
+            <td colspan="2">No records to display.</td>
+          </tr>
+        </ng-template>
       </p-table>
     </div>
 
@@ -140,7 +145,7 @@
             [ngClass]="{ 'invalid-radio': taskComplete.errors && taskComplete.touched }">
           </p-radioButton>
         </div>
-        <div class=" col-md-4" *ngIf="taskComplete.value === 'yes'">
+        <div class=" col-md-4" *ngIf="taskComplete.value === 'no'">
           <label class="task-detail-label">Assign to<span class="required-indicator">*</span></label>
           <p-dropdown formControlName="assignTo" [options]="assignToOptions"
             [ngClass]="{ 'invalid-dropdown': assignTo.errors && assignTo.touched }">
@@ -148,7 +153,7 @@
         </div>
       </div>
 
-      <div class="row col-md-12 task-details-b-pad" *ngIf="taskComplete.value === 'yes'">
+      <div class="row col-md-12 task-details-b-pad" *ngIf="taskComplete.value === 'no'">
         <div class=" col-md-4">
           <label class="task-detail-label">Select Individual<span class="required-indicator">*</span></label>
           <p-dropdown formControlName="individual" [options]="individualOptions" (onChange)="onIndividualSelection()"
@@ -183,9 +188,9 @@
         </ng-template>
         <ng-template pTemplate="emptymessage">
           <tr class="text-center">
-              <td colspan="5">No officers list found.</td>
+            <td colspan="5">No records to display.</td>
           </tr>
-      </ng-template>
+        </ng-template>
       </p-table>
     </div>
 
