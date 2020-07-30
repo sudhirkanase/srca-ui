@@ -4,6 +4,7 @@ import { BehaviorSubject, Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { UserInfoBean } from 'src/app/beans/userinfo-bean';
 import { BaseService } from '../base.service';
+import { AppSharedService } from '../app-shared.service';
 
 @Injectable({ providedIn: 'root' })
 export class AuthenticationService extends BaseService {
@@ -11,8 +12,8 @@ export class AuthenticationService extends BaseService {
     private currentUserSubject: BehaviorSubject<any>;
     public currentUser: Observable<any>;
 
-    constructor(http: HttpClient) {
-        super(http);
+    constructor(http: HttpClient, appSharedService: AppSharedService) {
+        super(http, appSharedService);
         this.currentUserSubject = new BehaviorSubject<any>(JSON.parse(localStorage.getItem('currentUser')));
         this.currentUser = this.currentUserSubject.asObservable();
     }

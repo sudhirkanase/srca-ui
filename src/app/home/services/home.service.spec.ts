@@ -2,15 +2,22 @@ import { HttpClientTestingModule, HttpTestingController } from '@angular/common/
 import { TestBed } from '@angular/core/testing';
 
 import { HomeService } from './home.service';
+import { AppSharedService } from 'src/app/services/app-shared.service';
 
 describe('HomeService', () => {
   let service: HomeService;
   let httpMock: HttpTestingController;
+  let mockAppSharedService: AppSharedService;
 
   beforeEach(() => {
+    mockAppSharedService = jasmine.createSpyObj('AppSharedService', ['setIsLoading']);
+
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
-      providers: [HomeService]
+      providers: [
+        HomeService,
+        { provide: AppSharedService, useValue: mockAppSharedService }
+      ]
     });
 
     service = TestBed.get(HomeService);
