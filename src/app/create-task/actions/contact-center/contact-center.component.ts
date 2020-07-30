@@ -63,6 +63,11 @@ export class ContactCenterComponent implements OnInit {
     this.requestBody.taskNotes = taskDetail.taskNotes;
     this.requestBody.taskPriority = taskDetail.taskPriority;
     this.requestBody.isTaxpayerId = taskDetail.taxPayerIDAvailable;
+    this.requestBody.taxpayerId = taskDetail.taxPayerID;
+    this.requestBody.assignedUserGroup = taskDetail.userGroup;
+    this.requestBody.taskCompleted = taskDetail.taskComplete;
+    this.requestBody.selectedIndividual = taskDetail.individual;
+    this.requestBody.assignTo = taskDetail.assignTo;
   }
 
   saveTask(taskDetail: any): void {

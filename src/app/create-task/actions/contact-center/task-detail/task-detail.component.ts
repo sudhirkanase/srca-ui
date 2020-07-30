@@ -69,9 +69,12 @@ export class TaskDetailComponent implements OnInit, OnChanges, OnDestroy {
             this.message = null;
             this.loadAssignToOptions();
             this.loadIndividualOptions();
-
             taskNotCompleteFields.forEach(controlName => this.updateControlValidators(controlName));
+
           } else {
+            //Reset to null when yes selected in Task Completed
+            this.taskDetailForm.get('assignTo').setValue(null);
+            this.taskDetailForm.get('individual').setValue(null);
             taskNotCompleteFields.forEach(controlName => {
               this.updateControlValidators(controlName, true);
             });
@@ -323,8 +326,12 @@ export class TaskDetailComponent implements OnInit, OnChanges, OnDestroy {
    * In case of task edit scenario, update the form with existing task information
    */
   updateValues() {
+
+    this.loadAssignToOptions();
+    this.loadIndividualOptions();
+
     if (!isNullOrUndefined(this.taskDetailData)) {
-      this.taskDetailForm.setValue({
+      this.taskDetailForm.patchValue({
         callerName: this.taskDetailData.callerName,
         callerPhone: this.taskDetailData.callerPhone,
         action: this.taskDetailData.action,
@@ -334,7 +341,16 @@ export class TaskDetailComponent implements OnInit, OnChanges, OnDestroy {
         taskPriority: this.taskDetailData.taskPriority,
         callDetails: this.taskDetailData.callDetails,
         taskNotes: this.taskDetailData.taskNotes,
+        taskComplete: this.taskDetailData.taskCompleted,
+        individual: this.taskDetailData.selectedIndividual,
+        assignTo: this.taskDetailData.assignTo
       });
+
+      if (this.taskDetailData.isTaxpayerId === 'yes') {
+        if (this.taskDetailForm.get('taxPayerID')) {
+          this.taskDetailForm.get('taxPayerID').setValue(this.taskDetailData.taxpayerId);
+        }
+      }
       this.loadActionByCallCode(this.taskDetailData.callCode);
       if (this.taskDetailData.action) {
         this.taskDetailForm.patchValue({
@@ -351,12 +367,19 @@ export class TaskDetailComponent implements OnInit, OnChanges, OnDestroy {
    */
   onSubmit() {
     this.isSaveBtnClicked = true;
-    if (this.taskDetailForm.valid) {
+
+    //To set User group only when task completed is no
+    if(this.taskDetailForm.get('taskComplete').value === 'yes') {
+      this.taskDetailForm.get('userGroup').setValue(null);
+    } else {
+      this.taskDetailForm.get('userGroup').setValue('WM NC-Philanthropic CS (Inactive)');
+    }
+    if (this.taskDetailForm.get('taskPriority').value === null) {
+      this.taskDetailForm.get('taskPriority').setValue('Low');
+    }
+    if (this.taskDetailForm.status === "VALID") {
       // API call to persist data
       this.saveTaskDetails.emit(this.taskDetailForm.value);
-      // update taxPayerIDAvailable before form reset to hide the taxPayerID field
-      this.taxPayerIDAvailable.setValue(null);
-      this.taskDetailForm.reset();
       // on API success
       this.message = {
         cssClass: 'alert alert-success',
