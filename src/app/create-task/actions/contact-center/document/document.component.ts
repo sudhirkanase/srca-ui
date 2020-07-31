@@ -3,11 +3,10 @@ import { Component, OnInit, Input, SimpleChanges, ValueSansProvider, OnChanges }
 import { SelectItem } from 'primeng/api';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { CreateTaskService } from 'src/app/create-task/services/create-task.service';
-import { Observable } from 'rxjs';
 import { UploadFileService } from 'src/app/create-task/services/UploadFileService.service';
 import { HttpEventType, HttpResponse } from '@angular/common/http';
 import { DocumentDetail } from '../../../model/doucument-detail';
-import { isNullOrUndefined } from 'util';
+import { isNullOrUndefined, isNull } from 'util';
 import { AppSharedService } from 'src/app/services/app-shared.service';
 
 
@@ -50,14 +49,15 @@ export class DocumentComponent implements OnInit, OnChanges {
   ngOnChanges(changes: SimpleChanges) {
     if (changes.documentDetailData.previousValue !== changes.documentDetailData.currentValue) {
       setTimeout(() => {
-        this.documentList = this.documentDetailData;
-        this.getDocumentsdetails();
+        if (!isNullOrUndefined(this.documentDetailData)
+          && !isNullOrUndefined(this.documentDetailData.documents)) {
+          this.documentList = this.documentDetailData.documents;
+        }
       });
     }
   }
 
   ngOnInit() {
-    this.getDocumentsdetails();
     this.filetypes();
 
     this.cols = [
@@ -69,7 +69,6 @@ export class DocumentComponent implements OnInit, OnChanges {
       { field: 'attachment', header: 'Attachments' },
       { field: 'documentAction', header: 'Action' }
     ];
-
   }
 
 
@@ -78,7 +77,6 @@ export class DocumentComponent implements OnInit, OnChanges {
   }
 
   openDialog() {
-    console.log('btn clicked');
     this.uploadDoc = !this.uploadDoc;
   }
 
@@ -93,12 +91,11 @@ export class DocumentComponent implements OnInit, OnChanges {
   }
 
   onSubmit() {
-    console.log(this.documentDetailsForm.value);
     this.upload(this.documentDetailsForm.value);
   }
   onCancel() {
     this.uploadDoc = !this.uploadDoc;
-    this.getDocumentsdetails();
+    this.getTaskDetails();
   }
 
   // upload file code
@@ -112,12 +109,12 @@ export class DocumentComponent implements OnInit, OnChanges {
     this.currentFile = this.selectedFiles.item(0);
     let doucument = this.createDocumentRequest(doumentData);
     this.uploadService.upload(doucument, this.currentFile).subscribe(event => {
-        if (event.type === HttpEventType.UploadProgress) {
-          this.progress = Math.round(100 * event.loaded / event.total);
-        } else if (event instanceof HttpResponse) {
-          this.message = event.body.message;
-        }
-      },
+      if (event.type === HttpEventType.UploadProgress) {
+        this.progress = Math.round(100 * event.loaded / event.total);
+      } else if (event instanceof HttpResponse) {
+        this.message = event.body.message;
+      }
+    },
       err => {
         this.progress = 0;
         this.message = 'Could not upload the file!';
@@ -128,33 +125,32 @@ export class DocumentComponent implements OnInit, OnChanges {
   }
 
   createDocumentRequest(doumentData: any): DocumentDetail {
-     let document = new DocumentDetail();
-     document.taskId = this.documentDetailData.id;
-     document.documentTypeId = doumentData.fileType;
-     document.notes = doumentData.description;
-     return document;
+    let document = new DocumentDetail();
+    document.taskId = this.documentDetailData.id;
+    document.documentTypeId = doumentData.fileType;
+    document.notes = doumentData.description;
+    return document;
   }
 
   onFileTypeChange(event: any): void {
     this.selectedFileTypeId = event.value;
   }
 
-  /**
-   * @description To get document list to show in table
-   */
-  getDocumentsdetails(): void {
+  //To Get document list
+  getTaskDetails() {
     if (!isNullOrUndefined(this.documentDetailData)) {
       const contactCenterReq: any = {
-        accountNo: null,
+        accountNo: this.documentDetailData.accountNo,
         id: this.documentDetailData.id,
         taskType: 'Contact Center'
       };
-
-      this.createTaskService.getTaskDetails(contactCenterReq).subscribe(data => {
-        if (!isNullOrUndefined(data) && !isNullOrUndefined(data.documents)) {
+      this.createTaskService.
+        getTaskDetails(contactCenterReq).subscribe(data => {
+          if (!isNullOrUndefined(data)
+          && !isNullOrUndefined(data.documents)) {
           this.documentList = data.documents;
         }
-      });
+        });
     }
   }
 
