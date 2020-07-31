@@ -30,7 +30,7 @@ export class DocumentComponent implements OnInit, OnChanges {
   currentFile: File;
   progress = 0;
   message = '';
-
+  isSubmitted = false
   @Input() documentDetailData: any;
   constructor(
     private createTaskService: CreateTaskService,
@@ -40,7 +40,7 @@ export class DocumentComponent implements OnInit, OnChanges {
 
   documentDetailsForm = new FormGroup(
     {
-      fileType: new FormControl('', Validators.required),
+      fileType: new FormControl(''),
       description: new FormControl('', Validators.required),
       fileName: new FormControl('', Validators.required)
     }
@@ -83,17 +83,24 @@ export class DocumentComponent implements OnInit, OnChanges {
   filetypes() {
     this.fileTypes = [
       { label: 'Miscellaneouse', value: 1 },
-      { label: 'Text', value: 2 },
-      { label: 'PDF', value: 3 },
-      { label: 'JPEG', value: 4 },
-      { label: 'PNG', value: 5 }
+      { label: 'Payslip', value: 2 },
+      { label: 'Salaryslip', value: 3 }
     ];
   }
 
   onSubmit() {
+    this.isSubmitted = true
+    console.log(this.documentDetailsForm.value);
     this.upload(this.documentDetailsForm.value);
+    if(this.documentDetailsForm.valid)
+    {
+      this.isSubmitted = false
+      this.documentDetailsForm.reset()
+    }
   }
+
   onCancel() {
+    this.isSubmitted = false
     this.uploadDoc = !this.uploadDoc;
     this.getTaskDetails();
   }
@@ -105,7 +112,6 @@ export class DocumentComponent implements OnInit, OnChanges {
 
   upload(doumentData: any) {
     this.progress = 0;
-
     this.currentFile = this.selectedFiles.item(0);
     let doucument = this.createDocumentRequest(doumentData);
     this.uploadService.upload(doucument, this.currentFile).subscribe(event => {
@@ -139,6 +145,11 @@ export class DocumentComponent implements OnInit, OnChanges {
   //To Get document list
   getTaskDetails() {
     if (!isNullOrUndefined(this.documentDetailData)) {
+      let accountNumber = null;
+      if (!isNullOrUndefined(this.documentDetailData.accountDetail)
+        && !isNullOrUndefined(this.documentDetailData.accountDetail.accountNumber)) {
+        accountNumber = this.documentDetailData.accountDetail.accountNumber;
+      }
       const contactCenterReq: any = {
         accountNo: this.documentDetailData.accountNo,
         id: this.documentDetailData.id,
@@ -147,11 +158,16 @@ export class DocumentComponent implements OnInit, OnChanges {
       this.createTaskService.
         getTaskDetails(contactCenterReq).subscribe(data => {
           if (!isNullOrUndefined(data)
-          && !isNullOrUndefined(data.documents)) {
-          this.documentList = data.documents;
-        }
+            && !isNullOrUndefined(data.documents)) {
+            this.documentList = data.documents;
+          }
         });
     }
   }
-
+  get description(): FormControl {
+    return this.documentDetailsForm.get('description') as FormControl;
+  }
+  get fileName(): FormControl {
+    return this.documentDetailsForm.get('fileName') as FormControl;
+  }
 }
