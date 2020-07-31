@@ -16,6 +16,7 @@ import { PanelModule } from 'primeng/panel';
 import { ButtonModule } from 'primeng/button';
 import { InputMaskModule } from 'primeng/inputmask';
 import { InputTextModule } from 'primeng/inputtext';
+import {ProgressBarModule} from 'primeng/progressbar';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import { InputTextModule } from 'primeng/inputtext';
     PanelModule,
     ButtonModule,
     InputTextModule,
-    InputMaskModule
+    InputMaskModule,
+    ProgressBarModule
   ]
 })
 export class ActionsModule { }
