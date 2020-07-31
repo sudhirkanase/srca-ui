@@ -2,7 +2,7 @@ import { Component, OnInit, Input, OnChanges, ChangeDetectorRef, SimpleChanges, 
 import { Location } from '@angular/common';
 import { FormBuilder, FormGroup, Validators, FormControl, AbstractControl } from '@angular/forms';
 import { SelectItem } from 'primeng/api/selectitem';
-import { isNullOrUndefined } from 'util';
+import { isNullOrUndefined, isNull } from 'util';
 import { Account } from './../../../model/Account';
 import { CONTACT_CENTER_TASK_DROPDOWN_DATA, TaskState, ASSIGN_TO_DROPDOWN_DATA } from 'src/app/app.constants';
 import { Subscription } from 'rxjs';
@@ -39,6 +39,7 @@ export class TaskDetailComponent implements OnInit, OnChanges, OnDestroy {
 
   officerListColumns: any[];
   officerListData: any[];
+  selectedOfficerList = [];
 
   @Input() taskDetailData: any;
   @Input() taskState: any;
@@ -144,18 +145,18 @@ export class TaskDetailComponent implements OnInit, OnChanges, OnDestroy {
 
     this.officerListColumns = [
       { field: 'Select', header: 'Select' },
-      { field: 'Officer', header: 'Officer' },
-      { field: 'AdminCode', header: 'AdminCode' },
-      { field: 'Name', header: 'Name' },
-      { field: 'Email', header: 'Email' },
+      { field: 'officer', header: 'Officer' },
+      { field: 'adminCode', header: 'AdminCode' },
+      { field: 'name', header: 'Name' },
+      { field: 'email', header: 'Email' },
     ];
 
     this.officerListData = [
-      { Officer: 'Administrator', AdminCode: '6006', Name: 'Josh Stephen', Email: 'josh.stephen@gmail.com' },
-      { Officer: 'Backup Administrator', AdminCode: '1001', Name: 'Mary Steph', Email: 'mary.steph@gmail.com' },
-      { Officer: 'Sr. Administrator', AdminCode: '2002', Name: 'John Wilsons', Email: 'john.wilsons@gmail.com' },
-      { Officer: 'Investment Manager', AdminCode: '2300', Name: 'Jorge Effison', Email: 'jorge.effison@gmail.com' },
-      { Officer: 'Backup Investment Mgr', AdminCode: '4589', Name: 'Josh Effison', Email: 'josh.effison@gmail.com' }
+      { officer: 'Administrator', adminCode: 6006, name: 'Josh Stephen', email: 'josh.stephen@gmail.com' },
+      { officer: 'Backup Administrator', adminCode: 1001, name: 'Mary Steph', email: 'mary.steph@gmail.com' },
+      { officer: 'Sr. Administrator', adminCode: 2002, name: 'John Wilsons', email: 'john.wilsons@gmail.com' },
+      { officer: 'Investment Manager', adminCode: 2300, name: 'Jorge Effison', email: 'jorge.effison@gmail.com' },
+      { officer: 'Backup Investment Mgr', adminCode: 4589, name: 'Josh Effison', email: 'josh.effison@gmail.com' }
     ];
     this.initializeTaskDetailsForm();
     this.loadCallCodes();
@@ -357,6 +358,8 @@ export class TaskDetailComponent implements OnInit, OnChanges, OnDestroy {
           action: this.taskDetailData.action
         });
       }
+
+      this.selectedOfficerList = this.taskDetailData.officers;
     }
     this.cd.detectChanges();
   }
@@ -369,7 +372,7 @@ export class TaskDetailComponent implements OnInit, OnChanges, OnDestroy {
     this.isSaveBtnClicked = true;
 
     //To set User group only when task completed is no
-    if(this.taskDetailForm.get('taskComplete').value === 'yes') {
+    if (this.taskDetailForm.get('taskComplete').value === 'yes') {
       this.taskDetailForm.get('userGroup').setValue(null);
     } else {
       this.taskDetailForm.get('userGroup').setValue('WM NC-Philanthropic CS (Inactive)');
@@ -378,8 +381,12 @@ export class TaskDetailComponent implements OnInit, OnChanges, OnDestroy {
       this.taskDetailForm.get('taskPriority').setValue('Low');
     }
     if (this.taskDetailForm.status === "VALID") {
+      let saveData = {
+        taskDetail: this.taskDetailForm.value,
+        officersList: this.selectedOfficerList
+      }
       // API call to persist data
-      this.saveTaskDetails.emit(this.taskDetailForm.value);
+      this.saveTaskDetails.emit(saveData);
       // on API success
       this.message = {
         cssClass: 'alert alert-success',
@@ -404,6 +411,23 @@ export class TaskDetailComponent implements OnInit, OnChanges, OnDestroy {
       };
       this.taskDetailForm.markAllAsTouched();
     }
+  }
+
+  officerSelected(event, rowData, index) {
+    if (!isNullOrUndefined(event.target.ariaChecked)) {
+      const index: number = this.selectedOfficerList.indexOf(rowData);
+      if (index === -1) {
+        this.selectedOfficerList.push(rowData);
+      }
+    } else {
+      if (!isNullOrUndefined(this.selectedOfficerList) || this.selectedOfficerList !== []) {
+        const index: number = this.selectedOfficerList.indexOf(rowData);
+        if (index !== -1) {
+          this.selectedOfficerList.splice(index, 1);
+        }
+      }
+    }
+    console.log("check selected", this.selectedOfficerList);
   }
 
   /**

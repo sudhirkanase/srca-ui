@@ -53,27 +53,29 @@ export class ContactCenterComponent implements OnInit {
     }
   }
 
-  createRequestBody(taskDetail): void {
-    this.requestBody.callCode = taskDetail.callCode;
-    this.requestBody.callDetails = taskDetail.callDetails;
-    this.requestBody.callerName = taskDetail.callerName;
-    this.requestBody.callerPhone = taskDetail.callerPhone;
-    this.requestBody.action = taskDetail.action;
-    this.requestBody.fullyAuthenticated = taskDetail.fullyAuthenticated;
-    this.requestBody.taskNotes = taskDetail.taskNotes;
-    this.requestBody.taskPriority = taskDetail.taskPriority;
-    this.requestBody.isTaxpayerId = taskDetail.taxPayerIDAvailable;
-    this.requestBody.taxpayerId = taskDetail.taxPayerID;
-    this.requestBody.assignedUserGroup = taskDetail.userGroup;
-    this.requestBody.taskCompleted = taskDetail.taskComplete;
-    this.requestBody.selectedIndividual = taskDetail.individual;
-    this.requestBody.assignTo = taskDetail.assignTo;
+  createRequestBody(dataToSave): void {
+    this.requestBody.callCode = dataToSave.taskDetail.callCode;
+    this.requestBody.callDetails = dataToSave.taskDetail.callDetails;
+    this.requestBody.callerName = dataToSave.taskDetail.callerName;
+    this.requestBody.callerPhone = dataToSave.taskDetail.callerPhone;
+    this.requestBody.action = dataToSave.taskDetail.action;
+    this.requestBody.fullyAuthenticated = dataToSave.taskDetail.fullyAuthenticated;
+    this.requestBody.taskNotes = dataToSave.taskDetail.taskNotes;
+    this.requestBody.taskPriority = dataToSave.taskDetail.taskPriority;
+    this.requestBody.isTaxpayerId = dataToSave.taskDetail.taxPayerIDAvailable;
+    this.requestBody.taxpayerId = dataToSave.taskDetail.taxPayerID;
+    this.requestBody.assignedUserGroup = dataToSave.taskDetail.userGroup;
+    this.requestBody.taskCompleted = dataToSave.taskDetail.taskComplete;
+    this.requestBody.selectedIndividual = dataToSave.taskDetail.individual;
+    this.requestBody.assignTo = dataToSave.taskDetail.assignTo;
+    this.requestBody.officers = dataToSave.officersList
   }
 
-  saveTask(taskDetail: any): void {
+  saveTask(dataToSave: any): void {
     this.requestBody = this.contactCenterData;
     this.requestBody.taskType = 'Contact Center';
-    this.createRequestBody(taskDetail);
+    this.createRequestBody(dataToSave);
+    console.log("Check Request now", this.requestBody);
     this.createTaskService.saveContactCenterTaskDetails(this.requestBody).subscribe(saveTaskResponse => {
       if (saveTaskResponse) {
         this.location.back();

@@ -80,7 +80,7 @@
       <div class=" col-md-4">
         <label class="task-detail-label">Task Priority</label>
         <p-dropdown *ngIf="!isTaskInReview" formControlName="taskPriority" [options]="taskPriorityData"></p-dropdown>
-        <span *ngIf="isTaskInReview">{{taskPriority.value}}</span>
+        <span *ngIf="isTaskInReview">{{taskPriority.value === null ? 'Low': taskPriority.value}}</span>
       </div>
     </div>
     <div class="row col-md-12 task-details-b-pad">
@@ -170,7 +170,7 @@
       <div class="add-accounts-section task-details-b-pad">
         <span>Officer List</span>
       </div>
-      <p-table [columns]="officerListColumns" dataKey="AdminCode" [value]="officerListData">
+      <p-table [columns]="officerListColumns" [(selection)]="selectedOfficerList"  dataKey="adminCode" [value]="officerListData">
         <ng-template pTemplate="header" let-columns>
           <tr>
             <th *ngFor="let col of columns" class="text-center">
@@ -181,7 +181,7 @@
         <ng-template pTemplate="body" let-rowData let-columns="columns" let-rowIndex="rowIndex">
           <tr>
             <td *ngFor="let col of columns" class="text-center">
-              <p-tableCheckbox *ngIf="col.header == 'Select'" [value]="rowData" [index]="rowIndex"></p-tableCheckbox>
+              <p-tableCheckbox *ngIf="col.header == 'Select'" (click)="officerSelected($event, rowData, rowIndex)" [value]="rowData" [index]="rowIndex"></p-tableCheckbox>
               {{rowData[col.field]}}
             </td>
           </tr>
