@@ -413,7 +413,7 @@ export class TaskDetailComponent implements OnInit, OnChanges, OnDestroy {
     }
   }
 
-  officerSelected(event, rowData, index) {
+  officerSelected(event, rowData) {
     if (!isNullOrUndefined(event.target.ariaChecked)) {
       const index: number = this.selectedOfficerList.indexOf(rowData);
       if (index === -1) {

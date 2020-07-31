@@ -181,7 +181,7 @@
         <ng-template pTemplate="body" let-rowData let-columns="columns" let-rowIndex="rowIndex">
           <tr>
             <td *ngFor="let col of columns" class="text-center">
-              <p-tableCheckbox *ngIf="col.header == 'Select'" (click)="officerSelected($event, rowData, rowIndex)" [value]="rowData" [index]="rowIndex"></p-tableCheckbox>
+              <p-tableCheckbox *ngIf="col.header == 'Select'" (click)="officerSelected($event, rowData)" [value]="rowData" [index]="rowIndex"></p-tableCheckbox>
               {{rowData[col.field]}}
             </td>
           </tr>

@@ -75,7 +75,6 @@ export class ContactCenterComponent implements OnInit {
     this.requestBody = this.contactCenterData;
     this.requestBody.taskType = 'Contact Center';
     this.createRequestBody(dataToSave);
-    console.log("Check Request now", this.requestBody);
     this.createTaskService.saveContactCenterTaskDetails(this.requestBody).subscribe(saveTaskResponse => {
       if (saveTaskResponse) {
         this.location.back();
