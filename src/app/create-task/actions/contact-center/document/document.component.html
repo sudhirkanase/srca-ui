@@ -5,7 +5,7 @@
             <button pButton type="button" label="Add Document" class="float-r" (click)="openDialog()" *ngIf="!uploadDoc"></button>
         </p-header>
         <div *ngIf="!uploadDoc" style="height: 364px;">
-            <p-table [columns]="cols" [value]="documents" >
+            <p-table [columns]="cols" [value]="documentList" >
                 <ng-template pTemplate="header" let-columns>
                     <tr>
                         <th *ngFor="let col of columns">
@@ -28,7 +28,7 @@
             <div class="panel-border">
                 Choose a document to attach to this request:
                 <div class="content-t-mar">
-                    <p-dropdown [options]="fileTypes" [(ngModel)]="selectedCity1" formControlName="fileType" required></p-dropdown>
+                    <p-dropdown [options]="fileTypes" (onChange)="onFileTypeChange($event)" [(ngModel)]="selectedFileTypeId" formControlName="fileType" required></p-dropdown>
                     <div *ngIf="documentDetailsForm.controls['fileType'].invalid && (documentDetailsForm.controls['fileType'].dirty || documentDetailsForm.controls['fileType'].touched)" class="alert alert-danger form-danger">
 
                         <div *ngIf="documentDetailsForm.controls['fileType'].errors.required">
@@ -51,9 +51,15 @@
                 <div class="content-t-mar">
                       <label class="btn btn-default">
                         <input type="file" (change)="selectFile($event)" formControlName="fileName" required/>
+                        <span>
+                            <p-progressBar [value]="progress"></p-progressBar>
+                        <span>
+                            {{message}}
+                        </span>
+                        </span>
                       </label>
-                      <div *ngIf="documentDetailsForm.controls['fileName'].invalid && (documentDetailsForm.controls['fileName'].dirty || documentDetailsForm.controls['fileName'].touched)" class="alert alert-danger form-danger" role="alert">
-
+                        
+                    <div *ngIf="documentDetailsForm.controls['fileName'].invalid && (documentDetailsForm.controls['fileName'].dirty || documentDetailsForm.controls['fileName'].touched)" class="alert alert-danger form-danger" role="alert">
                         <div *ngIf="documentDetailsForm.controls['fileName'].errors.required">
                           Document selection required
                         </div>
