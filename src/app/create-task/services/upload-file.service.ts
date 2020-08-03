@@ -1,15 +1,13 @@
+import { HttpClient, HttpEvent, HttpRequest } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpRequest, HttpHeaders, HttpEvent } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { DocumentDetail } from '../model/doucument-detail';
-import { DocumentWithFile } from '../model/document-file';
 import { TASK_MANAGEMENT_SERVICES_URL } from 'src/environments/environment';
-import { BaseService } from 'src/app/services/base.service';
+import { DocumentDetail } from '../model/doucument-detail';
 
 @Injectable({
   providedIn: 'root'
 })
-export class UploadFileService{
+export class UploadFileService {
 
   private baseUrl = 'http://localhost:8080';
   taskManagementServiceUrl = `${TASK_MANAGEMENT_SERVICES_URL}`;

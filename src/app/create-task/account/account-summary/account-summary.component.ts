@@ -50,7 +50,7 @@ export class AccountSummaryComponent implements OnInit {
     if (!isNullOrUndefined(this.accountNumber)) {
       this.createTaskService.getTaskListByAccountNo(this.accountNumber).subscribe(taskListRes => {
         this.tasks = taskListRes;
-      })
+      });
     }
 
   }

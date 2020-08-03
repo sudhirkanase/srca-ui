@@ -1,13 +1,13 @@
 
-import { Component, OnInit, Input, SimpleChanges, ValueSansProvider, OnChanges } from '@angular/core';
-import { SelectItem } from 'primeng/api';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { CreateTaskService } from 'src/app/create-task/services/create-task.service';
-import { UploadFileService } from 'src/app/create-task/services/UploadFileService.service';
 import { HttpEventType, HttpResponse } from '@angular/common/http';
-import { DocumentDetail } from '../../../model/doucument-detail';
-import { isNullOrUndefined, isNull } from 'util';
+import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { SelectItem } from 'primeng/api';
+import { CreateTaskService } from 'src/app/create-task/services/create-task.service';
+import { UploadFileService } from 'src/app/create-task/services/upload-file.service';
 import { AppSharedService } from 'src/app/services/app-shared.service';
+import { isNullOrUndefined } from 'util';
+import { DocumentDetail } from '../../../model/doucument-detail';
 
 
 @Component({
@@ -30,7 +30,7 @@ export class DocumentComponent implements OnInit, OnChanges {
   currentFile: File;
   progress = 0;
   message = '';
-  isSubmitted = false
+  isSubmitted = false;
   @Input() documentDetailData: any;
   constructor(
     private createTaskService: CreateTaskService,
@@ -89,18 +89,17 @@ export class DocumentComponent implements OnInit, OnChanges {
   }
 
   onSubmit() {
-    this.isSubmitted = true
+    this.isSubmitted = true;
     console.log(this.documentDetailsForm.value);
     this.upload(this.documentDetailsForm.value);
-    if(this.documentDetailsForm.valid)
-    {
-      this.isSubmitted = false
-      this.documentDetailsForm.reset()
+    if (this.documentDetailsForm.valid) {
+      this.isSubmitted = false;
+      this.documentDetailsForm.reset();
     }
   }
 
   onCancel() {
-    this.isSubmitted = false
+    this.isSubmitted = false;
     this.uploadDoc = !this.uploadDoc;
     this.getTaskDetails();
   }
@@ -113,7 +112,7 @@ export class DocumentComponent implements OnInit, OnChanges {
   upload(doumentData: any) {
     this.progress = 0;
     this.currentFile = this.selectedFiles.item(0);
-    let doucument = this.createDocumentRequest(doumentData);
+    const doucument = this.createDocumentRequest(doumentData);
     this.uploadService.upload(doucument, this.currentFile).subscribe(event => {
       if (event.type === HttpEventType.UploadProgress) {
         this.progress = Math.round(100 * event.loaded / event.total);
@@ -131,7 +130,7 @@ export class DocumentComponent implements OnInit, OnChanges {
   }
 
   createDocumentRequest(doumentData: any): DocumentDetail {
-    let document = new DocumentDetail();
+    const document = new DocumentDetail();
     document.taskId = this.documentDetailData.id;
     document.documentTypeId = doumentData.fileType;
     document.notes = doumentData.description;
@@ -142,7 +141,7 @@ export class DocumentComponent implements OnInit, OnChanges {
     this.selectedFileTypeId = event.value;
   }
 
-  //To Get document list
+  // To Get document list
   getTaskDetails() {
     if (!isNullOrUndefined(this.documentDetailData)) {
       let accountNumber = null;
