@@ -68,7 +68,7 @@ export class ContactCenterComponent implements OnInit {
     this.requestBody.taskCompleted = dataToSave.taskDetail.taskComplete;
     this.requestBody.selectedIndividual = dataToSave.taskDetail.individual;
     this.requestBody.assignTo = dataToSave.taskDetail.assignTo;
-    this.requestBody.officers = dataToSave.officersList
+    this.requestBody.officers = dataToSave.officersList;
   }
 
   saveTask(dataToSave: any): void {

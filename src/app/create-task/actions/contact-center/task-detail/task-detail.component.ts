@@ -73,7 +73,7 @@ export class TaskDetailComponent implements OnInit, OnChanges, OnDestroy {
             taskNotCompleteFields.forEach(controlName => this.updateControlValidators(controlName));
 
           } else {
-            //Reset to null when yes selected in Task Completed
+            // Reset to null when yes selected in Task Completed
             this.taskDetailForm.get('assignTo').setValue(null);
             this.taskDetailForm.get('individual').setValue(null);
             taskNotCompleteFields.forEach(controlName => {
@@ -371,7 +371,7 @@ export class TaskDetailComponent implements OnInit, OnChanges, OnDestroy {
   onSubmit() {
     this.isSaveBtnClicked = true;
 
-    //To set User group only when task completed is no
+    // To set User group only when task completed is no
     if (this.taskDetailForm.get('taskComplete').value === 'yes') {
       this.taskDetailForm.get('userGroup').setValue(null);
     } else {
@@ -380,11 +380,11 @@ export class TaskDetailComponent implements OnInit, OnChanges, OnDestroy {
     if (this.taskDetailForm.get('taskPriority').value === null) {
       this.taskDetailForm.get('taskPriority').setValue('Low');
     }
-    if (this.taskDetailForm.status === "VALID") {
-      let saveData = {
+    if (this.taskDetailForm.status === 'VALID') {
+      const saveData = {
         taskDetail: this.taskDetailForm.value,
         officersList: this.selectedOfficerList
-      }
+      };
       // API call to persist data
       this.saveTaskDetails.emit(saveData);
       // on API success
@@ -427,7 +427,7 @@ export class TaskDetailComponent implements OnInit, OnChanges, OnDestroy {
         }
       }
     }
-    console.log("check selected", this.selectedOfficerList);
+    console.log('check selected', this.selectedOfficerList);
   }
 
   /**
