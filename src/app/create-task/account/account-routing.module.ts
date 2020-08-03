@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { AccountSearchComponent } from './account-search/account-search.component';
 import { AccountSummaryComponent } from './account-summary/account-summary.component';
 import { ContactCenterComponent } from '../actions/contact-center/contact-center.component';
+import { TaskContainerComponent } from 'src/app/tasks/task-container/task-container.component';
 
 
 const routes: Routes = [
@@ -13,6 +14,10 @@ const routes: Routes = [
   {
     path: 'summary',
     component: AccountSummaryComponent,
+  },
+  {
+    path: 'acct-maintenance',
+    component: TaskContainerComponent
   },
   {
     path: '',

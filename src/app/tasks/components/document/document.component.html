@@ -1,0 +1,77 @@
+<div class="panel">
+    <p-panel header="Document">
+        <p-header>
+            <button pButton type="button" label="Add Document" class="float-r" (click)="openDialog()"
+                *ngIf="!uploadDoc"></button>
+        </p-header>
+        <div *ngIf="!uploadDoc" style="height: 364px;">
+            <p-table [columns]="cols" [value]="documentList">
+                <ng-template pTemplate="header" let-columns>
+                    <tr>
+                        <th *ngFor="let col of columns">
+                            {{col.header}}
+                        </th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-rowData let-columns="columns">
+                    <tr>
+                        <td *ngFor="let col of columns">
+                            {{rowData[col.field]}}
+                        </td>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="emptymessage">
+                    <tr class="text-center">
+                        <td colspan="7">No records to display.</td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+        <div>
+            <p-panel header="Upload File" *ngIf="uploadDoc">
+                <form [formGroup]="documentDetailsForm" (ngSubmit)="onSubmit()">
+                    <div class="panel-border">
+                        <label class="mar-b-0">Choose a document to attach to this request:</label>
+                        <div class="content-t-mar">
+                            <p-dropdown [options]="fileTypes" (onChange)="onFileTypeChange($event)"
+                                [(ngModel)]="selectedFileTypeId" formControlName="fileType"></p-dropdown>
+                        </div>
+
+                        <label class="mar-b-0">This document requires a description</label>
+                        <div class="content-t-mar">
+                            <input type="text" pInputText formControlName="description" required>
+                            <div *ngIf="isSubmitted && description.invalid" class="error-col">
+                                <div *ngIf="description.errors.required">
+                                    Description is required
+                                </div>
+                            </div>
+                        </div>
+                        <label class="mar-b-0">Choose file to attach now or you will be required to attach a file
+                            later</label>
+                        <div class="content-t-mar">
+                            <span class="btn btn-default">
+                                <input type="file" (change)="selectFile($event)" formControlName="fileName" required />
+                            </span>
+                            <div style="width: 300px;">
+                                <p-progressBar [value]="progress"></p-progressBar>
+                            </div>
+                            <span class="message-align">
+                                {{message}}
+                            </span>
+                            <div *ngIf="isSubmitted && fileName.invalid" class="error-col">
+                                <div *ngIf="fileName.errors.required">
+                                    Document selection required
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-btn">
+                        <span><button pButton type="submit" label="Add Document"></button></span>
+                        <span><button pButton type="button" label="Cancel" (click)="onCancel()"></button></span>
+                    </div>
+                </form>
+            </p-panel>
+        </div>
+    </p-panel>
+
+</div>

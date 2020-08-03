@@ -1,0 +1,55 @@
+<div class="container-div">
+    <div>
+        <span class="task-label">{{taskRequestData?.actionName}}</span>
+        <span class="fa fa-info-circle info-icon"></span>
+    </div>
+    <div class="task-sum-pad">
+        <p-card>
+            <srca-task-summary [taskData]="taskData"></srca-task-summary>
+        </p-card>
+    </div>
+    <div class="acc-detail-pad">
+        <p-card>
+            <srca-task-account-details [accountDetail]="taskData.accountDetail"></srca-task-account-details>
+        </p-card>
+    </div>
+    <div class="acc-details-mar">
+        <p-card>
+            <p-tabView>
+                <p-tabPanel header="Task Detail">
+                    <!-- <srca-task-detail #srcaTaskDetails [taskState]="contactCenterTaskState" [taskDetailData]="taskData"
+                        (saveTaskDetails)="saveTask($event)">
+                    </srca-task-detail> -->
+                    <ng-template srcaTaskDetailsHost></ng-template>
+                </p-tabPanel>
+                <p-tabPanel header="Document">
+                    <srca-document [documentDetailData]="taskData"></srca-document>
+                </p-tabPanel>
+                <p-tabPanel header="Audits">
+                    <h3>Audits placeholder</h3>
+                </p-tabPanel>
+                <p-tabPanel header="Communications">
+                    <h3>Communications placeholder</h3>
+                </p-tabPanel>
+                <p-tabPanel header="Workflows">
+                    <h3>Workflow's placeholder</h3>
+                </p-tabPanel>
+            </p-tabView>
+            <div class="button-style">
+                <!-- <button pButton *ngIf="contactCenterTaskState !== taskStateEnum.REVIEW" class="save-pad" type="button"
+                    label="Next" [disabled]="!srcaTaskDetails.taskDetailForm.valid" (click)="updateTaskState()">
+                </button>
+                <p-button *ngIf="contactCenterTaskState === taskStateEnum.REVIEW" type="button" label="Return"
+                    class="save-pad" (click)="updateTaskState()">
+                </p-button>
+                <button pButton type="submit" label="Submit"
+                    [disabled]="contactCenterTaskState !== taskStateEnum.REVIEW" class="save-pad"
+                    (click)="srcaTaskDetails.onSubmit()">
+                </button> -->
+                <p-button type="button" label="Cancel" (click)="cancelClick()">
+                </p-button>
+            </div>
+        </p-card>
+
+    </div>
+</div>

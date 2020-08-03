@@ -1,0 +1,42 @@
+.task-label{
+    display: inline-block;
+    font-size: 23px;
+    padding-left: 15px;
+    font-weight: bold;
+    padding-right: 7px;
+}
+.info-icon{
+    display: inline-block;
+    top: 23px;
+    left: 133px;
+&.fa.fa-info-circle{
+    color: #007bff !important;
+    cursor: pointer;
+    font-size: 15px;
+}
+}
+
+
+
+.task-sum-pad {
+    padding-top: 10px;
+    margin-left: 14px;
+    margin-right: 10px;
+}
+.acc-detail-pad {
+    margin-top: 10px;
+    margin-left: 14px;
+    margin-right: 10px;
+}
+.acc-details-mar{
+    margin: 14px;
+    margin-right: 10px;
+}
+
+.button-style {
+    text-align: right;
+    margin-top: 25px;
+}
+.save-pad {
+    margin-right: 14px;
+}
