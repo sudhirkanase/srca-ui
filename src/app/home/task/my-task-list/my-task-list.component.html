@@ -1,12 +1,12 @@
 
-<div class="paginator-align">
+<!-- <div class="paginator-align">
   <button type="button" pButton icon="pi pi-chevron-left" (click)="prev()" style="margin-right:.5em" [disabled]="isFirstPage()"></button>
   <button type="button" pButton icon="pi pi-refresh" (click)="reset()" style="margin-right:.5em"></button>
   <button type="button" pButton icon="pi pi-chevron-right" (click)="next()" [disabled]="isLastPage()"></button>
-</div>
+</div> -->
 <div>
 <p-table #dt [columns]="cols" [value]="data" [paginator]="true" [rows]="noOfRowsPerPage" [showCurrentPageReport]="true"
-  currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" paginatorPosition="bottom" [(first)]="first"
+  currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" paginatorPosition="top" [(first)]="first"
   [scrollable]="true" scrollHeight="300px" class="my-task-list-table" [resizableColumns]="true" [reorderableColumns]="true">
   <ng-template pTemplate="colgroup" let-columns>
     <colgroup>
@@ -35,8 +35,8 @@
         {{rowData[col.field]}}
       </td>
       <td class="ui-resizable-column">
-        <span class="fa fa-search pointer" style="padding-left: 23px;"></span>
-        <span class="pi pi-user-edit pointer" (click)="onEditClick(rowData)" style="padding-left: 39px;"></span>
+        <span class="fa fa-search pointer" style="padding-left: 18px;"></span>
+        <span class="pi pi-user-edit pointer" (click)="onEditClick(rowData)" style="padding-left: 29px;"></span>
       </td>
     </tr>
   </ng-template>
