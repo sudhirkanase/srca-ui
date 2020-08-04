@@ -40,7 +40,7 @@ export class DocumentComponent implements OnInit, OnChanges {
 
   documentDetailsForm = new FormGroup(
     {
-      fileType: new FormControl(''),
+      fileType: new FormControl(1),
       description: new FormControl('', Validators.required),
       fileName: new FormControl('', Validators.required)
     }
@@ -71,16 +71,22 @@ export class DocumentComponent implements OnInit, OnChanges {
     ];
   }
 
-
-  get formAltaControls(): any {
-    return this.documentDetailsForm.controls;
-  }
-
-  openDialog() {
+  /**
+   * @description On click of Add Document button handler
+   */
+  openDialog(): void {
     this.uploadDoc = !this.uploadDoc;
+    this.progress = 0;
+    this.message = '';
+    this.documentDetailsForm.reset();
+    this.documentDetailsForm.get('fileType').setValue(1);
   }
 
-  filetypes() {
+  /**
+   * @description File type array const
+   * //TODO: should be move to constant file
+   */
+  filetypes(): void {
     this.fileTypes = [
       { label: 'Miscellaneouse', value: 1 },
       { label: 'Payslip', value: 2 },
@@ -88,47 +94,85 @@ export class DocumentComponent implements OnInit, OnChanges {
     ];
   }
 
-  onSubmit() {
+  /**
+   * @description On click of Add Document button handler
+   */
+  onSubmit(): void {
     this.isSubmitted = true;
-    console.log(this.documentDetailsForm.value);
     this.upload(this.documentDetailsForm.value);
     if (this.documentDetailsForm.valid) {
       this.isSubmitted = false;
       this.documentDetailsForm.reset();
+      this.documentDetailsForm.get('fileType').setValue(1);
     }
   }
 
-  onCancel() {
+  /**
+   * @description On click of Cancel button handler
+   */
+  onCancel(): void {
     this.isSubmitted = false;
     this.uploadDoc = !this.uploadDoc;
     this.getTaskDetails();
   }
 
-  // upload file code
-  selectFile(event) {
+  /**
+   * @description On click of Choose file click handler
+   * @param event event data
+   */
+  selectFile(event: any): void {
     this.selectedFiles = event.target.files;
+    this.progress = 0;
+    this.message = '';
   }
 
+  /**
+   * @description Change event of Description text box
+   */
+  onDescriptionChange(): void {
+    this.progress = 0;
+    this.message = '';
+  }
+
+  /**
+   * @description To upload document service call handler
+   * @param doumentData - doucment data request
+   */
   upload(doumentData: any) {
     this.progress = 0;
-    this.currentFile = this.selectedFiles.item(0);
+    this.message = '';
+    if (!isNullOrUndefined(this.selectedFiles)) {
+      this.currentFile = this.selectedFiles.item(0);
+    }
     const doucument = this.createDocumentRequest(doumentData);
-    this.uploadService.upload(doucument, this.currentFile).subscribe(event => {
-      if (event.type === HttpEventType.UploadProgress) {
-        this.progress = Math.round(100 * event.loaded / event.total);
-      } else if (event instanceof HttpResponse) {
-        this.message = event.body.message;
+    if (this.documentDetailsForm.valid) {
+      if (!isNullOrUndefined(doucument.taskId)
+        && !isNullOrUndefined(doucument.documentTypeId)
+        && !isNullOrUndefined(doucument.notes)) {
+        this.uploadService.upload(doucument, this.currentFile).subscribe(event => {
+          if (event.type === HttpEventType.UploadProgress) {
+            this.progress = Math.round(100 * event.loaded / event.total);
+          } else if (event instanceof HttpResponse) {
+            if (this.progress === 100) {
+              this.message = event.body;
+            }
+          }
+        },
+          err => {
+            this.progress = 0;
+            this.message = 'Could not upload the file!';
+            this.currentFile = undefined;
+          });
       }
-    },
-      err => {
-        this.progress = 0;
-        this.message = 'Could not upload the file!';
-        this.currentFile = undefined;
-      });
-
+    }
     this.selectedFiles = undefined;
   }
 
+  /**
+   * @description
+   * @param  doumentData - doucument data request
+   * @returns DocumentDetail
+   */
   createDocumentRequest(doumentData: any): DocumentDetail {
     const document = new DocumentDetail();
     document.taskId = this.documentDetailData.id;
@@ -137,18 +181,21 @@ export class DocumentComponent implements OnInit, OnChanges {
     return document;
   }
 
+  /**
+   * @description File type dropdown valuve change event handler
+   * @param event - event value pass
+   */
   onFileTypeChange(event: any): void {
     this.selectedFileTypeId = event.value;
+    this.progress = 0;
+    this.message = '';
   }
 
-  // To Get document list
-  getTaskDetails() {
+  /**
+   * @description To Get document list
+   */
+  getTaskDetails(): void {
     if (!isNullOrUndefined(this.documentDetailData)) {
-      let accountNumber = null;
-      if (!isNullOrUndefined(this.documentDetailData.accountDetail)
-        && !isNullOrUndefined(this.documentDetailData.accountDetail.accountNumber)) {
-        accountNumber = this.documentDetailData.accountDetail.accountNumber;
-      }
       const contactCenterReq: any = {
         accountNo: this.documentDetailData.accountNo,
         id: this.documentDetailData.id,
@@ -163,9 +210,15 @@ export class DocumentComponent implements OnInit, OnChanges {
         });
     }
   }
+
+  get formAltaControls(): any {
+    return this.documentDetailsForm.controls;
+  }
+
   get description(): FormControl {
     return this.documentDetailsForm.get('description') as FormControl;
   }
+
   get fileName(): FormControl {
     return this.documentDetailsForm.get('fileName') as FormControl;
   }

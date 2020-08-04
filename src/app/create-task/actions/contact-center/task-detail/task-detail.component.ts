@@ -427,7 +427,6 @@ export class TaskDetailComponent implements OnInit, OnChanges, OnDestroy {
         }
       }
     }
-    console.log('check selected', this.selectedOfficerList);
   }
 
   /**
