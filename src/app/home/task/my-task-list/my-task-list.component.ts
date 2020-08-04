@@ -118,14 +118,18 @@ export class MyTaskListComponent implements OnInit {
   }
 
   onActionIconClick(rowData: any, action: string) {
+    const actionType = (action === 'edit') ? TaskState.EDIT : TaskState.VIEW;
     const actionDetails: any = {
       accountNo: rowData.accountNo,
       taskID: rowData.id,
-      actionType: (action === 'edit') ? TaskState.EDIT : TaskState.VIEW,
+      actionType,
       actionName: rowData.taskType
     };
     if (rowData.taskType === 'Contact Center') {
-      this.router.navigateByUrl('/create/ad-account/acct-maintenance', { state: { data: actionDetails } });
+      this.router.navigate(['./create/ad-account/contact-center'], {
+        state: { data: actionDetails },
+        queryParams: { action: actionType.toLowerCase() }
+      });
     }
   }
 }

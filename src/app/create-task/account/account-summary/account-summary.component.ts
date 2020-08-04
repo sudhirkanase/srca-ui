@@ -103,6 +103,7 @@ export class AccountSummaryComponent implements OnInit {
     this.actionDetails.actionName = action;
     this.router.navigate([`../${urlFragment}`], {
       state: { data: this.actionDetails },
+      queryParams: { action: 'create' },
       relativeTo: this.route
     });
   }
