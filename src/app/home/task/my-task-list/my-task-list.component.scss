@@ -1,7 +1,88 @@
-.paginator-align{
-    text-align: right;
-    // position: relative;
-    // top: -46px;
-    // right :184px
-    margin-bottom: 1rem;
-}
+.my-task-list-table::ng-deep .ui-table{
+    .ui-table-thead{
+        tr{
+            th{
+                white-space: nowrap;
+            }
+            th:first-child{
+                width: 80px;
+            }
+            th:nth-child(2){
+                width: 123px;
+            }
+            th:nth-child(3){
+                width: 212px;
+            }
+            th:nth-child(4){
+                width: 200px;
+            }
+            th:nth-child(5){
+                width: 115px;
+            }
+            th:nth-child(6){
+                width: 140px;
+            }
+            th:nth-child(7){
+                width: 150px;
+            }
+            th:nth-child(8){
+                width: 126px;
+            }
+            th:nth-child(9){
+                width: 104px;
+            }
+
+        }
+    }
+    .ui-table-tbody {
+        tr {
+            td:first-child{
+                width: 80px;
+            }
+            td:nth-child(2){
+                width: 123px;
+            }
+            td:nth-child(3){
+                width: 212px;
+            }
+            td:nth-child(4){
+                width: 200px;
+            }
+            td:nth-child(5){
+                width: 115px;
+            }
+            td:nth-child(6){
+                width: 140px;
+            }
+            td:nth-child(7){
+                width: 150px;
+            }
+            td:nth-child(8){
+                width: 126px;
+            }
+            td:nth-child(9){
+                width: 104px;
+            }
+            td{
+               padding: 0.8em 0.8em !important;
+            }
+        }
+    } 
+    .ui-table-scrollable-wrapper{
+        .ui-table-scrollable-view{
+            .ui-table-scrollable-header{
+                overflow-y: scroll;
+                .ui-table-scrollable-header-box{
+                    padding-right: 0px !important;
+                    // margin-right: 31px !important;
+                    // background-color: #ebebe8;;
+                }
+            }
+            .ui-table-scrollable-body {
+                overflow-y: scroll !important;
+            }
+        }
+    }
+}  
+
+
