@@ -15,14 +15,12 @@ export class HeaderComponent implements OnInit {
   constructor(
     private router: Router,
     private authenticationService: AuthenticationService) {
-    // console.log("currentUser 12" + this.currentUser);
   }
 
   ngOnInit(): void {
 
     this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
     this.currentUser = this.authenticationService.getLoggedInUser();
-    console.log(this.currentUser);
     this.loadMenu();
   }
 

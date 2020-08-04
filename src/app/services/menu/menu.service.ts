@@ -12,7 +12,6 @@ export class MenuService {
   constructor() { }
 
   getMenuItem(menuName: string): MenuItem {
-    console.log('Menu -->' + menuName);
     let retMenuItem: MenuItem = null;
     switch (menuName) {
       case 'Home':
