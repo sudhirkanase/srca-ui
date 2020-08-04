@@ -12,6 +12,7 @@ import { AccountSearchComponent } from './account-search/account-search.componen
 import { AccountSummaryComponent } from './account-summary/account-summary.component';
 import { AccountDetailsComponent } from './account-summary/account-details/account-details.component';
 import { ActionsModule } from '../actions/actions.module';
+import { TasksModule } from 'src/app/tasks/tasks.module';
 
 @NgModule({
   declarations: [AccountSearchComponent, AccountSummaryComponent, AccountDetailsComponent],
@@ -23,6 +24,7 @@ import { ActionsModule } from '../actions/actions.module';
     TabViewModule,
     ButtonModule,
     ActionsModule,
+    TasksModule,
     AccountRoutingModule,
     ReactiveFormsModule
   ]

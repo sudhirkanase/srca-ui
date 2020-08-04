@@ -1,0 +1,55 @@
+<div class="container-div">
+    <div>
+        <span class="task-label">{{taskInitData?.actionName}}</span>
+        <span class="fa fa-info-circle info-icon"></span>
+    </div>
+    <div class="task-sum-pad">
+        <p-card>
+            <srca-task-summary [taskData]="taskData"></srca-task-summary>
+        </p-card>
+    </div>
+    <div class="acc-detail-pad">
+        <p-card>
+            <srca-task-account-details [accountDetail]="taskData.accountDetail"></srca-task-account-details>
+        </p-card>
+    </div>
+    <div class="acc-details-mar">
+        <p-card>
+            <p-tabView>
+                <p-tabPanel header="Task Detail">
+                    <ng-template srcaTaskDetailsHost></ng-template>
+                </p-tabPanel>
+                <p-tabPanel header="Document" *ngIf="taskComponent && taskComponent.showDocument()">
+                    <srca-document [documentDetailData]="taskData"></srca-document>
+                </p-tabPanel>
+                <p-tabPanel header="Audit" *ngIf="taskComponent && taskComponent.showAudit()">
+                    <h3>Audit placeholder</h3>
+                </p-tabPanel>
+                <p-tabPanel header="Communication" *ngIf="taskComponent && taskComponent.showCommunication()">
+                    <h3>Communication placeholder</h3>
+                </p-tabPanel>
+                <p-tabPanel header="Workflow" *ngIf="taskComponent && taskComponent.showWorkflow()">
+                    <h3>Workflow placeholder</h3>
+                </p-tabPanel>
+            </p-tabView>
+            <div class="button-style">
+                <span *ngIf="taskComponent && taskComponent.taskState !== taskStateEnum.VIEW">
+                    <button pButton *ngIf="taskComponent.taskState !== taskStateEnum.REVIEW" class="save-pad"
+                        type="button" label="Next" [disabled]="!taskComponent.taskDetailForm.valid"
+                        (click)="updateTaskState()">
+                    </button>
+                    <p-button *ngIf="taskComponent.taskState === taskStateEnum.REVIEW" type="button" label="Return"
+                        class="save-pad" (click)="updateTaskState()">
+                    </p-button>
+                    <button pButton type="submit" label="Submit"
+                        [disabled]="taskComponent.taskState !== taskStateEnum.REVIEW" class="save-pad"
+                        (click)="taskComponent.onSubmit()">
+                    </button>
+                </span>
+                <p-button type="button" label="Cancel" (click)="cancelClick()">
+                </p-button>
+            </div>
+        </p-card>
+
+    </div>
+</div>

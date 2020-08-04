@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Table } from 'primeng/table/table';
 import { HomeService } from 'src/app/home/services/home.service';
 import { Router } from '@angular/router';
+import { TaskState } from 'src/app/app.constants';
 
 @Component({
   selector: 'srca-my-task-list',
@@ -16,7 +17,6 @@ export class MyTaskListComponent implements OnInit {
   rows = 10;
   noOfRowsPerPage = 10;
   exportColumns: any[];
-  contactCenterDetails: any;
   @ViewChild('dt', { static: false }) dt: Table;
 
   constructor(private homeService: HomeService, private router: Router) { }
@@ -117,14 +117,19 @@ export class MyTaskListComponent implements OnInit {
     this.dt.filterGlobal(searchValue, 'contains');
   }
 
-  onEditClick(rowData) {
-    this.contactCenterDetails = {
+  onActionIconClick(rowData: any, action: string) {
+    const actionType = (action === 'edit') ? TaskState.EDIT : TaskState.VIEW;
+    const actionDetails: any = {
       accountNo: rowData.accountNo,
       taskID: rowData.id,
-      accountAction: 'Update'
+      actionType,
+      actionName: rowData.taskType
     };
     if (rowData.taskType === 'Contact Center') {
-      this.router.navigateByUrl('/create/ad-account/contact-center', { state: { data: this.contactCenterDetails } });
+      this.router.navigate(['./create/ad-account/contact-center'], {
+        state: { data: actionDetails },
+        queryParams: { action: actionType.toLowerCase() }
+      });
     }
   }
 }
