@@ -5,7 +5,7 @@ import { isNullOrUndefined } from 'util';
 import { CreateTaskService } from 'src/app/create-task/services/create-task.service';
 import { TaskDetailsHostDirective } from '../directives/task-details-host.directive';
 import { ContactCenterTaskComponent } from '../components/contact-center-task/contact-center-task.component';
-import { Task } from '../components/Task';
+import { Task } from '../model/Task';
 import { TaskState } from './../../app.constants';
 
 @Component({
@@ -15,7 +15,7 @@ import { TaskState } from './../../app.constants';
 })
 export class TaskContainerComponent implements OnInit {
 
-  taskRequestData: any;
+  taskInitData: any;
   taskData: any;
   taskComponent: Task;
 
@@ -33,13 +33,13 @@ export class TaskContainerComponent implements OnInit {
   ngOnInit() {
     this.taskStateEnum = TaskState;
 
-    this.taskRequestData = window.history.state.data;
+    this.taskInitData = window.history.state.data;
 
     this.taskData = {
       accountDetail: {}
     };
 
-    if (!isNullOrUndefined(this.taskRequestData)) {
+    if (!isNullOrUndefined(this.taskInitData)) {
       this.getTaskDetails();
     } else {
       this.location.back();
@@ -52,11 +52,11 @@ export class TaskContainerComponent implements OnInit {
   }
 
   getTaskDetails(): void {
-    if (!isNullOrUndefined(this.taskRequestData)) {
+    if (!isNullOrUndefined(this.taskInitData)) {
       const taskRequest: any = {
-        accountNo: this.taskRequestData.accountNo,
-        id: this.taskRequestData.taskID,
-        taskType: this.taskRequestData.actionName
+        accountNo: this.taskInitData.accountNo,
+        id: this.taskInitData.taskID,
+        taskType: this.taskInitData.actionName
       };
       this.createTaskService.
         getTaskDetails(taskRequest).subscribe(data => {
@@ -75,13 +75,13 @@ export class TaskContainerComponent implements OnInit {
     const componentRef = viewContainerRef.createComponent(componentFactory);
     this.taskComponent = (componentRef.instance as ContactCenterTaskComponent);
     this.taskComponent.taskDetailData = this.taskData;
-    this.taskComponent.taskState = this.taskRequestData.actionType;
+    this.taskComponent.taskState = this.taskInitData.actionType;
     this.taskComponent.saveTaskDetails.subscribe((data: any) => this.saveTask(data));
   }
 
   saveTask(dataToSave: any): void {
     const requestBody = { ...this.taskData, ...dataToSave };
-    requestBody.taskType = this.taskRequestData.actionName;
+    requestBody.taskType = this.taskInitData.actionName;
     this.createTaskService.saveContactCenterTaskDetails(requestBody).subscribe(saveTaskResponse => {
       if (saveTaskResponse) {
         this.location.back();
@@ -93,7 +93,7 @@ export class TaskContainerComponent implements OnInit {
     if (this.taskComponent.taskState === this.taskStateEnum.ADD || this.taskComponent.taskState === this.taskStateEnum.EDIT) {
       this.taskComponent.taskState = this.taskStateEnum.REVIEW;
     } else {
-      this.taskComponent.taskState = this.taskRequestData.actionType;
+      this.taskComponent.taskState = this.taskInitData.actionType;
     }
   }
 

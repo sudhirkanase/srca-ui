@@ -3,14 +3,13 @@ import { TaskState } from '../../app.constants';
 import { EventEmitter } from '@angular/core';
 
 export abstract class Task {
-    taskRequestData: any;
     taskDetailData: any;
     taskState: TaskState;
     taskDetailForm: FormGroup;
+
     saveTaskDetails: EventEmitter<any>;
 
     abstract onSubmit(data: any): void;
-    abstract createRequestBody(data: any): void;
 
     showDocument(): boolean {
         return true;

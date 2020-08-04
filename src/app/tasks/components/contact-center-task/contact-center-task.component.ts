@@ -4,7 +4,7 @@ import { SelectItem } from 'primeng/api/selectitem';
 import { Subscription } from 'rxjs';
 import { ASSIGN_TO_DROPDOWN_DATA, CONTACT_CENTER_TASK_DROPDOWN_DATA, TaskState } from 'src/app/app.constants';
 import { isNullOrUndefined } from 'util';
-import { Task } from '../Task';
+import { Task } from '../../model/Task';
 
 
 @Component({
@@ -110,6 +110,9 @@ export class ContactCenterTaskComponent extends Task implements OnInit, OnDestro
     }
   }
 
+  /**
+   * Populate the form with values received. Used in Edit/View scenarios
+   */
   onTaskDetailDataChange() {
     setTimeout(() => this.updateValues());
   }
@@ -450,6 +453,9 @@ export class ContactCenterTaskComponent extends Task implements OnInit, OnDestro
     }
   }
 
+  /**
+   * Helper method to create model data to be sent to server
+   */
   createRequestBody(dataToSave: any): any {
     const requestBody: any = {};
 

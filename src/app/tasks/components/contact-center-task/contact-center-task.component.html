@@ -8,6 +8,7 @@
                     [ngClass]="{ 'invalid-input': callerName.errors && callerName.touched }" />
                 <span *ngIf="isTaskInReview || isTaskInView">{{callerName.value}}</span>
             </div>
+
             <div class=" col-md-4">
                 <label class="task-detail-label">Caller Phone<span *ngIf="!(isTaskInReview || isTaskInView)"
                         class="required-indicator">*</span></label>
@@ -17,6 +18,7 @@
                 <span *ngIf="isTaskInReview || isTaskInView">{{callerPhone.value}}</span>
             </div>
         </div>
+
         <div class="row col-md-12 task-details-b-pad">
             <div class=" col-md-4">
                 <label class="task-detail-label">Call Code<span *ngIf="!(isTaskInReview || isTaskInView)"
@@ -27,6 +29,7 @@
                 </p-dropdown>
                 <span *ngIf="isTaskInReview || isTaskInView">{{callCode.value}}</span>
             </div>
+
             <div class=" col-md-4">
                 <label class="task-detail-label">Action<span *ngIf="!(isTaskInReview || isTaskInView)"
                         class="required-indicator">*</span></label>
@@ -36,6 +39,7 @@
                 <span *ngIf="isTaskInReview || isTaskInView">{{action.value}}</span>
             </div>
         </div>
+
         <div class="row col-md-12 task-details-b-pad">
             <div class=" col-md-4">
                 <span [ngClass]="{ 'span-margin-10': !(isTaskInReview || isTaskInView) }">
@@ -52,8 +56,8 @@
                 </p-radioButton>
                 <span *ngIf="isTaskInReview || isTaskInView">{{fullyAuthenticated.value}}</span>
             </div>
-
         </div>
+
         <div class="row col-md-12 task-details-b-pad">
             <div class="col-md-4">
                 <span [ngClass]="{ 'span-margin-10': !(isTaskInReview || isTaskInView) }">
@@ -70,6 +74,7 @@
                 </p-radioButton>
                 <span *ngIf="isTaskInReview || isTaskInView">{{taxPayerIDAvailable.value}}</span>
             </div>
+
             <div class="col-md-4" *ngIf="taxPayerIDAvailable.value === 'yes'">
                 <label class="task-detail-label">Taxpayer ID<span *ngIf="!(isTaskInReview || isTaskInView)"
                         class="required-indicator">*</span></label>
@@ -78,6 +83,7 @@
                 <span *ngIf="isTaskInReview || isTaskInView">{{taxPayerID.value}}</span>
             </div>
         </div>
+
         <div class="row col-md-12 task-details-b-pad">
             <div class=" col-md-4">
                 <label class="task-detail-label">Task Priority</label>
@@ -88,6 +94,7 @@
                     *ngIf="isTaskInReview || isTaskInView">{{taskPriority.value === null ? 'Low': taskPriority.value}}</span>
             </div>
         </div>
+
         <div class="row col-md-12 task-details-b-pad">
             <div class=" col-md-12">
                 <label class="task-detail-label">Task Notes</label>
@@ -96,6 +103,7 @@
                 <span *ngIf="isTaskInReview || isTaskInView">{{taskNotes.value}}</span>
             </div>
         </div>
+
         <div class="row col-md-12 task-details-b-pad">
             <div class=" col-md-1">
                 <label class="task-detail-label">Call Details<span *ngIf="!(isTaskInReview || isTaskInView)"
@@ -108,8 +116,8 @@
                 </p-editor>
                 <span *ngIf="isTaskInReview || isTaskInView">{{callDetails.value}}</span>
             </div>
-
         </div>
+
         <div class="row col-md-12 task-details-b-pad">
             <div class="add-accounts-section task-details-b-pad">
                 <span *ngIf="!isTaskInView">Add Additional Accounts</span>
@@ -157,6 +165,7 @@
                     </p-radioButton>
                     <span *ngIf="isTaskInView">{{taskComplete.value}}</span>
                 </div>
+
                 <div class=" col-md-4" *ngIf="taskComplete.value === 'no'">
                     <label class="task-detail-label">Assign to<span *ngIf="isTaskInReview"
                             class="required-indicator">*</span></label>
@@ -177,12 +186,14 @@
                     </p-dropdown>
                     <span *ngIf="isTaskInView">{{individual.value}}</span>
                 </div>
+
                 <div class=" col-md-8" *ngIf="userGroup?.value">
                     <label class="task-detail-label">User Group</label>
                     <label>{{userGroup?.value}}</label>
                 </div>
             </div>
         </div>
+
         <div *ngIf="isTaskInReview || isTaskInView" class="row col-md-12 task-details-b-pad">
             <div class="add-accounts-section task-details-b-pad">
                 <span>Officer List</span>

@@ -15,7 +15,6 @@ import { TableModule } from 'primeng/table';
 import { DropdownModule } from 'primeng/dropdown';
 import { ProgressBarModule } from 'primeng/progressbar';
 import { TaskDetailsHostDirective } from './directives/task-details-host.directive';
-import { ContactCenterDetailsComponent } from './components/contact-center-details/contact-center-details.component';
 import { InputMaskModule } from 'primeng/inputmask';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { EditorModule } from 'primeng/editor';
@@ -29,7 +28,6 @@ import { ContactCenterTaskComponent } from './components/contact-center-task/con
     TaskSummaryComponent,
     TaskAccountDetailsComponent,
     DocumentComponent,
-    ContactCenterDetailsComponent,
     TaskDetailsHostDirective,
     ContactCenterTaskComponent,
   ],
@@ -50,7 +48,7 @@ import { ContactCenterTaskComponent } from './components/contact-center-task/con
     InputTextModule,
     TasksRoutingModule
   ],
-  entryComponents: [ContactCenterDetailsComponent, ContactCenterTaskComponent],
+  entryComponents: [ContactCenterTaskComponent],
   exports: [TaskContainerComponent, TaskSummaryComponent, TaskAccountDetailsComponent]
 })
 export class TasksModule { }
