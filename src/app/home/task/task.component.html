@@ -8,11 +8,11 @@
   <div class="task-table">
     <span>Select Action  </span>
     <span>
-      <p-dropdown [options]="tasks" [(ngModel)]="selectedTask"></p-dropdown>
+      <p-dropdown [options]="tasks" [(ngModel)]="selectedTask" class="my-tasklistdropdown"></p-dropdown>
     </span>
     <span class="task-label-last">Over the last </span>
     <span>
-      <p-dropdown [options]="taskPastDays" [(ngModel)]="selectedPastDays"></p-dropdown>
+      <p-dropdown [options]="taskPastDays" [(ngModel)]="selectedPastDays" class="my-tasklistdropdown"></p-dropdown>
     </span>
     <div style="float: right;">
       <span class="fa fa-download pdf-excel-icon" (click)="exportToPdf()"><span class="pdf-excel-icon">PDF</span></span>
