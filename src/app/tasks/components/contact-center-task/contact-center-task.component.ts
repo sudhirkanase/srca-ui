@@ -413,7 +413,8 @@ export class ContactCenterTaskComponent extends Task implements OnInit, OnChange
         taskNotes: this.taskDetailData.taskNotes,
         taskComplete: this.taskDetailData.taskCompleted,
         individual: this.taskDetailData.selectedIndividual,
-        assignTo: this.taskDetailData.assignTo
+        assignTo: this.taskDetailData.assignTo,
+        userGroup: this.taskDetailData.assignedUserGroup
       });
 
       if (this.taskDetailData.isTaxpayerId === 'yes') {

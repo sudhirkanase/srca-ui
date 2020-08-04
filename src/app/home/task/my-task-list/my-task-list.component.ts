@@ -16,7 +16,6 @@ export class MyTaskListComponent implements OnInit {
   rows = 10;
   noOfRowsPerPage = 10;
   exportColumns: any[];
-  contactCenterDetails: any;
   @ViewChild('dt', { static: false }) dt: Table;
 
   constructor(private homeService: HomeService, private router: Router) { }
@@ -117,14 +116,15 @@ export class MyTaskListComponent implements OnInit {
     this.dt.filterGlobal(searchValue, 'contains');
   }
 
-  onEditClick(rowData) {
-    this.contactCenterDetails = {
+  onEditClick(rowData: any) {
+    const taskDetails: any = {
       accountNo: rowData.accountNo,
       taskID: rowData.id,
-      accountAction: 'Update'
+      actionType: 'EDIT',
+      actionName: rowData.taskType
     };
     if (rowData.taskType === 'Contact Center') {
-      this.router.navigateByUrl('/create/ad-account/contact-center', { state: { data: this.contactCenterDetails } });
+      this.router.navigateByUrl('/create/ad-account/acct-maintenance', { state: { data: taskDetails } });
     }
   }
 }
