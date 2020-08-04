@@ -17,8 +17,7 @@ export class AccountSummaryComponent implements OnInit {
   accountDetails: Account;
   tasks: any[];
   taskColumns: any[];
-  contactCenterDetails: any;
-  newActionDetails: any;
+  actionDetails: any;
 
   constructor(
     private createTaskService: CreateTaskService,
@@ -39,13 +38,7 @@ export class AccountSummaryComponent implements OnInit {
     ];
     this.tasks = [];
 
-    this.contactCenterDetails = {
-      accountNo: this.accountNumber,
-      taskID: 0,
-      accountAction: 'Add'
-    };
-
-    this.newActionDetails = {
+    this.actionDetails = {
       accountNo: this.accountNumber,
       taskID: 0,
       actionType: 'ADD',
@@ -107,9 +100,9 @@ export class AccountSummaryComponent implements OnInit {
   }
 
   createNewTask(action: string, urlFragment: string) {
-    this.newActionDetails.actionName = action;
+    this.actionDetails.actionName = action;
     this.router.navigate([`../${urlFragment}`], {
-      state: { data: this.newActionDetails },
+      state: { data: this.actionDetails },
       relativeTo: this.route
     });
   }

@@ -12,7 +12,9 @@
                 <p-header>
                     Actions
                 </p-header>
-                <a (click)="createNewTask('Contact Center', 'acct-maintenance')">Account Maintenance</a>
+                <a class="pointer" (click)="createNewTask('Contact Center', 'acct-maintenance')">
+                    Account Maintenance
+                </a>
                 <a routerLink="./">Acct Review Maintenance</a>
                 <a routerLink="./">Asset Transaction</a>
                 <a routerLink="../contact-center" [state]="{data: contactCenterDetails}">
