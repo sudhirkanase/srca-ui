@@ -63,9 +63,6 @@ export class LoginComponent implements OnInit {
       .pipe(first())
       .subscribe(
         data => {
-          // console.log( this.returnUrl);
-          // this.userDetailsBean = data;
-          // console.log( this.userDetailsBean);
           this.authenticationService.setSessionExpired(false);
           this.router.navigate([this.returnUrl]);
         },
