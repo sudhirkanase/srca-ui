@@ -1,12 +1,10 @@
-import { Location } from '@angular/common';
-import { ChangeDetectorRef, Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { SelectItem } from 'primeng/api/selectitem';
 import { Subscription } from 'rxjs';
 import { ASSIGN_TO_DROPDOWN_DATA, CONTACT_CENTER_TASK_DROPDOWN_DATA, TaskState } from 'src/app/app.constants';
 import { isNullOrUndefined } from 'util';
 import { Task } from '../Task';
-import { CreateTaskService } from 'src/app/create-task/services/create-task.service';
 
 
 @Component({
@@ -14,7 +12,7 @@ import { CreateTaskService } from 'src/app/create-task/services/create-task.serv
   templateUrl: './contact-center-task.component.html',
   styleUrls: ['./contact-center-task.component.scss']
 })
-export class ContactCenterTaskComponent extends Task implements OnInit, OnChanges, OnDestroy {
+export class ContactCenterTaskComponent extends Task implements OnInit, OnDestroy {
 
   taskPriorityData: SelectItem[];
   callCodes: SelectItem[];
@@ -35,6 +33,8 @@ export class ContactCenterTaskComponent extends Task implements OnInit, OnChange
   formControlLabelMapping: { [key: string]: string };
 
   isTaskInReview: boolean;
+  isTaskInView: boolean;
+
   taskStateEnum = TaskState;
   private taskStateValue: TaskState;
   private taskDetailDataValue: any;
@@ -45,9 +45,6 @@ export class ContactCenterTaskComponent extends Task implements OnInit, OnChange
   officerListData: any[];
   selectedOfficerList = [];
 
-  // @Input() taskDetailData: any;
-  // @Input() taskState: any;
-  @Input() taskRequestData: any;
   @Output() saveTaskDetails = new EventEmitter<any>();
 
   set taskState(value: TaskState) {
@@ -68,16 +65,17 @@ export class ContactCenterTaskComponent extends Task implements OnInit, OnChange
     return this.taskDetailDataValue;
   }
 
-  constructor(
-    private formBuilder: FormBuilder,
-    private cd: ChangeDetectorRef,
-    private location: Location,
-    private createTaskService: CreateTaskService) {
+  constructor(private formBuilder: FormBuilder, private cd: ChangeDetectorRef) {
     super();
   }
 
+  /**
+   * Check the task state and update form accordingly.
+   */
   onTaskStateChange(): void {
     this.isTaskInReview = (this.taskState === this.taskStateEnum.REVIEW);
+    this.isTaskInView = (this.taskState === this.taskStateEnum.VIEW);
+
     if (this.isTaskInReview) {
       const taskNotCompleteFields = ['assignTo', 'individual', 'userGroup'];
 
@@ -114,53 +112,6 @@ export class ContactCenterTaskComponent extends Task implements OnInit, OnChange
 
   onTaskDetailDataChange() {
     setTimeout(() => this.updateValues());
-  }
-
-  /**
-   * Determine if the task is in review state and update form accordingly.
-   * @param changes contains the detailed change information for all input properties
-   */
-  ngOnChanges(changes: SimpleChanges) {
-    if (changes.taskState && changes.taskState.previousValue !== changes.taskState.currentValue) {
-      this.isTaskInReview = (changes.taskState.currentValue === this.taskStateEnum.REVIEW);
-      if (this.isTaskInReview) {
-        const taskNotCompleteFields = ['assignTo', 'individual', 'userGroup'];
-
-        this.updateControlValidators('taskComplete');
-
-        // check if task complete subscription exist
-        if (this.taskCompleteSubscription) {
-          this.taskCompleteSubscription.unsubscribe();
-          this.taskCompleteSubscription = null;
-        }
-
-        this.taskCompleteSubscription = this.taskComplete.valueChanges.subscribe((value: string) => {
-          if (value === 'no') {
-            this.message = null;
-            this.loadAssignToOptions();
-            this.loadIndividualOptions();
-            taskNotCompleteFields.forEach(controlName => this.updateControlValidators(controlName));
-
-          } else {
-            // Reset to null when yes selected in Task Completed
-            this.taskDetailForm.get('assignTo').setValue(null);
-            this.taskDetailForm.get('individual').setValue(null);
-            taskNotCompleteFields.forEach(controlName => {
-              this.updateControlValidators(controlName, true);
-            });
-          }
-        });
-      } else {
-        if (this.taskDetailForm) {
-          this.updateControlValidators('taskComplete', true);
-        }
-      }
-    }
-    if (changes.taskDetailData && changes.taskDetailData.previousValue !== changes.taskDetailData.currentValue) {
-      setTimeout(() => {
-        this.updateValues();
-      });
-    }
   }
 
   /**

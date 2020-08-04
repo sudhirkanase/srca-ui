@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Table } from 'primeng/table/table';
 import { HomeService } from 'src/app/home/services/home.service';
 import { Router } from '@angular/router';
+import { TaskState } from 'src/app/app.constants';
 
 @Component({
   selector: 'srca-my-task-list',
@@ -116,11 +117,11 @@ export class MyTaskListComponent implements OnInit {
     this.dt.filterGlobal(searchValue, 'contains');
   }
 
-  onEditClick(rowData: any) {
+  onActionIconClick(rowData: any, action: string) {
     const taskDetails: any = {
       accountNo: rowData.accountNo,
       taskID: rowData.id,
-      actionType: 'EDIT',
+      actionType: (action === 'edit') ? TaskState.EDIT : TaskState.VIEW,
       actionName: rowData.taskType
     };
     if (rowData.taskType === 'Contact Center') {

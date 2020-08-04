@@ -17,9 +17,6 @@
         <p-card>
             <p-tabView>
                 <p-tabPanel header="Task Detail">
-                    <!-- <srca-task-detail #srcaTaskDetails [taskState]="contactCenterTaskState" [taskDetailData]="taskData"
-                        (saveTaskDetails)="saveTask($event)">
-                    </srca-task-detail> -->
                     <ng-template srcaTaskDetailsHost></ng-template>
                 </p-tabPanel>
                 <p-tabPanel header="Document" *ngIf="taskComponent && taskComponent.showDocument()">
@@ -36,7 +33,7 @@
                 </p-tabPanel>
             </p-tabView>
             <div class="button-style">
-                <span *ngIf="taskComponent">
+                <span *ngIf="taskComponent && taskComponent.taskState !== taskStateEnum.VIEW">
                     <button pButton *ngIf="taskComponent.taskState !== taskStateEnum.REVIEW" class="save-pad"
                         type="button" label="Next" [disabled]="!taskComponent.taskDetailForm.valid"
                         (click)="updateTaskState()">

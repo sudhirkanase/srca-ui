@@ -1,44 +1,47 @@
-
 <div class="paginator-align">
-  <button type="button" pButton icon="pi pi-chevron-left" (click)="prev()" style="margin-right:.5em" [disabled]="isFirstPage()"></button>
+  <button type="button" pButton icon="pi pi-chevron-left" (click)="prev()" style="margin-right:.5em"
+    [disabled]="isFirstPage()"></button>
   <button type="button" pButton icon="pi pi-refresh" (click)="reset()" style="margin-right:.5em"></button>
   <button type="button" pButton icon="pi pi-chevron-right" (click)="next()" [disabled]="isLastPage()"></button>
 </div>
 <div>
-<p-table #dt [columns]="cols" [value]="data" [paginator]="true" [rows]="noOfRowsPerPage" [showCurrentPageReport]="true"
-  currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" paginatorPosition="bottom" [(first)]="first"
-  [scrollable]="true" scrollHeight="300px" class="my-task-list-table" [resizableColumns]="true" [reorderableColumns]="true">
-  <ng-template pTemplate="colgroup" let-columns>
-    <colgroup>
-        <col *ngFor="let col of columns" >
-    </colgroup>
-</ng-template>
-  <ng-template pTemplate="header" let-columns>
-    <tr>
-      <th *ngFor="let col of columns" [pSortableColumn]="col.field" pResizableColumn pReorderableColumn>
-        {{col.header}}
-        <p-sortIcon [field]="col.field"></p-sortIcon>
-      </th>
-      <th></th>
-    </tr>
-    <tr>
-      <th *ngFor="let col of columns" pResizableColumn pReorderableColumn>
-        <input pInputText type="text" (input)="dt.filter($event.target.value, col.field, 'contains')"
-        style="width: 100%;">
-      </th>
-      <th pResizableColumn pReorderableColumn></th>
-    </tr> 
-  </ng-template>
-  <ng-template pTemplate="body" let-rowData let-columns="columns">
-    <tr>
-      <td *ngFor="let col of columns" class="ui-resizable-column">
-        {{rowData[col.field]}}
-      </td>
-      <td class="ui-resizable-column">
-        <span class="fa fa-search pointer" style="padding-left: 23px;"></span>
-        <span class="pi pi-user-edit pointer" (click)="onEditClick(rowData)" style="padding-left: 39px;"></span>
-      </td>
-    </tr>
-  </ng-template>
-</p-table>
+  <p-table #dt [columns]="cols" [value]="data" [paginator]="true" [rows]="noOfRowsPerPage"
+    [showCurrentPageReport]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+    paginatorPosition="bottom" [(first)]="first" [scrollable]="true" scrollHeight="300px" class="my-task-list-table"
+    [resizableColumns]="true" [reorderableColumns]="true">
+    <ng-template pTemplate="colgroup" let-columns>
+      <colgroup>
+        <col *ngFor="let col of columns">
+      </colgroup>
+    </ng-template>
+    <ng-template pTemplate="header" let-columns>
+      <tr>
+        <th *ngFor="let col of columns" [pSortableColumn]="col.field" pResizableColumn pReorderableColumn>
+          {{col.header}}
+          <p-sortIcon [field]="col.field"></p-sortIcon>
+        </th>
+        <th></th>
+      </tr>
+      <tr>
+        <th *ngFor="let col of columns" pResizableColumn pReorderableColumn>
+          <input pInputText type="text" (input)="dt.filter($event.target.value, col.field, 'contains')"
+            style="width: 100%;">
+        </th>
+        <th pResizableColumn pReorderableColumn></th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-rowData let-columns="columns">
+      <tr>
+        <td *ngFor="let col of columns" class="ui-resizable-column">
+          {{rowData[col.field]}}
+        </td>
+        <td class="ui-resizable-column">
+          <span class="fa fa-search pointer" style="padding-left: 23px;"
+            (click)="onActionIconClick(rowData, 'view')"></span>
+          <span class="pi pi-user-edit pointer" style="padding-left: 39px;"
+            (click)="onActionIconClick(rowData, 'edit')"></span>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
 </div>

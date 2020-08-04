@@ -75,7 +75,7 @@ export class TaskContainerComponent implements OnInit {
     const componentRef = viewContainerRef.createComponent(componentFactory);
     this.taskComponent = (componentRef.instance as ContactCenterTaskComponent);
     this.taskComponent.taskDetailData = this.taskData;
-    this.taskComponent.taskState = TaskState.ADD;
+    this.taskComponent.taskState = this.taskRequestData.actionType;
     this.taskComponent.saveTaskDetails.subscribe((data: any) => this.saveTask(data));
   }
 
