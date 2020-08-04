@@ -28,9 +28,8 @@ export const ASSIGN_TO_DROPDOWN_DATA = [
 ];
 
 export enum TaskState {
-    ADD,
-    EDIT,
-    REVIEW,
-    ASSIGNED,
-    COMPLETED
+    ADD = 'ADD',
+    EDIT = 'EDIT',
+    REVIEW = 'REVIEW',
+    VIEW = 'VIEW'
 }

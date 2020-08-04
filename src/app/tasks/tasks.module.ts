@@ -20,6 +20,7 @@ import { InputMaskModule } from 'primeng/inputmask';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { EditorModule } from 'primeng/editor';
 import { InputTextModule } from 'primeng/inputtext';
+import { ContactCenterTaskComponent } from './components/contact-center-task/contact-center-task.component';
 
 
 @NgModule({
@@ -30,6 +31,7 @@ import { InputTextModule } from 'primeng/inputtext';
     DocumentComponent,
     ContactCenterDetailsComponent,
     TaskDetailsHostDirective,
+    ContactCenterTaskComponent,
   ],
   imports: [
     CommonModule,
@@ -48,7 +50,7 @@ import { InputTextModule } from 'primeng/inputtext';
     InputTextModule,
     TasksRoutingModule
   ],
-  entryComponents: [ContactCenterDetailsComponent],
+  entryComponents: [ContactCenterDetailsComponent, ContactCenterTaskComponent],
   exports: [TaskContainerComponent, TaskSummaryComponent, TaskAccountDetailsComponent]
 })
 export class TasksModule { }

@@ -22,30 +22,33 @@
                     </srca-task-detail> -->
                     <ng-template srcaTaskDetailsHost></ng-template>
                 </p-tabPanel>
-                <p-tabPanel header="Document">
+                <p-tabPanel header="Document" *ngIf="taskComponent && taskComponent.showDocument()">
                     <srca-document [documentDetailData]="taskData"></srca-document>
                 </p-tabPanel>
-                <p-tabPanel header="Audits">
-                    <h3>Audits placeholder</h3>
+                <p-tabPanel header="Audit" *ngIf="taskComponent && taskComponent.showAudit()">
+                    <h3>Audit placeholder</h3>
                 </p-tabPanel>
-                <p-tabPanel header="Communications">
-                    <h3>Communications placeholder</h3>
+                <p-tabPanel header="Communication" *ngIf="taskComponent && taskComponent.showCommunication()">
+                    <h3>Communication placeholder</h3>
                 </p-tabPanel>
-                <p-tabPanel header="Workflows">
-                    <h3>Workflow's placeholder</h3>
+                <p-tabPanel header="Workflow" *ngIf="taskComponent && taskComponent.showWorkflow()">
+                    <h3>Workflow placeholder</h3>
                 </p-tabPanel>
             </p-tabView>
             <div class="button-style">
-                <!-- <button pButton *ngIf="contactCenterTaskState !== taskStateEnum.REVIEW" class="save-pad" type="button"
-                    label="Next" [disabled]="!srcaTaskDetails.taskDetailForm.valid" (click)="updateTaskState()">
-                </button>
-                <p-button *ngIf="contactCenterTaskState === taskStateEnum.REVIEW" type="button" label="Return"
-                    class="save-pad" (click)="updateTaskState()">
-                </p-button>
-                <button pButton type="submit" label="Submit"
-                    [disabled]="contactCenterTaskState !== taskStateEnum.REVIEW" class="save-pad"
-                    (click)="srcaTaskDetails.onSubmit()">
-                </button> -->
+                <span *ngIf="taskComponent">
+                    <button pButton *ngIf="taskComponent.taskState !== taskStateEnum.REVIEW" class="save-pad"
+                        type="button" label="Next" [disabled]="!taskComponent.taskDetailForm.valid"
+                        (click)="updateTaskState()">
+                    </button>
+                    <p-button *ngIf="taskComponent.taskState === taskStateEnum.REVIEW" type="button" label="Return"
+                        class="save-pad" (click)="updateTaskState()">
+                    </p-button>
+                    <button pButton type="submit" label="Submit"
+                        [disabled]="taskComponent.taskState !== taskStateEnum.REVIEW" class="save-pad"
+                        (click)="taskComponent.onSubmit()">
+                    </button>
+                </span>
                 <p-button type="button" label="Cancel" (click)="cancelClick()">
                 </p-button>
             </div>

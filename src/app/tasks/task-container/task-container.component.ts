@@ -1,12 +1,12 @@
-import { TaskState } from './../../app.constants';
 import { Component, OnInit, ViewChild, ComponentFactoryResolver } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import { isNullOrUndefined } from 'util';
 import { CreateTaskService } from 'src/app/create-task/services/create-task.service';
 import { TaskDetailsHostDirective } from '../directives/task-details-host.directive';
-import { ContactCenterDetailsComponent } from '../components/contact-center-details/contact-center-details.component';
-// import { TaskType } from 'src/app/app.constants';
+import { ContactCenterTaskComponent } from '../components/contact-center-task/contact-center-task.component';
+import { Task } from '../components/Task';
+import { TaskState } from './../../app.constants';
 
 @Component({
   selector: 'srca-task-container',
@@ -17,6 +17,9 @@ export class TaskContainerComponent implements OnInit {
 
   taskRequestData: any;
   taskData: any;
+  taskComponent: Task;
+
+  taskStateEnum: typeof TaskState;
 
   @ViewChild(TaskDetailsHostDirective, { static: true }) taskDetailsHost: TaskDetailsHostDirective;
 
@@ -28,6 +31,8 @@ export class TaskContainerComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.taskStateEnum = TaskState;
+
     this.taskRequestData = window.history.state.data;
 
     this.taskData = {
@@ -39,24 +44,6 @@ export class TaskContainerComponent implements OnInit {
     } else {
       this.location.back();
     }
-
-    // this.taskData = {
-    //   id: 10001,
-    //   status: 'NEW',
-    //   phone: '(999) 999-9999',
-    //   createdDate: '7/5/2020',
-    //   email: 'test@email.com',
-    //   assignedUserGroup: null,
-    //   assignedEmail: 'admin-assigned@Wellsfargo.com',
-    //   accountService: 'admin',
-    //   accountDetail: {
-    //     accountNumber: 112351,
-    //     accountShortName: 'Account for 112351',
-    //     mainAccountNumber: 3411230,
-    //     marketValue: 371572,
-    //     branchCode: 2257
-    //   }
-    // };
 
   }
 
@@ -80,14 +67,34 @@ export class TaskContainerComponent implements OnInit {
   }
 
   loadComponent(): void {
-    const componentFactory = this.componentFactoryResolver.resolveComponentFactory(ContactCenterDetailsComponent);
+    const componentFactory = this.componentFactoryResolver.resolveComponentFactory(ContactCenterTaskComponent);
 
     const viewContainerRef = this.taskDetailsHost.viewContainerRef;
     viewContainerRef.clear();
 
     const componentRef = viewContainerRef.createComponent(componentFactory);
-    (componentRef.instance as ContactCenterDetailsComponent).taskDetailData = this.taskData;
-    (componentRef.instance as ContactCenterDetailsComponent).taskState = TaskState.ADD;
+    this.taskComponent = (componentRef.instance as ContactCenterTaskComponent);
+    this.taskComponent.taskDetailData = this.taskData;
+    this.taskComponent.taskState = TaskState.ADD;
+    this.taskComponent.saveTaskDetails.subscribe((data: any) => this.saveTask(data));
+  }
+
+  saveTask(dataToSave: any): void {
+    const requestBody = { ...this.taskData, ...dataToSave };
+    requestBody.taskType = this.taskRequestData.actionName;
+    this.createTaskService.saveContactCenterTaskDetails(requestBody).subscribe(saveTaskResponse => {
+      if (saveTaskResponse) {
+        this.location.back();
+      }
+    });
+  }
+
+  updateTaskState(): void {
+    if (this.taskComponent.taskState === this.taskStateEnum.ADD || this.taskComponent.taskState === this.taskStateEnum.EDIT) {
+      this.taskComponent.taskState = this.taskStateEnum.REVIEW;
+    } else {
+      this.taskComponent.taskState = this.taskRequestData.actionType;
+    }
   }
 
 }
