@@ -3,11 +3,10 @@ import { HttpEventType, HttpResponse } from '@angular/common/http';
 import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { SelectItem } from 'primeng/api';
-import { CreateTaskService } from 'src/app/create-task/services/create-task.service';
-import { UploadFileService } from 'src/app/create-task/services/upload-file.service';
-import { AppSharedService } from 'src/app/services/app-shared.service';
+import { UploadFileService } from '../../services/upload-file.service';
 import { isNullOrUndefined } from 'util';
 import { DocumentDetail } from './../../model/document-detail';
+import { TasksService } from '../../services/tasks.service';
 
 
 @Component({
@@ -33,9 +32,8 @@ export class DocumentComponent implements OnInit, OnChanges {
   isSubmitted = false;
   @Input() documentDetailData: any;
   constructor(
-    private createTaskService: CreateTaskService,
-    private uploadService: UploadFileService,
-    private appSharedService: AppSharedService) {
+    private taskService: TasksService,
+    private uploadService: UploadFileService) {
   }
 
   documentDetailsForm = new FormGroup(
@@ -154,7 +152,7 @@ export class DocumentComponent implements OnInit, OnChanges {
         id: this.documentDetailData.id,
         taskType: 'Contact Center'
       };
-      this.createTaskService.
+      this.taskService.
         getTaskDetails(contactCenterReq).subscribe(data => {
           if (!isNullOrUndefined(data)
             && !isNullOrUndefined(data.documents)) {

@@ -7,6 +7,7 @@ import { TaskDetailsHostDirective } from '../directives/task-details-host.direct
 import { ContactCenterTaskComponent } from '../components/contact-center-task/contact-center-task.component';
 import { Task } from '../model/Task';
 import { TaskState } from './../../app.constants';
+import { TasksService } from '../services/tasks.service';
 
 @Component({
   selector: 'srca-task-container',
@@ -27,7 +28,7 @@ export class TaskContainerComponent implements OnInit {
     private route: ActivatedRoute,
     private location: Location,
     private componentFactoryResolver: ComponentFactoryResolver,
-    private createTaskService: CreateTaskService
+    private taskService: TasksService
   ) { }
 
   ngOnInit() {
@@ -58,7 +59,7 @@ export class TaskContainerComponent implements OnInit {
         id: this.taskInitData.taskID,
         taskType: this.taskInitData.actionName
       };
-      this.createTaskService.
+      this.taskService.
         getTaskDetails(taskRequest).subscribe(data => {
           this.taskData = data;
           this.loadComponent();
@@ -82,7 +83,7 @@ export class TaskContainerComponent implements OnInit {
   saveTask(dataToSave: any): void {
     const requestBody = { ...this.taskData, ...dataToSave };
     requestBody.taskType = this.taskInitData.actionName;
-    this.createTaskService.saveContactCenterTaskDetails(requestBody).subscribe(saveTaskResponse => {
+    this.taskService.saveContactCenterTaskDetails(requestBody).subscribe(saveTaskResponse => {
       if (saveTaskResponse) {
         this.location.back();
       }
