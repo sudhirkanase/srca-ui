@@ -23,6 +23,10 @@ const routes: Routes = [
   {
     path: 'create',
     loadChildren: () => import('./create-task/create-task.module').then(m => m.CreateTaskModule)
+  },
+  {
+    path: 'action',
+    loadChildren: () => import('./tasks/tasks.module').then(m => m.TasksModule)
   }
 
   // Lazy temprory as its landing page it should be eager loading
@@ -30,7 +34,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes, {  scrollPositionRestoration: 'enabled', enableTracing: true })],
+  imports: [RouterModule.forRoot(routes, { scrollPositionRestoration: 'enabled', enableTracing: true })],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
