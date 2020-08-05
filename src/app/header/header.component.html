@@ -2,11 +2,11 @@
 <div class="col-md-12 no-pad">
     <div class="main-header">
         WELLS FARGO
-        <span class="login-header-btns">
-         <div #btn class="login-btn pointer" (click)="menu.toggle($event)">{{currentUser?.fullName}}<span class="fa fa-angle-down down-arrow pointer"></span></div>
+        <span class="login-header-btns" *ngIf="currentUser">
+         <div class="login-btn pointer" (click)="menu.toggle($event)">{{currentUser?.fullName}}<span class="fa fa-angle-down down-arrow pointer"></span></div>
             <span class="header-panel"><p-slideMenu #menu [model]="items" [popup]="true"></p-slideMenu></span>
+            <span class="fa fa-user user-icon"></span>
         </span>
-        <span class="fa fa-user user-icon"></span>
         <span class="fa fa-question-circle question-icon"></span>
     </div>
     <div class="content-panel">
