@@ -28,18 +28,6 @@ export class CreateTaskService extends BaseService {
     return this.get(`${this.taskManagementServiceUrl}/getAccount/${accountNumber}`);
   }
 
-  getDocumentDetails(): Observable<any> {
-    return this.get('assets/json/document-details.json');
-  }
-
-  saveContactCenterTaskDetails(taskDetails): Observable<any> {
-    return this.post(`${this.taskManagementServiceUrl}/saveTask`, taskDetails);
-  }
-
-  getTaskDetails(contactCenterReq): Observable<any> {
-    return this.post(`${this.taskManagementServiceUrl}/getTaskDetails`, contactCenterReq);
-  }
-
   getTaskListByAccountNo(accountNo): Observable<any> {
     return this.post(`${this.taskManagementServiceUrl}/getTaskList`, accountNo);
   }
