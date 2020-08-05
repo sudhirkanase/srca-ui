@@ -126,9 +126,9 @@ export class MyTaskListComponent implements OnInit {
       actionName: rowData.taskType
     };
     if (rowData.taskType === 'Contact Center') {
-      this.router.navigate(['./create/ad-account/contact-center'], {
+      this.router.navigate(['action'], {
         state: { data: actionDetails },
-        queryParams: { action: actionType.toLowerCase() }
+        queryParams: { task: 'contact-center', type: actionType.toLowerCase() }
       });
     }
   }
