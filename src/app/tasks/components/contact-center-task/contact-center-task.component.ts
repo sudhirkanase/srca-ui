@@ -1,10 +1,12 @@
-import { ChangeDetectorRef, Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
+import { Location } from '@angular/common';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { SelectItem } from 'primeng/api/selectitem';
 import { Subscription } from 'rxjs';
 import { ASSIGN_TO_DROPDOWN_DATA, CONTACT_CENTER_TASK_DROPDOWN_DATA, TaskState } from 'src/app/app.constants';
 import { isNullOrUndefined } from 'util';
 import { Task } from '../../model/Task';
+import { TasksService } from '../../services/tasks.service';
 
 
 @Component({
@@ -45,8 +47,6 @@ export class ContactCenterTaskComponent extends Task implements OnInit, OnDestro
   officerListData: any[];
   selectedOfficerList = [];
 
-  @Output() saveTaskDetails = new EventEmitter<any>();
-
   set taskState(value: TaskState) {
     this.taskStateValue = value;
     this.onTaskStateChange();
@@ -65,7 +65,11 @@ export class ContactCenterTaskComponent extends Task implements OnInit, OnDestro
     return this.taskDetailDataValue;
   }
 
-  constructor(private formBuilder: FormBuilder, private cd: ChangeDetectorRef) {
+  constructor(
+    private formBuilder: FormBuilder,
+    private cd: ChangeDetectorRef,
+    private location: Location,
+    private taskService: TasksService) {
     super();
   }
 
@@ -410,7 +414,7 @@ export class ContactCenterTaskComponent extends Task implements OnInit, OnDestro
         officersList: this.selectedOfficerList
       };
       // API call to persist data
-      this.saveTaskDetails.emit(this.createRequestBody(saveData));
+      this.saveTask(this.createRequestBody(saveData));
       // on API success
       this.message = {
         cssClass: 'alert alert-success',
@@ -476,6 +480,26 @@ export class ContactCenterTaskComponent extends Task implements OnInit, OnDestro
     requestBody.officers = dataToSave.officersList;
 
     return requestBody;
+  }
+
+  /**
+   * Save the contact center details to the backend
+   */
+  saveTask(dataToSave: any): void {
+    const requestBody = { ...this.taskDetailData, ...dataToSave };
+    requestBody.taskType = 'Contact Center';
+    this.taskService.saveContactCenterTaskDetails(requestBody).subscribe(
+      (saveTaskResponse) => {
+        if (saveTaskResponse) {
+          this.location.back();
+        }
+      }, (error: any) => {
+        this.message = {
+          cssClass: 'alert alert-danger',
+          text: `Error saving contact center details.`
+        };
+      }
+    );
   }
 
   /**

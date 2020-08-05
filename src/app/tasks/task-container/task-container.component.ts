@@ -1,8 +1,6 @@
 import { Component, OnInit, ViewChild, ComponentFactoryResolver } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import { isNullOrUndefined } from 'util';
-import { CreateTaskService } from 'src/app/create-task/services/create-task.service';
 import { TaskDetailsHostDirective } from '../directives/task-details-host.directive';
 import { ContactCenterTaskComponent } from '../components/contact-center-task/contact-center-task.component';
 import { Task } from '../model/Task';
@@ -25,7 +23,6 @@ export class TaskContainerComponent implements OnInit {
   @ViewChild(TaskDetailsHostDirective, { static: true }) taskDetailsHost: TaskDetailsHostDirective;
 
   constructor(
-    private route: ActivatedRoute,
     private location: Location,
     private componentFactoryResolver: ComponentFactoryResolver,
     private taskService: TasksService
@@ -48,10 +45,16 @@ export class TaskContainerComponent implements OnInit {
 
   }
 
+  /**
+   * Navigate back to previous page on cancel click
+   */
   cancelClick(): void {
     this.location.back();
   }
 
+  /**
+   * Get the task details from the backend
+   */
   getTaskDetails(): void {
     if (!isNullOrUndefined(this.taskInitData)) {
       const taskRequest: any = {
@@ -77,19 +80,11 @@ export class TaskContainerComponent implements OnInit {
     this.taskComponent = (componentRef.instance as ContactCenterTaskComponent);
     this.taskComponent.taskDetailData = this.taskData;
     this.taskComponent.taskState = this.taskInitData.actionType;
-    this.taskComponent.saveTaskDetails.subscribe((data: any) => this.saveTask(data));
   }
 
-  saveTask(dataToSave: any): void {
-    const requestBody = { ...this.taskData, ...dataToSave };
-    requestBody.taskType = this.taskInitData.actionName;
-    this.taskService.saveContactCenterTaskDetails(requestBody).subscribe(saveTaskResponse => {
-      if (saveTaskResponse) {
-        this.location.back();
-      }
-    });
-  }
-
+  /**
+   * Responsible for moving the task from initial state to REVIEW state and vice versa
+   */
   updateTaskState(): void {
     if (this.taskComponent.taskState === this.taskStateEnum.ADD || this.taskComponent.taskState === this.taskStateEnum.EDIT) {
       this.taskComponent.taskState = this.taskStateEnum.REVIEW;
