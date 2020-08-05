@@ -11,7 +11,6 @@ import { AccountRoutingModule } from './account-routing.module';
 import { AccountSearchComponent } from './account-search/account-search.component';
 import { AccountSummaryComponent } from './account-summary/account-summary.component';
 import { AccountDetailsComponent } from './account-summary/account-details/account-details.component';
-import { ActionsModule } from '../actions/actions.module';
 import { TasksModule } from 'src/app/tasks/tasks.module';
 
 @NgModule({
@@ -23,7 +22,6 @@ import { TasksModule } from 'src/app/tasks/tasks.module';
     PanelModule,
     TabViewModule,
     ButtonModule,
-    ActionsModule,
     TasksModule,
     AccountRoutingModule,
     ReactiveFormsModule
