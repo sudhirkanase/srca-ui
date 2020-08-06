@@ -23,7 +23,7 @@ import { TaskDetailsHostDirective } from './directives/task-details-host.directi
 import { ContactCenterTaskComponent } from './components/contact-center-task/contact-center-task.component';
 import { TasksService } from './services/tasks.service';
 import { UploadFileService } from './services/upload-file.service';
-
+import { TaskComponentFactory } from './factory/task-component.factory';
 
 @NgModule({
   declarations: [
@@ -53,6 +53,6 @@ import { UploadFileService } from './services/upload-file.service';
   ],
   entryComponents: [ContactCenterTaskComponent],
   exports: [TaskContainerComponent, TaskSummaryComponent, TaskAccountDetailsComponent],
-  providers: [TasksService, UploadFileService]
+  providers: [TasksService, UploadFileService, TaskComponentFactory]
 })
 export class TasksModule { }

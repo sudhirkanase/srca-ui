@@ -1,11 +1,11 @@
-import { Component, OnInit, ViewChild, ComponentFactoryResolver } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Location } from '@angular/common';
 import { isNullOrUndefined } from 'util';
 import { TaskDetailsHostDirective } from '../directives/task-details-host.directive';
-import { ContactCenterTaskComponent } from '../components/contact-center-task/contact-center-task.component';
+import { TaskComponentFactory } from '../factory/task-component.factory';
 import { Task } from '../model/Task';
-import { TaskState } from './../../app.constants';
 import { TasksService } from '../services/tasks.service';
+import { TaskState } from './../../app.constants';
 
 @Component({
   selector: 'srca-task-container',
@@ -24,7 +24,7 @@ export class TaskContainerComponent implements OnInit {
 
   constructor(
     private location: Location,
-    private componentFactoryResolver: ComponentFactoryResolver,
+    private taskComponentFactory: TaskComponentFactory,
     private taskService: TasksService
   ) { }
 
@@ -70,14 +70,12 @@ export class TaskContainerComponent implements OnInit {
     }
   }
 
+  /**
+   * Calls the task component factory to dynamically load the task component in the DOM
+   */
   loadComponent(): void {
-    const componentFactory = this.componentFactoryResolver.resolveComponentFactory(ContactCenterTaskComponent);
-
-    const viewContainerRef = this.taskDetailsHost.viewContainerRef;
-    viewContainerRef.clear();
-
-    const componentRef = viewContainerRef.createComponent(componentFactory);
-    this.taskComponent = (componentRef.instance as ContactCenterTaskComponent);
+    this.taskComponent = this.taskComponentFactory
+      .getComponent(this.taskDetailsHost.viewContainerRef, this.taskInitData.actionName);
     this.taskComponent.taskDetailData = this.taskData;
     this.taskComponent.taskState = this.taskInitData.actionType;
   }
