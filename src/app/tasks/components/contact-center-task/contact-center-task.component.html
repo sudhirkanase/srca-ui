@@ -122,7 +122,8 @@
             <div class="add-accounts-section task-details-b-pad">
                 <span *ngIf="!isTaskInView">Add Additional Accounts</span>
                 <span *ngIf="isTaskInView">Additional Accounts</span>
-                <p-button *ngIf="!isTaskInView" type="button" label="Add" class="save-pad"></p-button>
+                <p-button *ngIf="!(isTaskInReview || isTaskInView)" type="button" label="Add" class="save-pad">
+                </p-button>
             </div>
             <p-table [columns]="accountColumns" [value]="accounts">
                 <ng-template pTemplate="header" let-columns>
