@@ -12,6 +12,7 @@
                         <th *ngFor="let col of columns" pResizableColumn pReorderableColumn>
                             {{col.header}}
                         </th>
+                        <th>Action</th>
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="body" let-rowData let-columns="columns">
@@ -19,12 +20,17 @@
                         <td *ngFor="let col of columns">
                             {{rowData[col.field]}}
                         </td>
+                        <td>
+                            <span class="fa fa-search pointer" style="margin-left: 25px;"></span>
+                            <span class="fa fa-trash pointer" style="margin-left: 25px;"></span>
+                        </td>
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="emptymessage">
                     <tr class="text-center">
                         <td colspan="7">No records to display.</td>
                     </tr>
+                   
                 </ng-template>
             </p-table>
         </div>
