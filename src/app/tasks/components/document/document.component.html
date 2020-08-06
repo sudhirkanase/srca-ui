@@ -5,10 +5,11 @@
                 *ngIf="!uploadDoc"></button>
         </p-header>
         <div *ngIf="!uploadDoc" style="height: 364px;">
-            <p-table [columns]="cols" [value]="documentList">
+            <p-table [columns]="cols" [value]="documentList" [scrollable]="true" scrollHeight="300px"
+            [resizableColumns]="true" [reorderableColumns]="true">
                 <ng-template pTemplate="header" let-columns>
                     <tr>
-                        <th *ngFor="let col of columns">
+                        <th *ngFor="let col of columns" pResizableColumn pReorderableColumn>
                             {{col.header}}
                         </th>
                     </tr>
@@ -36,10 +37,9 @@
                             <p-dropdown [options]="fileTypes" (onChange)="onFileTypeChange($event)"
                                 [(ngModel)]="selectedFileTypeId" formControlName="fileType"></p-dropdown>
                         </div>
-
                         <label class="mar-b-0">This document requires a description</label>
                         <div class="content-t-mar">
-                            <input type="text" pInputText formControlName="description" required>
+                            <input type="text" pInputText formControlName="description" (change)="onDescriptionChange()"  required>
                             <div *ngIf="isSubmitted && description.invalid" class="error-col">
                                 <div *ngIf="description.errors.required">
                                     Description is required
@@ -52,21 +52,19 @@
                             <span class="btn btn-default">
                                 <input type="file" (change)="selectFile($event)" formControlName="fileName" required />
                             </span>
-                            <div style="width: 300px;">
-                                <p-progressBar [value]="progress"></p-progressBar>
-                            </div>
-                            <span class="message-align">
-                                {{message}}
-                            </span>
                             <div *ngIf="isSubmitted && fileName.invalid" class="error-col">
                                 <div *ngIf="fileName.errors.required">
                                     Document selection required
                                 </div>
                             </div>
+                            <div style="width: 300px;">
+                                <p-progressBar [value]="progress"></p-progressBar>
+                            </div>
+                            <span class="message-align mar-b-0">{{message}}</span>
                         </div>
                     </div>
                     <div class="panel-btn">
-                        <span><button pButton type="submit" label="Add Document"></button></span>
+                        <span><button pButton type="submit" label="Add Document" [disabled]="!documentDetailsForm.valid"></button></span>
                         <span><button pButton type="button" label="Cancel" (click)="onCancel()"></button></span>
                     </div>
                 </form>
