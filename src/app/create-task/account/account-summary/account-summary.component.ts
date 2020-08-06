@@ -30,6 +30,7 @@ export class AccountSummaryComponent implements OnInit {
     this.getAccountNumber();
 
     this.taskColumns = [
+      { field: 'action', header: '' },
       { field: 'id', header: 'ID' },
       { field: 'accountName', header: 'Account Name' },
       { field: 'requesterName', header: 'Requester Name' },
@@ -106,6 +107,22 @@ export class AccountSummaryComponent implements OnInit {
       queryParams: { action: 'create' },
       relativeTo: this.route
     });
+  }
+
+  onViewIconClick(rowData: any) {
+    const actionType = 'VIEW';
+    const actionDetails: any = {
+      accountNo: rowData.accountNo,
+      taskID: rowData.id,
+      actionType,
+      actionName: rowData.taskType
+    };
+    if (rowData.taskType === 'Contact Center') {
+      this.router.navigate(['action'], {
+        state: { data: actionDetails },
+        queryParams: { task: 'contact-center', type: actionType.toLowerCase() }
+      });
+    }
   }
 
 }
