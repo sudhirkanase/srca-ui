@@ -10,18 +10,24 @@
                     <form [formGroup]="communicationForm" (ngSubmit)="onSubmit()">
                         <div class="flex-container">
                             <div class="container-pad-1">
-                                <label class="label-wid-1">Type</label>
+                                <label class="label-wid-1">Type<span class="required-indicator">*</span></label>
                                 <span>
                                     <p-dropdown [options]="types" formControlName="commType"
-                                        (onChange)="loadReasonByType(communicationForm.get('commType').value)">
+                                        (onChange)="loadReasonByType(commType.value)"
+                                        [ngClass]="{ 'invalid-dropdown': commType.errors && commType.touched }"
+                                        required>
                                     </p-dropdown>
                                 </span>
+
                             </div>
                             <div>
-                                <label class="label-wid-2">Reason</label>
+                                <label class="label-wid-2">Reason<span class="required-indicator">*</span></label>
                                 <span>
-                                    <p-dropdown [options]="reason" formControlName="commReason"></p-dropdown>
+                                    <p-dropdown [options]="reason" formControlName="commReason"
+                                        [ngClass]="{ 'invalid-dropdown': commReason.errors && commReason.touched }"
+                                        required></p-dropdown>
                                 </span>
+
                             </div>
                         </div>
                         <div class="flex-container">
@@ -49,7 +55,12 @@
                         <div class="footer-panel">
                             <span><button pButton type="button" label="Cancel" class="btn-align"
                                     (click)="onCancel()"></button></span>
-                            <span><button pButton type="submit" label="Done" [disabled]="!communicationForm.valid"></button></span>
+                            <span><button pButton type="submit" label="Done"
+                                    [disabled]="!communicationForm.valid"></button></span>
+                            <div *ngIf="issubmitted && commType.invalid" class="error-col">* communication Type
+                                selection is required</div>
+                            <div *ngIf="issubmitted && commReason.invalid" class="error-col">* communication reason
+                                selection is required</div>
                         </div>
                     </form>
                 </p-panel>

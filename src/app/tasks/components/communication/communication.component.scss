@@ -1,3 +1,4 @@
+@import "../../../../assets/scss/variables.scss";
 .flex-container{
     display: flex; 
     flex-direction: row;
@@ -25,4 +26,8 @@
 }
 .btn-align{
     margin-right: 10px;
+}
+.required-indicator {
+    padding-left: 2px;
+    color: $orange-col;
 }
