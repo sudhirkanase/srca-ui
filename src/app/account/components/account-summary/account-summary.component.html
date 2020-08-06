@@ -1,0 +1,63 @@
+<div class="col-md-12 content-panels no-pad myclass account-summary container-pad">
+    <div>
+        The available Tasks are in the Actions menu to the left. Select the Task that you want to create for the
+        selected account. You will be guided through the screens to provide details for that Task.
+    </div>
+    <div>
+        <strong>Tasks associated to this account are listed in the Tasks tab.</strong>
+    </div>
+    <div class="row details-and-actions">
+        <div class="col-sm-3 actions panel-aacount-summary ">
+            <p-panel [toggleable]="true" [expandIcon]="'pi pi-angle-down'" [collapseIcon]="'pi pi-angle-up'">
+                <p-header>
+                    Actions
+                </p-header>
+                <a routerLink="./">
+                    Account Maintenance
+                </a>
+                <a routerLink="./">Acct Review Maintenance</a>
+                <a routerLink="./">Asset Transaction</a>
+                <a class="pointer" (click)="createNewTask('Contact Center', 'contact-center')">
+                    Contact Center
+                </a>
+                <a routerLink="./">DARS Approval</a>
+                <a routerLink="./">Name & Address Record</a>
+                <a routerLink="./">AD Fixed Income</a>
+                <a routerLink="./" #assetManagement (click)="actionClick(assetManagement)">
+                    AD AMS Asset Management
+                    <i class="pi pi-caret-down"></i>
+                </a>
+                <div class="dropdown-container">
+                    <a routerLink="./">Add Acct: AD Asset</a>
+                    <a routerLink="./">Management</a>
+                    <a routerLink="./">AD Capital Gains</a>
+                </div>
+                <a routerLink="./" #portfolioImplementation (click)="actionClick(portfolioImplementation)">
+                    Portfolio Implementation
+                    <i class="pi pi-caret-down"></i>
+                </a>
+                <div class="dropdown-container">
+                    <a routerLink="./">Sub-action 1</a>
+                    <a routerLink="./">Sub-action 2</a>
+                    <a routerLink="./">Sub-action 3</a>
+                </div>
+            </p-panel>
+        </div>
+        <div class="col-sm-9">
+            <!-- tab view -->
+            <p-tabView class="contact-center-details">
+                <p-tabPanel header="Details">
+                    <srca-account-details [accountDetails]="accountDetails"></srca-account-details>
+                </p-tabPanel>
+                <p-tabPanel header="Tasks">
+                    <srca-account-tasks [tasks]="tasks"></srca-account-tasks>
+                </p-tabPanel>
+
+            </p-tabView>
+            <div class="back-btn">
+                <p-button label="Back" (click)="handleBackBtnClick()" styleClass="ui-button-info">
+                </p-button>
+            </div>
+        </div>
+    </div>
+</div>

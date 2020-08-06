@@ -1,0 +1,16 @@
+@import "../../../../assets/scss/variables.scss";
+.details {
+    .details-tab-heading {
+        background-color: $main-color;
+        padding: 10px 14px;
+        color: $white-col;
+        font-size: $font-14;
+        font-weight: 600;
+    }
+
+    .details-tab-content {
+        background-color: rgb(214, 214, 214);
+        padding: 20px;
+        font-size: $font-14;
+    }
+}

@@ -1,0 +1,25 @@
+@import "../../../../assets/scss/variables.scss";
+
+.account-tasks-table::ng-deep .ui-table {
+    font-size: $font-14;
+    .ui-table-thead {
+        tr {
+            th:first-child {
+                width: 50px;
+            }
+            th:nth-child(2) {
+                width: 80px;
+            }
+        }
+    }
+    .ui-table-tbody {
+        tr {
+            td:first-child {
+                width: 50px;
+            }
+            td:nth-child(2) {
+                width: 80px;
+            }
+        }
+    }
+}

@@ -21,8 +21,19 @@ const routes: Routes = [
     component: LoginComponent
   },
   {
-    path: 'create',
-    loadChildren: () => import('./create-task/create-task.module').then(m => m.CreateTaskModule)
+    path: 'create/ad-account',
+    loadChildren: () => import('./account/account.module').then(m => m.AccountModule),
+    data: { type: 'AD' }
+  },
+  {
+    path: 'create/ifs-account',
+    loadChildren: () => import('./account/account.module').then(m => m.AccountModule),
+    data: { type: 'IFS' }
+  },
+  {
+    path: 'create/pb-account',
+    loadChildren: () => import('./account/account.module').then(m => m.AccountModule),
+    data: { type: 'PB' }
   },
   {
     path: 'action',
