@@ -66,8 +66,7 @@ export class DocumentComponent implements OnInit, OnChanges {
       { field: 'added', header: 'Added' },
       { field: 'notes', header: 'Notes' },
       { field: 'additionalInst', header: 'Additional Instructions' },
-      { field: 'attachment', header: 'Attachments' },
-      { field: 'documentAction', header: 'Action' }
+      { field: 'attachment', header: 'Attachments' }
     ];
   }
 
