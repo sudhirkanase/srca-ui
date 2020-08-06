@@ -1,0 +1,70 @@
+<div class="panel communication-panel">
+    <p-panel>
+        <p-header>
+            <button pButton type="button" label="New Entry" class="float-r" (click)="showDialog()"></button>
+        </p-header>
+        <p-dialog [(visible)]="display" [modal]="true" [style]="{width: '50vw'}" [baseZIndex]="10000"
+            [maximizable]="false" [draggable]="false" [resizable]="false">
+            <div class="panel">
+                <p-panel header="Communication">
+                    <form [formGroup]="communicationForm" (ngSubmit)="onSubmit()">
+                        <div class="flex-container">
+                            <div class="container-pad-1">
+                                <label class="label-wid-1">Type<span class="required-indicator">*</span></label>
+                                <span>
+                                    <p-dropdown [options]="types" formControlName="commType"
+                                        (onChange)="loadReasonByType(commType.value)"
+                                        [ngClass]="{ 'invalid-dropdown': commType.errors && commType.touched }"
+                                        required>
+                                    </p-dropdown>
+                                </span>
+
+                            </div>
+                            <div>
+                                <label class="label-wid-2">Reason<span class="required-indicator">*</span></label>
+                                <span>
+                                    <p-dropdown [options]="reason" formControlName="commReason"
+                                        [ngClass]="{ 'invalid-dropdown': commReason.errors && commReason.touched }"
+                                        required></p-dropdown>
+                                </span>
+
+                            </div>
+                        </div>
+                        <div class="flex-container">
+                            <div class="container-pad-2">
+                                <label class="label-wid-1">Name</label>
+                                <span><input type="text" pInputText formControlName="name" /></span>
+                            </div>
+                            <div>
+                                <label class="label-wid-2">Number</label>
+                                <span>
+                                    <p-inputMask mask="(999) 999-9999" formControlName="number"></p-inputMask>
+                                </span>
+                            </div>
+                        </div>
+                        <div style="padding-bottom: 10px;">
+                            <label class="label-wid-1">Follow-up Date</label>
+                            <span>
+                                <p-calendar [showIcon]="true" inputId="icon" formControlName="fdate"></p-calendar>
+                            </span>
+                        </div>
+                        <div>
+                            <label class="label-wid-1 notes-alignment">Notes</label>
+                            <span><textarea pInputTextarea formControlName="notes"></textarea></span>
+                        </div>
+                        <div class="footer-panel">
+                            <span><button pButton type="button" label="Cancel" class="btn-align"
+                                    (click)="onCancel()"></button></span>
+                            <span><button pButton type="submit" label="Done"
+                                    [disabled]="!communicationForm.valid"></button></span>
+                            <div *ngIf="issubmitted && commType.invalid" class="error-col">* communication Type
+                                selection is required</div>
+                            <div *ngIf="issubmitted && commReason.invalid" class="error-col">* communication reason
+                                selection is required</div>
+                        </div>
+                    </form>
+                </p-panel>
+            </div>
+        </p-dialog>
+    </p-panel>
+</div>

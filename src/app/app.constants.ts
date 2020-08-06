@@ -33,3 +33,25 @@ export enum TaskState {
     REVIEW = 'REVIEW',
     VIEW = 'VIEW'
 }
+export const COMMUNICATION_DROPDOWN_DATA = {
+    'Incoming Call': [
+        'Incoming Call'
+    ],
+    'Outgoing Call': [
+        'Outgoing Call'
+    ],
+    'Letter': [
+        'Letter'
+    ],
+    'Email': [
+        'Email',
+    ],
+    'Face to Face': [
+        'Face to Face'
+    ],
+    'Notes': [
+        'Misc',
+        'Alert',
+        'Other Notes'
+    ]
+};
