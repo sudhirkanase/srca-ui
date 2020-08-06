@@ -1,3 +1,4 @@
+import { CommunicationComponent } from './components/communication/communication.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -24,6 +25,8 @@ import { ContactCenterTaskComponent } from './components/contact-center-task/con
 import { TasksService } from './services/tasks.service';
 import { UploadFileService } from './services/upload-file.service';
 import { TaskComponentFactory } from './factory/task-component.factory';
+import {DialogModule} from 'primeng/dialog';
+import {CalendarModule} from 'primeng/calendar';
 
 @NgModule({
   declarations: [
@@ -33,6 +36,7 @@ import { TaskComponentFactory } from './factory/task-component.factory';
     DocumentComponent,
     TaskDetailsHostDirective,
     ContactCenterTaskComponent,
+    CommunicationComponent
   ],
   imports: [
     CommonModule,
@@ -49,7 +53,9 @@ import { TaskComponentFactory } from './factory/task-component.factory';
     RadioButtonModule,
     EditorModule,
     InputTextModule,
-    TasksRoutingModule
+    TasksRoutingModule,
+    DialogModule,
+    CalendarModule
   ],
   entryComponents: [ContactCenterTaskComponent],
   exports: [TaskContainerComponent, TaskSummaryComponent, TaskAccountDetailsComponent],

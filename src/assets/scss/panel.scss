@@ -110,6 +110,13 @@
         }
     }
 }
+.communication-panel p-panel{
+    .ui-panel{
+        .ui-panel-content{
+            height: 300px;
+        }
+    }
+}
 
 .contact-center-details .ui-tabview .ui-tabview-panels {
     height: 397px;
