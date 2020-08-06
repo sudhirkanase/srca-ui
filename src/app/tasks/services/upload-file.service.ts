@@ -50,7 +50,8 @@ export class UploadFileService extends BaseService {
 
     return this.post(`${this.taskManagementServiceUrl}/documentUpload`, formData, {
       reportProgress: true,
-      responseType: 'text'
+      responseType: 'text',
+      observe: 'events'
     });
   }
 
