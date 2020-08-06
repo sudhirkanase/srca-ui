@@ -14,7 +14,7 @@ export class CommunicationComponent implements OnInit {
   types: SelectItem[];
   reason: SelectItem[];
   dropdownData: { [key: string]: string[] };
-  selectedType
+  issubmitted = false
   communicationForm: FormGroup;
   constructor() { }
 
@@ -29,10 +29,10 @@ export class CommunicationComponent implements OnInit {
     this.communicationForm = new FormGroup({
       commType: new FormControl(null, Validators.required),
       commReason: new FormControl(null, Validators.required),
-      name: new FormControl(null, Validators.required),
-      number: new FormControl(null, Validators.required),
-      fdate: new FormControl(null, Validators.required),
-      notes: new FormControl(null, Validators.required),
+      name: new FormControl(null),
+      number: new FormControl(null),
+      fdate: new FormControl(null),
+      notes: new FormControl(null),
     })
   }
 
@@ -70,10 +70,12 @@ export class CommunicationComponent implements OnInit {
 
   //submit method
   onSubmit() {
+    this.issubmitted = true
     console.log(this.communicationForm.value)
-    // if(this.communicationForm.valid){
-    //   this.display = false;
-    // }
+    if (this.communicationForm.valid) {
+      this.issubmitted = false;
+      this.communicationForm.reset();
+    }
   }
 
   //cancel method
@@ -81,5 +83,13 @@ export class CommunicationComponent implements OnInit {
     this.display = false;
   }
 
+  //method to get form control
+  get commType() : FormControl{
+     return this.communicationForm.get('commType') as FormControl
+  }
+
+  get commReason() : FormControl{
+    return this.communicationForm.get('commReason') as FormControl
+ }
 }
 
