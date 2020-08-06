@@ -51,7 +51,7 @@
                 </p-tabPanel>
                 <p-tabPanel header="Tasks">
                     <ng-template pTemplate="content">
-                        <p-table [columns]="taskColumns" [value]="tasks">
+                        <p-table [columns]="taskColumns" [value]="tasks" class="account-tasks-table">
                             <ng-template pTemplate="header" let-columns>
                                 <tr>
                                     <th *ngFor="let col of columns">
@@ -62,7 +62,12 @@
                             <ng-template pTemplate="body" let-rowData let-columns="columns">
                                 <tr>
                                     <td *ngFor="let col of columns">
-                                        {{rowData[col.field]}}
+                                        <span *ngIf="col.field === 'action'" class="fa fa-search pointer"
+                                            (click)="onViewIconClick(rowData)" style="padding-left: 5px;">
+                                        </span>
+                                        <span *ngIf="col.field !== 'action'">
+                                            {{rowData[col.field]}}
+                                        </span>
                                     </td>
                                 </tr>
                             </ng-template>

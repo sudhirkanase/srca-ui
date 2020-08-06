@@ -46,10 +46,6 @@
             display: table;
         }
 
-        .ui-table {
-            font-size: $font-14;
-        }
-
         .back-btn {
             margin-top: 15px;
         }
@@ -59,5 +55,29 @@
 ::ng-deep p-tabview {
     .ui-tabview-nav {
         font-size: 14px;
+    }
+}
+
+.account-tasks-table::ng-deep .ui-table {
+    font-size: $font-14;
+    .ui-table-thead {
+        tr {
+            th:first-child {
+                width: 50px;
+            }
+            th:nth-child(2) {
+                width: 80px;
+            }
+        }
+    }
+    .ui-table-tbody {
+        tr {
+            td:first-child {
+                width: 50px;
+            }
+            td:nth-child(2) {
+                width: 80px;
+            }
+        }
     }
 }
