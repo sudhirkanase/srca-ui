@@ -1,0 +1,27 @@
+@import "../../../../assets/scss/variables.scss";
+.content-panels{
+    padding-left: $pad-14 !important;
+    padding-right: $pad-10 !important;
+    background-color: $white-col;
+    .task-headers{
+        font-size: $font-23;
+        font-weight: $font-bold;
+        padding-bottom: $pad-8;
+        padding-top: 8px;
+    }
+    .content-text{
+        font-weight: $font-bold;
+    }
+}
+
+.acc-label-pad{
+    font-weight: $font-bold;
+    padding-top: $pad-8;
+}
+.second-container{
+    margin-top: 25px;
+}
+.message-align{
+    text-align: center;
+    padding: 10px;
+}
