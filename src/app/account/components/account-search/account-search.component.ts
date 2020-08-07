@@ -3,6 +3,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Account } from './../../model/Account';
 import { AccountService } from './../../services/account.service';
+import { AppSharedService } from 'src/app/services/app-shared.service';
 
 @Component({
   selector: 'srca-account-search',
@@ -19,7 +20,8 @@ export class AccountSearchComponent implements OnInit {
   message: any;
   accountSearchForm: FormGroup;
 
-  constructor(private route: ActivatedRoute, private accountService: AccountService) { }
+  constructor(private route: ActivatedRoute, private accountService: AccountService,
+    private appSharedService: AppSharedService) { }
   ngOnInit() {
     this.accountSearchForm = new FormGroup({
       accountNumber: new FormControl('', Validators.required),
@@ -47,6 +49,7 @@ export class AccountSearchComponent implements OnInit {
       this.message = '';
     }, (error) => {
       this.message = error;
+      this.appSharedService.setToastErrorMessage(this.message);
       this.accounts = [];
     });
   }

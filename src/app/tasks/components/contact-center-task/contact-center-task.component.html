@@ -226,7 +226,7 @@
         </div>
 
         <div *ngIf="isSaveBtnClicked && message">
-            <div [ngClass]="message.cssClass" *ngIf="!taskDetailForm.valid || !taskDetailForm.touched">
+            <div [ngClass]="message.cssClass">
                 {{message.text}}
             </div>
         </div>

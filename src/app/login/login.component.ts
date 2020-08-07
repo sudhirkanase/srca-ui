@@ -67,7 +67,11 @@ export class LoginComponent implements OnInit {
           this.router.navigate([this.returnUrl]);
         },
         error => {
-          this.alertService.error(error);
+          if (error.status === 0) {
+            this.alertService.error('Connection Failed! Please try again later.');
+          } else {
+            this.alertService.error(error);
+          }
           this.loading = false;
         });
   }
