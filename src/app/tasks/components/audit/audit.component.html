@@ -1,0 +1,40 @@
+<div class="panel">
+    <p-panel header="Audit">
+        <p-header>
+            <button pButton type="button" label="Add Note" class="float-r"></button>
+            <div class="float-r text-center align-checkbox"> 
+            <p-checkbox label="Nodes & Alerts" checkboxIcon="space-labels"></p-checkbox>
+            <p-checkbox label="Documents" styleClass="space-labels"></p-checkbox>
+            <p-checkbox label="Emails" styleClass="space-labels"></p-checkbox>
+            <p-checkbox label="Workflow" styleClass="space-labels"></p-checkbox>
+            <p-checkbox label="Edits" styleClass="space-labels"></p-checkbox>
+            <p-checkbox label="View All" styleClass="space-labels"></p-checkbox>
+            </div>
+        </p-header>
+        <div style="height: 364px;">
+            <p-table [columns]="columns" [value]="auditList">
+                <ng-template pTemplate="header" let-columns>
+                    <tr>
+                        <th *ngFor="let col of columns">
+                            {{col.header}}
+                        </th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-rowData let-columns="columns">
+                    <tr>
+                        <td *ngFor="let col of columns">
+                            {{rowData[col.field]}}
+                        </td>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="emptymessage">
+                    <tr class="text-center">
+                        <td colspan="7">No records to display.</td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+        <div>
+        </div>
+    </p-panel>
+</div>

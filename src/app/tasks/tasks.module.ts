@@ -14,6 +14,7 @@ import { InputMaskModule } from 'primeng/inputmask';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { EditorModule } from 'primeng/editor';
 import { InputTextModule } from 'primeng/inputtext';
+import {CheckboxModule} from 'primeng/checkbox';
 
 import { TasksRoutingModule } from './tasks-routing.module';
 import { TaskContainerComponent } from './task-container/task-container.component';
@@ -27,6 +28,7 @@ import { UploadFileService } from './services/upload-file.service';
 import { TaskComponentFactory } from './factory/task-component.factory';
 import {DialogModule} from 'primeng/dialog';
 import {CalendarModule} from 'primeng/calendar';
+import { AuditComponent } from './components/audit/audit.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +38,8 @@ import {CalendarModule} from 'primeng/calendar';
     DocumentComponent,
     TaskDetailsHostDirective,
     ContactCenterTaskComponent,
-    CommunicationComponent
+    CommunicationComponent,
+    AuditComponent
   ],
   imports: [
     CommonModule,
@@ -55,7 +58,9 @@ import {CalendarModule} from 'primeng/calendar';
     InputTextModule,
     TasksRoutingModule,
     DialogModule,
-    CalendarModule
+    CalendarModule,
+    CheckboxModule
+
   ],
   entryComponents: [ContactCenterTaskComponent],
   exports: [TaskContainerComponent, TaskSummaryComponent, TaskAccountDetailsComponent],
