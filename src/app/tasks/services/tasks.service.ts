@@ -17,8 +17,8 @@ export class TasksService extends BaseService {
     return this.get('assets/json/document-details.json');
   }
 
-  saveContactCenterTaskDetails(taskDetails): Observable<any> {
-    return this.post(`${this.taskManagementServiceUrl}/saveTask`, taskDetails);
+  saveContactCenterTaskDetails(taskDetails, taskType): Observable<any> {
+    return this.post(`${this.taskManagementServiceUrl}/save/${taskType}`, taskDetails);
   }
 
   getTaskDetails(contactCenterReq): Observable<any> {

@@ -488,7 +488,8 @@ export class ContactCenterTaskComponent extends Task implements OnInit, OnDestro
   saveTask(dataToSave: any): void {
     const requestBody = { ...this.taskDetailData, ...dataToSave };
     requestBody.taskType = 'Contact Center';
-    this.taskService.saveContactCenterTaskDetails(requestBody).subscribe(
+    const taskType = 'CONTACTCENTER';
+    this.taskService.saveContactCenterTaskDetails(requestBody, taskType).subscribe(
       (saveTaskResponse) => {
         if (saveTaskResponse) {
           this.location.back();
