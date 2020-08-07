@@ -26,6 +26,7 @@ export class ContactCenterTaskComponent extends Task implements OnInit, OnDestro
 
   accountColumns: any[];
   accounts: Account[];
+  additionalAccounts: FormGroup;
   isAdditionalAccountsSectionVisible: boolean;
 
   dropdownData: { [key: string]: string[] };
@@ -169,6 +170,10 @@ export class ContactCenterTaskComponent extends Task implements OnInit, OnDestro
       { field: 'accountShortName', header: 'Account Short Name' },
     ];
     this.accounts = [];
+    this.additionalAccounts = this.formBuilder.group({
+      accountNumber: [null, Validators.required],
+      accountShortName: [null, Validators.required]
+    });
     this.isAdditionalAccountsSectionVisible = false;
 
 
@@ -352,6 +357,14 @@ export class ContactCenterTaskComponent extends Task implements OnInit, OnDestro
     return this.taskDetailForm.get('userGroup') as FormControl;
   }
 
+  get accountNumber(): FormControl {
+    return this.additionalAccounts.get('accountNumber') as FormControl;
+  }
+
+  get accountShortName(): FormControl {
+    return this.additionalAccounts.get('accountShortName') as FormControl;
+  }
+
   /**
    * In case of task edit scenario, update the form with existing task information
    */
@@ -516,16 +529,20 @@ export class ContactCenterTaskComponent extends Task implements OnInit, OnDestro
   }
 
   showAdditionalAccountsSection(): void {
-    this.taskDetailForm.addControl('additionalAccounts', this.formBuilder.group({
-      accountNumber: [null],
-      accountShortName: [null]
-    }));
+    this.taskDetailForm.addControl('additionalAccounts', this.additionalAccounts);
     this.isAdditionalAccountsSectionVisible = true;
   }
 
   updateAccountsList(): void {
-    this.accounts.push((this.taskDetailForm.get('additionalAccounts') as FormGroup).value);
-    this.isAdditionalAccountsSectionVisible = false;
-    this.taskDetailForm.removeControl('additionalAccounts');
+    const additionalAccounts = (this.taskDetailForm.get('additionalAccounts') as FormGroup);
+    if (additionalAccounts.valid) {
+      this.accounts.push(additionalAccounts.value);
+      this.isAdditionalAccountsSectionVisible = false;
+      this.taskDetailForm.removeControl('additionalAccounts');
+      this.additionalAccounts.reset();
+    } else {
+      additionalAccounts.updateValueAndValidity();
+      additionalAccounts.markAllAsTouched();
+    }
   }
 }
