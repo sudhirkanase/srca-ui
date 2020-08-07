@@ -1,0 +1,28 @@
+[0730/211842.316:ERROR:prune_crash_reports.cc(35)] PruneCrashReportDatabase: Failed to get pending reports
+[0730/211911.354:ERROR:file_io_win.cc(161)] CreateFile C:\Users\Deshmukh\AppData\Local\Temp\karma-11869108\Crashpad\settings.dat: The system cannot find the path specified. (0x3)
+[0730/211911.401:ERROR:file_io_win.cc(170)] CreateFile C:\Users\Deshmukh\AppData\Local\Temp\karma-11869108\Crashpad\reports\d0f3d15c-0710-4b14-a0c7-be07c4bbea52.dmp: The system cannot find the path specified. (0x3)
+[0730/211911.401:ERROR:crash_report_exception_handler.cc(97)] PrepareNewCrashReport failed
+[0730/211911.721:ERROR:file_io_win.cc(161)] CreateFile C:\Users\Deshmukh\AppData\Local\Temp\karma-11869108\Crashpad\settings.dat: The system cannot find the path specified. (0x3)
+[0730/211911.721:ERROR:file_io_win.cc(170)] CreateFile C:\Users\Deshmukh\AppData\Local\Temp\karma-11869108\Crashpad\reports\9a9271c8-2ff3-47c9-a682-87d9542b30dd.dmp: The system cannot find the path specified. (0x3)
+[0730/211911.721:ERROR:crash_report_exception_handler.cc(97)] PrepareNewCrashReport failed
+[0730/211912.676:ERROR:file_io_win.cc(161)] CreateFile C:\Users\Deshmukh\AppData\Local\Temp\karma-11869108\Crashpad\settings.dat: The system cannot find the path specified. (0x3)
+[0730/211912.676:ERROR:file_io_win.cc(170)] CreateFile C:\Users\Deshmukh\AppData\Local\Temp\karma-11869108\Crashpad\reports\4cbc0c36-336e-40ba-be4e-304aaf5b41c7.dmp: The system cannot find the path specified. (0x3)
+[0730/211912.676:ERROR:crash_report_exception_handler.cc(97)] PrepareNewCrashReport failed
+[0731/103920.459:ERROR:process_reader_win.cc(151)] SuspendThread: Access is denied. (0x5)
+[0731/103920.907:ERROR:process_reader_win.cc(151)] SuspendThread: Access is denied. (0x5)
+[0731/103920.907:ERROR:process_reader_win.cc(151)] SuspendThread: Access is denied. (0x5)
+[0731/103920.907:ERROR:process_reader_win.cc(151)] SuspendThread: Access is denied. (0x5)
+[0731/103920.907:ERROR:process_reader_win.cc(151)] SuspendThread: Access is denied. (0x5)
+[0731/103920.907:ERROR:process_reader_win.cc(151)] SuspendThread: Access is denied. (0x5)
+[0731/103920.907:ERROR:process_reader_win.cc(151)] SuspendThread: Access is denied. (0x5)
+[0731/103920.907:ERROR:process_reader_win.cc(151)] SuspendThread: Access is denied. (0x5)
+[0805/115724.397:ERROR:prune_crash_reports.cc(35)] PruneCrashReportDatabase: Failed to get pending reports
+[0805/124953.776:ERROR:file_io_win.cc(161)] CreateFile C:\Users\Deshmukh\AppData\Local\Temp\karma-95661414\Crashpad\settings.dat: The system cannot find the path specified. (0x3)
+[0805/124954.136:ERROR:file_io_win.cc(170)] CreateFile C:\Users\Deshmukh\AppData\Local\Temp\karma-95661414\Crashpad\reports\d7f70c0b-55d4-4bdb-b4af-956ef2536a34.dmp: The system cannot find the path specified. (0x3)
+[0805/124954.136:ERROR:crash_report_exception_handler.cc(97)] PrepareNewCrashReport failed
+[0805/125002.634:ERROR:file_io_win.cc(161)] CreateFile C:\Users\Deshmukh\AppData\Local\Temp\karma-95661414\Crashpad\settings.dat: The system cannot find the path specified. (0x3)
+[0805/125002.634:ERROR:file_io_win.cc(170)] CreateFile C:\Users\Deshmukh\AppData\Local\Temp\karma-95661414\Crashpad\reports\e6418f79-5305-4a9d-b012-beeddcaba600.dmp: The system cannot find the path specified. (0x3)
+[0805/125002.634:ERROR:crash_report_exception_handler.cc(97)] PrepareNewCrashReport failed
+[0805/125016.412:ERROR:file_io_win.cc(161)] CreateFile C:\Users\Deshmukh\AppData\Local\Temp\karma-95661414\Crashpad\settings.dat: The system cannot find the path specified. (0x3)
+[0805/125016.412:ERROR:file_io_win.cc(170)] CreateFile C:\Users\Deshmukh\AppData\Local\Temp\karma-95661414\Crashpad\reports\0260a064-7249-4d63-9cb1-42d45b70f90e.dmp: The system cannot find the path specified. (0x3)
+[0805/125016.412:ERROR:crash_report_exception_handler.cc(97)] PrepareNewCrashReport failed
