@@ -56,9 +56,9 @@ export class HttpInterceptorService implements HttpInterceptor {
             errorMessage = response.error.errorMessage;
           }
 
-          if (errorMessage !== '') {
-            this.appSharedService.setToastErrorMessage(errorMessage);
-          }
+          // if (errorMessage !== '') {
+          //   this.appSharedService.setToastErrorMessage(errorMessage);
+          // }
           return throwError(response);
         }));
   }
