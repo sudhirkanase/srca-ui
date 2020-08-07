@@ -497,7 +497,7 @@ export class ContactCenterTaskComponent extends Task implements OnInit, OnDestro
       }, (error: any) => {
         this.message = {
           cssClass: 'alert alert-danger',
-          text: `Error saving contact center details.`
+          text: error.error.errorMessage
         };
       }
     );
