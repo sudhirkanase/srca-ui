@@ -122,9 +122,29 @@
             <div class="add-accounts-section task-details-b-pad">
                 <span *ngIf="!isTaskInView">Add Additional Accounts</span>
                 <span *ngIf="isTaskInView">Additional Accounts</span>
-                <p-button *ngIf="!(isTaskInReview || isTaskInView)" type="button" label="Add" class="save-pad">
+                <p-button *ngIf="!(isTaskInReview || isTaskInView || isAdditionalAccountsSectionVisible)" type="button"
+                    label="Add" class="save-pad" (click)="showAdditionalAccountsSection()">
                 </p-button>
             </div>
+        </div>
+        <div class="row col-md-12 task-details-b-pad" *ngIf="isAdditionalAccountsSectionVisible"
+            formGroupName="additionalAccounts">
+            <div class="col-md-4">
+                <label class="task-detail-label">Account Number</label>
+                <input formControlName="accountNumber" type="text" pInputText
+                    [ngClass]="{ 'invalid-input': accountNumber.errors && accountNumber.touched }" />
+            </div>
+            <div class="col-md-4">
+                <label class="task-detail-label">Account Short Name</label>
+                <input formControlName="accountShortName" type="text" pInputText
+                    [ngClass]="{ 'invalid-input': accountShortName.errors && accountShortName.touched }" />
+            </div>
+            <div class="col-md-2">
+                <p-button type="button" label="Add" (click)="updateAccountsList()"></p-button>
+            </div>
+        </div>
+
+        <div class="row col-md-12 task-details-b-pad">
             <p-table [columns]="accountColumns" [value]="accounts">
                 <ng-template pTemplate="header" let-columns>
                     <tr>
