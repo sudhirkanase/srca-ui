@@ -26,6 +26,7 @@ export class ContactCenterTaskComponent extends Task implements OnInit, OnDestro
 
   accountColumns: any[];
   accounts: Account[];
+  isAdditionalAccountsSectionVisible: boolean;
 
   dropdownData: { [key: string]: string[] };
   assignToData: string[];
@@ -165,9 +166,10 @@ export class ContactCenterTaskComponent extends Task implements OnInit, OnDestro
 
     this.accountColumns = [
       { field: 'accountNumber', header: 'Account Number' },
-      { field: 'accountName', header: 'Account Short Name' },
+      { field: 'accountShortName', header: 'Account Short Name' },
     ];
     this.accounts = [];
+    this.isAdditionalAccountsSectionVisible = false;
 
 
     this.officerListColumns = [
@@ -511,5 +513,19 @@ export class ContactCenterTaskComponent extends Task implements OnInit, OnDestro
       this.taskCompleteSubscription.unsubscribe();
       this.taskCompleteSubscription = null;
     }
+  }
+
+  showAdditionalAccountsSection(): void {
+    this.taskDetailForm.addControl('additionalAccounts', this.formBuilder.group({
+      accountNumber: [null],
+      accountShortName: [null]
+    }));
+    this.isAdditionalAccountsSectionVisible = true;
+  }
+
+  updateAccountsList(): void {
+    this.accounts.push((this.taskDetailForm.get('additionalAccounts') as FormGroup).value);
+    this.isAdditionalAccountsSectionVisible = false;
+    this.taskDetailForm.removeControl('additionalAccounts');
   }
 }
