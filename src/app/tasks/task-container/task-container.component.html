@@ -23,7 +23,7 @@
                     <srca-document [documentDetailData]="taskData"></srca-document>
                 </p-tabPanel>
                 <p-tabPanel header="Audit" *ngIf="taskComponent && taskComponent.showAudit()">
-                    <h3>Audit placeholder</h3>
+                    <srca-audit [auditData]="taskData"></srca-audit>
                 </p-tabPanel>
                 <p-tabPanel header="Communication" *ngIf="taskComponent && taskComponent.showCommunication()">
                     <srca-communication></srca-communication>
