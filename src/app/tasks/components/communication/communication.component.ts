@@ -44,16 +44,18 @@ export class CommunicationComponent implements OnInit, OnChanges {
       { field: 'notes', header: 'Notes' }
     ];
   }
+
   ngOnChanges(changes: SimpleChanges) {
     if (changes.communicationData.previousValue !== changes.communicationData.currentValue) {
       setTimeout(() => {
         if (!isNullOrUndefined(this.communicationData)
           && !isNullOrUndefined(this.communicationData.communication)) {
-          this.communicationList = this.communicationData.communication;
+          this.communicationList = this.communicationData.communications;
         }
       });
     }
   }
+
   /**
    * @description create and initialized communication form
    */
@@ -110,6 +112,7 @@ export class CommunicationComponent implements OnInit, OnChanges {
 
   /**
    * @description On form submit method
+   * @param communication - communication type
    */
   onSubmit(communication: Communication): void {
     this.issubmitted = true;
@@ -118,41 +121,43 @@ export class CommunicationComponent implements OnInit, OnChanges {
       this.communicationForm.reset();
       if (!isNullOrUndefined(communication)) {
         if (!isNullOrUndefined(this.communicationData)
-          && !isNullOrUndefined(this.communicationData.id)) {
+          && !isNullOrUndefined(this.communicationData.id)
+          && !isNullOrUndefined(this.communicationData.accountDetail)
+          && !isNullOrUndefined(this.communicationData.accountDetail.accountNumber)) {
           communication.taskId = this.communicationData.id;
+          communication.accountNumber = this.communicationData.accountDetail.accountNumber;
           this.tasksService.saveCommunication(communication).subscribe(response => {
             if (!isNullOrUndefined(response)) {
-              // const toastType = new ToastType();
-              // toastType.message = 'Communication added successfully!';
-              // toastType.summary = 'Success';
-              // toastType.severity = 'success';
-              // this.appSharedService.setToastMessage(toastType);
+              this.communicationList = response;
+              this.onCancel();
             }
           });
         }
       }
     }
   }
+
   /**
-   *
-   *
-   * @description - To get communication list
+   * @description To delete communication data by communicationId
+   * @param rowData - Communication type
    */
-  getCommunicationDetails(): void {
-    if (!isNullOrUndefined(this.communicationData)) {
-      const contactCenterReq: any = {
-        accountNo: this.communicationData.accountNo,
-        id: this.communicationData.id,
-        taskType: 'Contact Center'
-      };
-      // this.tasksService.
-      // getcommunicationDetails(contactCenterReq).subscribe(data => {
-      //     if (!isNullOrUndefined(data)
-      //       && !isNullOrUndefined(data.communication)) {
-      //       this.communicationList = data.communication;
-      //     }
-      //   });
+  public removeCommunication(rowData: Communication): void {
+    console.log(rowData);
+    if (!isNullOrUndefined(rowData) && !isNullOrUndefined(rowData.communicationId)) {
+      this.tasksService.deleteCommunicationByTaskId(rowData.communicationId).subscribe(response => {
+        if (!isNullOrUndefined(response)) {
+          this.communicationList = response;
+        }
+      });
     }
+  }
+
+  /**
+   * @description To preview communication
+   * @param rowData - Communication type
+   */
+  viewCommunication(rowData: Communication): void {
+    console.log(rowData);
   }
 
   /**

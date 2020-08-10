@@ -22,7 +22,7 @@ export class DocumentComponent implements OnInit, OnChanges {
   documents: [];
   fileTypes: SelectItem[];
   selectedFileTypeId = 1;
-  documentList: [];
+  documentList: DocumentDetail[];
 
   // document upload
   selectedFiles: FileList;
@@ -112,7 +112,6 @@ export class DocumentComponent implements OnInit, OnChanges {
   onCancel(): void {
     this.isSubmitted = false;
     this.uploadDoc = !this.uploadDoc;
-    this.getTaskDetails();
   }
 
   /**
@@ -147,13 +146,17 @@ export class DocumentComponent implements OnInit, OnChanges {
     if (this.documentDetailsForm.valid) {
       if (!isNullOrUndefined(doucument.taskId)
         && !isNullOrUndefined(doucument.documentTypeId)
-        && !isNullOrUndefined(doucument.notes)) {
+        && !isNullOrUndefined(doucument.notes)
+        && !isNullOrUndefined(this.documentDetailData.accountDetail.accountNumber)) {
         this.uploadService.upload(doucument, this.currentFile).subscribe(event => {
           if (event.type === HttpEventType.UploadProgress) {
             this.progress = Math.round(100 * event.loaded / event.total);
           } else if (event instanceof HttpResponse) {
             if (this.progress === 100) {
-              this.message = event.body;
+              this.message = 'Uploaded the file successfully!';
+              if (!isNullOrUndefined(event.body)) {
+                this.documentList = event.body;
+              }
               // After file uploaded sucessfully back to document list
               this.onCancel();
             }
@@ -179,6 +182,12 @@ export class DocumentComponent implements OnInit, OnChanges {
     document.taskId = this.documentDetailData.id;
     document.documentTypeId = doumentData.fileType;
     document.notes = doumentData.description;
+    let accountNumber = null;
+    if (!isNullOrUndefined(this.documentDetailData.accountDetail)
+      && !isNullOrUndefined(this.documentDetailData.accountDetail.accountNumber)) {
+      accountNumber = this.documentDetailData.accountDetail.accountNumber;
+    }
+    document.accountNumber = accountNumber;
     return document;
   }
 
@@ -197,8 +206,14 @@ export class DocumentComponent implements OnInit, OnChanges {
    */
   getTaskDetails(): void {
     if (!isNullOrUndefined(this.documentDetailData)) {
+
+      let accountNumber = null;
+      if (!isNullOrUndefined(this.documentDetailData.accountDetail)
+        && !isNullOrUndefined(this.documentDetailData.accountDetail.accountNumber)) {
+          accountNumber = this.documentDetailData.accountDetail.accountNumber;
+      }
       const contactCenterReq: any = {
-        accountNo: this.documentDetailData.accountNo,
+        accountNo: accountNumber,
         id: this.documentDetailData.id,
         taskType: 'Contact Center'
       };
@@ -216,8 +231,8 @@ export class DocumentComponent implements OnInit, OnChanges {
     console.log(rowData);
     if (!isNullOrUndefined(rowData) && !isNullOrUndefined(rowData.documentId)) {
       this.tasksService.deleteDocumentByTaskId(rowData.documentId).subscribe(response => {
-        if (response) {
-          this.getTaskDetails();
+        if (!isNullOrUndefined(response)) {
+          this.documentList = response;
         }
       });
     }

@@ -9,4 +9,5 @@ export class DocumentDetail {
     additionalInst: string;
     attachment: string;
     documentAction: string;
+    accountNumber: number;
 }
