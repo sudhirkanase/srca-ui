@@ -23,6 +23,10 @@ const routes: Routes = [
     path: 'contact-center',
     component: TaskContainerComponent
   },
+  {
+    path: 'acct-maintenance',
+    component: TaskContainerComponent
+  },
 ];
 
 @NgModule({
