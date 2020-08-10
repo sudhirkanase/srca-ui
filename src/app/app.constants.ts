@@ -55,3 +55,18 @@ export const COMMUNICATION_DROPDOWN_DATA = {
         'Other Notes'
     ]
 };
+export const AUDIT_COLUMNS = [
+    { field: 'date', header: 'Date' },
+    { field: 'user', header: 'User' },
+    { field: 'auditType', header: 'Audit Type' },
+    { field: 'action', header: 'Action' }
+  ];
+  export const AUDIT_FILTER_OPTIONS = [
+    { name: 'Notes & Alerts'},
+    { name: 'Documents'},
+    { name: 'Emails' },
+    { name: 'Workflow'},
+    { name: 'Edits'},
+    { name: 'View All' }
+  ];
+  
