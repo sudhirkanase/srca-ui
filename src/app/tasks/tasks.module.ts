@@ -28,9 +28,10 @@ import { ContactCenterTaskComponent } from './components/contact-center-task/con
 import { TasksService } from './services/tasks.service';
 import { UploadFileService } from './services/upload-file.service';
 import { TaskComponentFactory } from './factory/task-component.factory';
-import {DialogModule} from 'primeng/dialog';
-import {CalendarModule} from 'primeng/calendar';
+import { DialogModule } from 'primeng/dialog';
+import { CalendarModule } from 'primeng/calendar';
 import { AuditComponent } from './components/audit/audit.component';
+import { AccountMaintenanceTaskComponent } from './components/account-maintenance-task/account-maintenance-task.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import { AuditComponent } from './components/audit/audit.component';
     TaskDetailsHostDirective,
     ContactCenterTaskComponent,
     CommunicationComponent,
-    AuditComponent
+    AuditComponent,
+    AccountMaintenanceTaskComponent
   ],
   imports: [
     CommonModule,
@@ -65,7 +67,7 @@ import { AuditComponent } from './components/audit/audit.component';
     MultiSelectModule
 
   ],
-  entryComponents: [ContactCenterTaskComponent],
+  entryComponents: [ContactCenterTaskComponent, AccountMaintenanceTaskComponent],
   exports: [TaskContainerComponent, TaskSummaryComponent, TaskAccountDetailsComponent],
   providers: [TasksService, UploadFileService, TaskComponentFactory]
 })
