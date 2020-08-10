@@ -7,14 +7,14 @@
             [maximizable]="false" [draggable]="false" [resizable]="false">
             <div class="panel">
                 <p-panel header="Communication">
-                    <form [formGroup]="communicationForm" (ngSubmit)="onSubmit()">
+                    <form [formGroup]="communicationForm" (ngSubmit)="onSubmit(communicationForm.value)">
                         <div class="flex-container">
                             <div class="container-pad-1">
                                 <label class="label-wid-1">Type<span class="required-indicator">*</span></label>
                                 <span>
-                                    <p-dropdown [options]="types" formControlName="commType"
-                                        (onChange)="loadReasonByType(commType.value)"
-                                        [ngClass]="{ 'invalid-dropdown': commType.errors && commType.touched }"
+                                    <p-dropdown [options]="types" formControlName="communicationType"
+                                        (onChange)="loadReasonByType(communicationType.value)"
+                                        [ngClass]="{ 'invalid-dropdown': communicationType.errors && communicationType.touched }"
                                         required>
                                     </p-dropdown>
                                 </span>
@@ -23,8 +23,8 @@
                             <div>
                                 <label class="label-wid-2">Reason<span class="required-indicator">*</span></label>
                                 <span>
-                                    <p-dropdown [options]="reason" formControlName="commReason"
-                                        [ngClass]="{ 'invalid-dropdown': commReason.errors && commReason.touched }"
+                                    <p-dropdown [options]="reason" formControlName="communicationReason"
+                                        [ngClass]="{ 'invalid-dropdown': communicationReason.errors && communicationReason.touched }"
                                         required></p-dropdown>
                                 </span>
 
@@ -45,7 +45,7 @@
                         <div style="padding-bottom: 10px;">
                             <label class="label-wid-1">Follow-up Date</label>
                             <span>
-                                <p-calendar [showIcon]="true" inputId="icon" formControlName="fdate"></p-calendar>
+                                <p-calendar [showIcon]="true" inputId="icon" formControlName="followUpDate"></p-calendar>
                             </span>
                         </div>
                         <div>
@@ -57,9 +57,9 @@
                                     (click)="onCancel()"></button></span>
                             <span><button pButton type="submit" label="Done"
                                     [disabled]="!communicationForm.valid"></button></span>
-                            <div *ngIf="issubmitted && commType.invalid" class="error-col">* communication Type
+                            <div *ngIf="issubmitted && communicationType.invalid" class="error-col">* communication Type
                                 selection is required</div>
-                            <div *ngIf="issubmitted && commReason.invalid" class="error-col">* communication reason
+                            <div *ngIf="issubmitted && communicationReason.invalid" class="error-col">* communication reason
                                 selection is required</div>
                         </div>
                     </form>

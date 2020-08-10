@@ -4,7 +4,7 @@
             <button pButton type="button" label="Add Document" class="float-r" (click)="openDialog()"
                 *ngIf="!uploadDoc"></button>
         </p-header>
-        <div *ngIf="!uploadDoc" style="height: 364px;">
+        <div *ngIf="!uploadDoc && !preview" style="height: 364px;">
             <p-table [columns]="cols" [value]="documentList" [scrollable]="true" scrollHeight="300px"
             [resizableColumns]="true" [reorderableColumns]="true">
                 <ng-template pTemplate="header" let-columns>
@@ -21,8 +21,8 @@
                             {{rowData[col.field]}}
                         </td>
                         <td>
-                            <span class="fa fa-search pointer" style="margin-left: 25px;"></span>
-                            <span class="fa fa-trash pointer" style="margin-left: 25px;"></span>
+                            <span class="fa fa-search pointer" (click)="viewDocument(rowData)" style="margin-left: 25px;"></span>
+                            <span class="fa fa-trash pointer" (click)="removeDocument(rowData)" style="margin-left: 25px;"></span>
                         </td>
                     </tr>
                 </ng-template>
@@ -75,7 +75,10 @@
                     </div>
                 </form>
             </p-panel>
+            <p-panel header="Document Preview" *ngIf="preview">
+                <label class="mar-b-0">TODO: Document Preview</label>
+                <span><button pButton type="button" label="Cancel" (click)="onPreviewCancel()"></button></span>
+            </p-panel>
         </div>
     </p-panel>
-
 </div>

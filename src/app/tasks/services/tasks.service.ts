@@ -3,6 +3,8 @@ import { Injectable } from '@angular/core';
 import { BaseService } from 'src/app/services/base.service';
 import { AppSharedService } from 'src/app/services/app-shared.service';
 import { Observable } from 'rxjs';
+import { DocumentDetail } from '../model/document-detail';
+import { Communication } from '../model/communication';
 
 @Injectable({
   providedIn: 'root'
@@ -23,5 +25,13 @@ export class TasksService extends BaseService {
 
   getTaskDetails(contactCenterReq): Observable<any> {
     return this.post(`${this.taskManagementServiceUrl}/getTaskDetails`, contactCenterReq);
+  }
+
+  deleteDocumentByTaskId(documentId: number): Observable<DocumentDetail> {
+    return this.post(`${this.taskManagementServiceUrl}/deleteDocument`, documentId);
+  }
+
+  saveCommunication(communication: Communication): Observable<DocumentDetail> {
+    return this.post(`${this.taskManagementServiceUrl}/saveCommunication`, communication);
   }
 }
