@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Account } from './../../model/Account';
 import { AccountService } from './../../services/account.service';
 import { AppSharedService } from 'src/app/services/app-shared.service';
+import { ToastType } from 'src/app/shared/model/toast-type';
 
 @Component({
   selector: 'srca-account-search',
@@ -49,7 +50,11 @@ export class AccountSearchComponent implements OnInit {
       this.message = '';
     }, (error) => {
       this.message = error;
-      this.appSharedService.setToastErrorMessage(this.message);
+      const toastType = new ToastType();
+      toastType.message = this.message;
+      toastType.summary = 'Error';
+      toastType.severity = 'error';
+      this.appSharedService.setToastMessage(toastType);
       this.accounts = [];
     });
   }

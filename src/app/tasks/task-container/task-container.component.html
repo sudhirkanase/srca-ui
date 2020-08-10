@@ -26,7 +26,7 @@
                     <srca-audit [auditData]="taskData"></srca-audit>
                 </p-tabPanel>
                 <p-tabPanel header="Communication" *ngIf="taskComponent && taskComponent.showCommunication()">
-                    <srca-communication></srca-communication>
+                    <srca-communication [communicationData]="taskData"></srca-communication>
                 </p-tabPanel>
                 <p-tabPanel header="Workflow" *ngIf="taskComponent && taskComponent.showWorkflow()">
                     <h3>Workflow placeholder</h3>

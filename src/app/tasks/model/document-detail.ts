@@ -1,4 +1,5 @@
 export class DocumentDetail {
+    documentId: number;
     taskId: number;
     documentName: string;
     documentTypeId: number;

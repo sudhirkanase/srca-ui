@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
+import { ToastType } from '../shared/model/toast-type';
 
 @Injectable({
   providedIn: 'root'
@@ -8,7 +9,7 @@ export class AppSharedService {
 
   isLoadingSubject = new BehaviorSubject<boolean>(false);
   // To show error message on toast popup
-  toastErrorMessageSubject = new Subject<string>();
+  toastErrorMessageSubject = new Subject<ToastType>();
 
   constructor() { }
 
@@ -20,11 +21,11 @@ export class AppSharedService {
     this.isLoadingSubject.next(flag);
   }
 
-  setToastErrorMessage(errorMessage: string) {
-    this.toastErrorMessageSubject.next(errorMessage);
+  setToastMessage(toastType: ToastType) {
+    this.toastErrorMessageSubject.next(toastType);
   }
 
-  getToastErrorMessage(): Observable<any> {
+  getToastMessage(): Observable<ToastType> {
     return this.toastErrorMessageSubject.asObservable();
   }
 }

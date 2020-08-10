@@ -32,6 +32,7 @@ export class DocumentComponent implements OnInit, OnChanges {
   message = '';
   isSubmitted = false;
   @Input() documentDetailData: any;
+  preview = false;
   constructor(
     private tasksService: TasksService,
     private uploadService: UploadFileService,
@@ -210,6 +211,27 @@ export class DocumentComponent implements OnInit, OnChanges {
           }
         });
     }
+  }
+
+  public removeDocument(rowData: DocumentDetail): void {
+    console.log(rowData);
+    if (!isNullOrUndefined(rowData) && !isNullOrUndefined(rowData.documentId)) {
+      this.tasksService.deleteDocumentByTaskId(rowData.documentId).subscribe(response => {
+        if (response) {
+          this.getTaskDetails();
+        }
+      });
+    }
+  }
+
+  onPreviewCancel(): void {
+    this.preview = !this.preview;
+  }
+
+  public viewDocument(rowData: DocumentDetail): void {
+    console.log(rowData);
+    this.preview = !this.preview;
+    this.uploadDoc = false;
   }
 
   get formAltaControls(): any {
