@@ -1,6 +1,7 @@
+
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { COMMUNICATION_DROPDOWN_DATA } from './../../../app.constants';
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, SimpleChanges, OnChanges } from '@angular/core';
 import { SelectItem } from 'primeng/api';
 import { TasksService } from '../../services/tasks.service';
 import { Communication } from '../../model/communication';
@@ -14,14 +15,16 @@ import { ToastType } from 'src/app/shared/model/toast-type';
   styleUrls: ['./communication.component.scss']
 })
 
-export class CommunicationComponent implements OnInit {
+export class CommunicationComponent implements OnInit, OnChanges {
   display = false;
   types: SelectItem[];
   reason: SelectItem[];
   dropdownData: { [key: string]: string[] };
   issubmitted = false;
+  cols: any[];
   communicationForm: FormGroup;
   @Input() communicationData: any;
+  communicationList: any[];
 
   constructor(
     private tasksService: TasksService,
@@ -31,8 +34,26 @@ export class CommunicationComponent implements OnInit {
     this.dropdownData = COMMUNICATION_DROPDOWN_DATA;
     this.initializeCommunicationForm();
     this.loadCommunicationType();
-  }
 
+    this.cols = [
+      { field: 'communicationType', header: 'Communication Type' },
+      { field: 'communicationReason', header: 'Communication Reason' },
+      { field: 'name', header: 'Name' },
+      { field: 'number', header: 'Number' },
+      { field: 'followUpDate', header: 'Follow Up Date' },
+      { field: 'notes', header: 'Notes' }
+    ];
+  }
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes.communicationData.previousValue !== changes.communicationData.currentValue) {
+      setTimeout(() => {
+        if (!isNullOrUndefined(this.communicationData)
+          && !isNullOrUndefined(this.communicationData.communication)) {
+          this.communicationList = this.communicationData.communication;
+        }
+      });
+    }
+  }
   /**
    * @description create and initialized communication form
    */
@@ -110,6 +131,27 @@ export class CommunicationComponent implements OnInit {
           });
         }
       }
+    }
+  }
+  /**
+   *
+   *
+   * @description - To get communication list
+   */
+  getCommunicationDetails(): void {
+    if (!isNullOrUndefined(this.communicationData)) {
+      const contactCenterReq: any = {
+        accountNo: this.communicationData.accountNo,
+        id: this.communicationData.id,
+        taskType: 'Contact Center'
+      };
+      // this.tasksService.
+      // getcommunicationDetails(contactCenterReq).subscribe(data => {
+      //     if (!isNullOrUndefined(data)
+      //       && !isNullOrUndefined(data.communication)) {
+      //       this.communicationList = data.communication;
+      //     }
+      //   });
     }
   }
 
