@@ -2,7 +2,6 @@ import { HttpEventType, HttpResponse } from '@angular/common/http';
 import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { SelectItem } from 'primeng/api';
-import { CreateTaskService } from 'src/app/create-task/services/create-task.service';
 import { AppSharedService } from 'src/app/services/app-shared.service';
 import { isNullOrUndefined } from 'util';
 import { UploadFileService } from '../../services/upload-file.service';
