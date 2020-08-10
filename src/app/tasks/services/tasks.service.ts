@@ -27,11 +27,15 @@ export class TasksService extends BaseService {
     return this.post(`${this.taskManagementServiceUrl}/getTaskDetails`, contactCenterReq);
   }
 
-  deleteDocumentByTaskId(documentId: number): Observable<DocumentDetail> {
+  deleteDocumentByTaskId(documentId: number): Observable<DocumentDetail[]> {
     return this.post(`${this.taskManagementServiceUrl}/deleteDocument`, documentId);
   }
 
-  saveCommunication(communication: Communication): Observable<DocumentDetail> {
+  saveCommunication(communication: Communication): Observable<Communication[]> {
     return this.post(`${this.taskManagementServiceUrl}/saveCommunication`, communication);
+  }
+
+  deleteCommunicationByTaskId(communicationId: number): Observable<Communication[]> {
+    return this.post(`${this.taskManagementServiceUrl}/deleteCommunication`, communicationId);
   }
 }

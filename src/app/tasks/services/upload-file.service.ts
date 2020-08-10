@@ -47,10 +47,11 @@ export class UploadFileService extends BaseService {
     formData.append('taskId', documentDetail.taskId.toString());
     formData.append('documentTypeId', documentDetail.documentTypeId.toString());
     formData.append('notes', documentDetail.notes);
+    formData.append('accountNumber', documentDetail.accountNumber.toString());
 
     return this.post(`${this.taskManagementServiceUrl}/documentUpload`, formData, {
       reportProgress: true,
-      responseType: 'text',
+      responseType: 'json',
       observe: 'events'
     });
   }

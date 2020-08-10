@@ -7,4 +7,5 @@ export class Communication {
     number: string;
     notes: string;
     followUpDate: Date;
+    accountNumber: number;
 }
