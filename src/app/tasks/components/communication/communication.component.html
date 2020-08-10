@@ -3,8 +3,38 @@
         <p-header>
             <button pButton type="button" label="New Entry" class="float-r" (click)="showDialog()"></button>
         </p-header>
-        <p-dialog [(visible)]="display" [modal]="true" [style]="{width: '50vw'}" [baseZIndex]="10000"
-            [maximizable]="false" [draggable]="false" [resizable]="false">
+        <div style="height: 364px;">
+            <p-table [columns]="cols" [value]="communicationList" [scrollable]="true" scrollHeight="300px"
+            [resizableColumns]="true" [reorderableColumns]="true">
+                <ng-template pTemplate="header" let-columns>
+                    <tr>
+                        <th *ngFor="let col of columns" pResizableColumn pReorderableColumn>
+                            {{col.header}}
+                        </th>
+                        <th>Action</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-rowData let-columns="columns">
+                    <tr>
+                        <td *ngFor="let col of columns">
+                            {{rowData[col.field]}}
+                        </td>
+                        <td>
+                            <span class="fa fa-search pointer" style="margin-left: 25px;"></span>
+                            <span class="fa fa-trash pointer" style="margin-left: 25px;"></span>
+                        </td>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="emptymessage">
+                    <tr class="text-center">
+                        <td colspan="7">No records to display.</td>
+                    </tr>
+                   
+                </ng-template>
+            </p-table>
+        </div>
+        <p-dialog [(visible)]="display" [modal]="true" [style]="{width: '50vw', height: '130vw'}" [baseZIndex]="10000"
+            [maximizable]="false" [draggable]="true" [resizable]="false">
             <div class="panel">
                 <p-panel header="Communication">
                     <form [formGroup]="communicationForm" (ngSubmit)="onSubmit(communicationForm.value)">
