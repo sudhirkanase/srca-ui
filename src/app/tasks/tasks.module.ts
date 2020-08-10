@@ -14,7 +14,9 @@ import { InputMaskModule } from 'primeng/inputmask';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { EditorModule } from 'primeng/editor';
 import { InputTextModule } from 'primeng/inputtext';
-import { CheckboxModule } from 'primeng/checkbox';
+import {CheckboxModule} from 'primeng/checkbox';
+import {MultiSelectModule} from 'primeng/multiselect';
+
 
 import { TasksRoutingModule } from './tasks-routing.module';
 import { TaskContainerComponent } from './task-container/task-container.component';
@@ -61,7 +63,8 @@ import { AccountMaintenanceTaskComponent } from './components/account-maintenanc
     TasksRoutingModule,
     DialogModule,
     CalendarModule,
-    CheckboxModule
+    CheckboxModule,
+    MultiSelectModule
 
   ],
   entryComponents: [ContactCenterTaskComponent, AccountMaintenanceTaskComponent],
