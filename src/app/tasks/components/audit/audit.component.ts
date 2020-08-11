@@ -45,7 +45,6 @@ export class AuditComponent implements OnInit {
   }
 
   onAuditTypeChange(event: any): void {
-    console.log('event ', event);
     this.table.filter(event.value, 'auditType', 'in');
   }
 
