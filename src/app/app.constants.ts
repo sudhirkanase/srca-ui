@@ -40,16 +40,16 @@ export const COMMUNICATION_DROPDOWN_DATA = {
     'Outgoing Call': [
         'Outgoing Call'
     ],
-    'Letter': [
+    Letter: [
         'Letter'
     ],
-    'Email': [
+    Email: [
         'Email',
     ],
     'Face to Face': [
         'Face to Face'
     ],
-    'Notes': [
+    Notes: [
         'Misc',
         'Alert',
         'Other Notes'
@@ -60,13 +60,11 @@ export const AUDIT_COLUMNS = [
     { field: 'user', header: 'User' },
     { field: 'auditType', header: 'Audit Type' },
     { field: 'action', header: 'Action' }
-  ];
-  export const AUDIT_FILTER_OPTIONS = [
-    { name: 'Notes & Alerts'},
-    { name: 'Documents'},
-    { name: 'Emails' },
-    { name: 'Workflow'},
-    { name: 'Edits'},
-    { name: 'View All' }
-  ];
-  
+];
+export const AUDIT_FILTER_OPTIONS = [
+    { label: 'Notes & Alerts', value: 'Notes & Alerts' },
+    { label: 'Documents', value: 'Documents' },
+    { label: 'Emails', value: 'Emails' },
+    { label: 'Workflow', value: 'Workflow' },
+    { label: 'Edits', value: 'Edits' },
+];

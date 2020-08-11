@@ -12,7 +12,7 @@
             </div> -->
         </p-header>
         <div style="height: 364px;">
-            <p-table [columns]="columns" [value]="auditList">
+            <p-table #dt [columns]="columns" [value]="auditList">
                 <ng-template pTemplate="header" let-columns>
                     <tr>
                         <th *ngFor="let col of columns">
@@ -20,14 +20,17 @@
                         </th>
                     </tr>
                     <tr>
-                        <th></th><th></th>
+                        <th></th>
+                        <th></th>
                         <th>
-                            <p-multiSelect [options]="filterOptions" placeholder="All" [style]="{'width':'100%'}" styleClass="p-column-filter" optionLabel="name">
+                            <p-multiSelect [options]="filterOptions" placeholder="All" [style]="{'width':'100%'}"
+                                styleClass="p-column-filter" (onChange)="onAuditTypeChange($event)">
                                 <ng-template let-option pTemplate="item">
-                                        <span class="filter-labels">{{option.label}}</span>
+                                    <span class="filter-labels">{{option.label}}</span>
                                 </ng-template>
                             </p-multiSelect>
-                        </th><th></th>
+                        </th>
+                        <th></th>
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="body" let-rowData let-columns="columns">
