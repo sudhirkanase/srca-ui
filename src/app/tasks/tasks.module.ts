@@ -64,8 +64,8 @@ import { AccountMaintenanceTaskComponent } from './components/account-maintenanc
     DialogModule,
     CalendarModule,
     CheckboxModule,
-    MultiSelectModule
-
+    MultiSelectModule,
+    DialogModule
   ],
   entryComponents: [ContactCenterTaskComponent, AccountMaintenanceTaskComponent],
   exports: [TaskContainerComponent, TaskSummaryComponent, TaskAccountDetailsComponent],
