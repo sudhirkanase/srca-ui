@@ -2,17 +2,9 @@
     <p-panel header="Audit">
         <p-header>
             <button pButton type="button" label="Add Note" class="float-r"></button>
-            <!-- <div class="float-r text-center align-checkbox"> 
-            <p-checkbox label="Nodes & Alerts" checkboxIcon="space-labels"></p-checkbox>
-            <p-checkbox label="Documents" styleClass="space-labels"></p-checkbox>
-            <p-checkbox label="Emails" styleClass="space-labels"></p-checkbox>
-            <p-checkbox label="Workflow" styleClass="space-labels"></p-checkbox>
-            <p-checkbox label="Edits" styleClass="space-labels"></p-checkbox>
-            <p-checkbox label="View All" styleClass="space-labels"></p-checkbox>
-            </div> -->
         </p-header>
         <div style="height: 364px;">
-            <p-table [columns]="columns" [value]="auditList">
+            <p-table #dt [columns]="columns" [value]="auditList">
                 <ng-template pTemplate="header" let-columns>
                     <tr>
                         <th *ngFor="let col of columns">
@@ -20,14 +12,19 @@
                         </th>
                     </tr>
                     <tr>
-                        <th></th><th></th>
-                        <th>
-                            <p-multiSelect [options]="filterOptions" placeholder="All" [style]="{'width':'100%'}" styleClass="p-column-filter" optionLabel="name">
+                        <th *ngFor="let col of columns" [ngSwitch]="col.field">
+                            <input *ngSwitchCase="'date'" pInputText type="text"
+                                (input)="dt.filter($event.target.value, col.field, 'contains')">
+                            <input *ngSwitchCase="'user'" pInputText type="text"
+                                (input)="dt.filter($event.target.value, col.field, 'contains')">
+                            <p-multiSelect *ngSwitchCase="'auditType'" [options]="filterOptions" placeholder="All"
+                                [style]="{'width':'100%'}" styleClass="p-column-filter"
+                                (onChange)="onAuditTypeChange($event)">
                                 <ng-template let-option pTemplate="item">
-                                        <span class="filter-labels">{{option.label}}</span>
+                                    <span class="filter-labels">{{option.label}}</span>
                                 </ng-template>
                             </p-multiSelect>
-                        </th><th></th>
+                        </th>
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="body" let-rowData let-columns="columns">
