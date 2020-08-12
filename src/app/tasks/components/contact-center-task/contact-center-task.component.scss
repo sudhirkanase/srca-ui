@@ -39,3 +39,23 @@ input[type=text].ui-inputtext.invalid-input {
 .span-margin-10 {
     margin-right: 10px;
 }
+.flex-container{
+    display: flex; 
+    flex-direction: row;
+    padding-bottom: 15px;
+}
+.btn-mar {
+    margin-right: 15px;
+}
+.btn-align {
+    margin-left: 40px;
+}
+.input-align {
+    margin-left: 25px;
+}
+.footer-panel{
+    padding-top: 15px;
+}
+.error-mar {
+    margin-bottom: 10px;
+}

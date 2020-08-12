@@ -7,6 +7,8 @@ import { ASSIGN_TO_DROPDOWN_DATA, CONTACT_CENTER_TASK_DROPDOWN_DATA, TaskState }
 import { isNullOrUndefined } from 'util';
 import { Task } from '../../model/Task';
 import { TasksService } from '../../services/tasks.service';
+import { AccountService } from 'src/app/account/services/account.service';
+import { Account } from '../../../account/model/Account';
 
 
 @Component({
@@ -25,8 +27,7 @@ export class ContactCenterTaskComponent extends Task implements OnInit, OnDestro
   taskDetailForm: FormGroup;
 
   accountColumns: any[];
-  accounts: Account[];
-  additionalAccounts: FormGroup;
+  additionalAccounts = [];
   isAdditionalAccountsSectionVisible: boolean;
 
   dropdownData: { [key: string]: string[] };
@@ -48,6 +49,13 @@ export class ContactCenterTaskComponent extends Task implements OnInit, OnDestro
   officerListColumns: any[];
   officerListData: any[];
   selectedOfficerList = [];
+
+  accountNo: string;
+  accountSearchRes: Account[];
+  selectedAccount: any;
+  display: any;
+  accountSearchErr: string;
+  validationErr: string;
 
   set taskState(value: TaskState) {
     this.taskStateValue = value;
@@ -71,7 +79,8 @@ export class ContactCenterTaskComponent extends Task implements OnInit, OnDestro
     private formBuilder: FormBuilder,
     private cd: ChangeDetectorRef,
     private location: Location,
-    private taskService: TasksService) {
+    private taskService: TasksService,
+    private accountService: AccountService) {
     super();
   }
 
@@ -143,6 +152,7 @@ export class ContactCenterTaskComponent extends Task implements OnInit, OnDestro
    * initialize the task details
    */
   ngOnInit() {
+
     this.dropdownData = CONTACT_CENTER_TASK_DROPDOWN_DATA;
     this.assignToData = ASSIGN_TO_DROPDOWN_DATA;
 
@@ -169,12 +179,8 @@ export class ContactCenterTaskComponent extends Task implements OnInit, OnDestro
       { field: 'accountNumber', header: 'Account Number' },
       { field: 'accountShortName', header: 'Account Short Name' },
     ];
-    this.accounts = [];
-    this.additionalAccounts = this.formBuilder.group({
-      accountNumber: [null, Validators.required],
-      accountShortName: [null, Validators.required]
-    });
     this.isAdditionalAccountsSectionVisible = false;
+
 
 
     this.officerListColumns = [
@@ -357,14 +363,6 @@ export class ContactCenterTaskComponent extends Task implements OnInit, OnDestro
     return this.taskDetailForm.get('userGroup') as FormControl;
   }
 
-  get accountNumber(): FormControl {
-    return this.additionalAccounts.get('accountNumber') as FormControl;
-  }
-
-  get accountShortName(): FormControl {
-    return this.additionalAccounts.get('accountShortName') as FormControl;
-  }
-
   /**
    * In case of task edit scenario, update the form with existing task information
    */
@@ -403,6 +401,7 @@ export class ContactCenterTaskComponent extends Task implements OnInit, OnDestro
       }
 
       this.selectedOfficerList = this.taskDetailData.officers;
+      this.additionalAccounts = this.taskDetailData.additionalAccounts;
     }
     this.cd.detectChanges();
   }
@@ -493,6 +492,7 @@ export class ContactCenterTaskComponent extends Task implements OnInit, OnDestro
     requestBody.selectedIndividual = dataToSave.taskDetail.individual;
     requestBody.assignTo = dataToSave.taskDetail.assignTo;
     requestBody.officers = dataToSave.officersList;
+    requestBody.additionalAccounts = this.additionalAccounts;
 
     return requestBody;
   }
@@ -519,30 +519,67 @@ export class ContactCenterTaskComponent extends Task implements OnInit, OnDestro
   }
 
   /**
+   * To Search Account by AccountNumber
+   */
+  searchAccount(): void {
+    const accountType = {
+      accountNumber: this.accountNo
+    };
+
+    this.accountService.searchAccounts(accountType).subscribe((searchedAccounts: Account[]) => {
+      this.accountSearchRes = searchedAccounts;
+      console.log('Account List', searchedAccounts);
+    }, (error) => {
+      this.accountSearchErr = error;
+      this.accountSearchRes = [];
+    });
+  }
+
+  /**
+   * To Add the Selected account in Additional Accounts
+   */
+  addSelectedAccount(): void {
+    if (this.taskDetailData.accountDetail.accountNumber === this.selectedAccount.accountNumber) {
+      this.validationErr = 'Additional Account cannot be same as Selected Account';
+      return;
+    }
+    if (!isNullOrUndefined(this.additionalAccounts)) {
+      const index: number = this.additionalAccounts.indexOf(this.selectedAccount);
+      if (index === -1) {
+        this.additionalAccounts.push(this.selectedAccount);
+      } else {
+        this.validationErr = 'Account already present.';
+        return;
+      }
+    } else {
+      this.additionalAccounts = [];
+      this.additionalAccounts.push(this.selectedAccount);
+    }
+    this.display = false;
+    this.validationErr = '';
+    this.selectedAccount = null;
+  }
+
+  /**
+   * To Delete the Additional Account added
+   * @param rowData
+   */
+  deleteAccount(rowData): void {
+    if (!isNullOrUndefined(this.additionalAccounts)) {
+      const index: number = this.additionalAccounts.indexOf(rowData);
+      if (index !== -1) {
+        this.additionalAccounts.splice(index, 1);
+      }
+    }
+  }
+
+  /**
    * Component cleanup
    */
   ngOnDestroy() {
     if (this.taskCompleteSubscription) {
       this.taskCompleteSubscription.unsubscribe();
       this.taskCompleteSubscription = null;
-    }
-  }
-
-  showAdditionalAccountsSection(): void {
-    this.taskDetailForm.addControl('additionalAccounts', this.additionalAccounts);
-    this.isAdditionalAccountsSectionVisible = true;
-  }
-
-  updateAccountsList(): void {
-    const additionalAccounts = (this.taskDetailForm.get('additionalAccounts') as FormGroup);
-    if (additionalAccounts.valid) {
-      this.accounts.push(additionalAccounts.value);
-      this.isAdditionalAccountsSectionVisible = false;
-      this.taskDetailForm.removeControl('additionalAccounts');
-      this.additionalAccounts.reset();
-    } else {
-      additionalAccounts.updateValueAndValidity();
-      additionalAccounts.markAllAsTouched();
     }
   }
 }

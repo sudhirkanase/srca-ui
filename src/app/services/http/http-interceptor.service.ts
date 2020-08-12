@@ -55,10 +55,6 @@ export class HttpInterceptorService implements HttpInterceptor {
           } else if (!isNullOrUndefined(response) && !isNullOrUndefined(response.error)) {
             errorMessage = response.error.errorMessage;
           }
-
-          // if (errorMessage !== '') {
-          //   this.appSharedService.setToastErrorMessage(errorMessage);
-          // }
           return throwError(response);
         }));
   }
