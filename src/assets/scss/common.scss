@@ -86,7 +86,9 @@ p-editor.invalid-editor .ui-editor-container {
 p-dropdown.invalid-dropdown .ui-dropdown {
     border: 1px solid $invalid-input-border;
 }
-
+textarea.invalid-textarea{
+    border: 1px solid $invalid-input-border;
+}
 .error-class{
     color: red;
     padding-top: 10px;
@@ -105,4 +107,13 @@ label{
 
 .ui-datepicker{
    margin-top: 123px;
+}
+
+.acc-text textarea{
+    width: 350px !important;
+}
+
+.required-indicator {
+    padding-left: 2px;
+    color: $orange-col;
 }
