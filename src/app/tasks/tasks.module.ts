@@ -32,6 +32,7 @@ import { DialogModule } from 'primeng/dialog';
 import { CalendarModule } from 'primeng/calendar';
 import { AuditComponent } from './components/audit/audit.component';
 import { AccountMaintenanceTaskComponent } from './components/account-maintenance-task/account-maintenance-task.component';
+import { SharedModule } from '../shared/components/shared.module';
 
 @NgModule({
   declarations: [
@@ -65,7 +66,8 @@ import { AccountMaintenanceTaskComponent } from './components/account-maintenanc
     CalendarModule,
     CheckboxModule,
     MultiSelectModule,
-    DialogModule
+    DialogModule,
+    SharedModule
   ],
   entryComponents: [ContactCenterTaskComponent, AccountMaintenanceTaskComponent],
   exports: [TaskContainerComponent, TaskSummaryComponent, TaskAccountDetailsComponent],

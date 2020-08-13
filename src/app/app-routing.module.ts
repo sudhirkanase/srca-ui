@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { AuthGuard } from './services/routeguard/auth.guard';
+import { AccountSearchComponent } from './shared/components/account-search/account-search.component';
 
 
 const routes: Routes = [
@@ -20,6 +21,10 @@ const routes: Routes = [
     path: 'login',
     component: LoginComponent
   },
+  // {
+  //   path: 'search',
+  //   component: AccountSearchComponent
+  // },
   {
     path: 'create/ad-account',
     loadChildren: () => import('./account/account.module').then(m => m.AccountModule),

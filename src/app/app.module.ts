@@ -27,7 +27,7 @@ import { ToasterComponent } from './shared/toaster/toaster.component';
     LoginComponent,
     AlertComponent,
     SpinnerComponent,
-    ToasterComponent
+    ToasterComponent,
   ],
   imports: [
     BrowserModule,

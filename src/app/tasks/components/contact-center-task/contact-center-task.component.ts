@@ -7,8 +7,8 @@ import { ASSIGN_TO_DROPDOWN_DATA, CONTACT_CENTER_TASK_DROPDOWN_DATA, TaskState }
 import { isNullOrUndefined } from 'util';
 import { Task } from '../../model/Task';
 import { TasksService } from '../../services/tasks.service';
-import { AccountService } from 'src/app/account/services/account.service';
-import { Account } from '../../../account/model/Account';
+import { Account } from '../../../shared/model/Account';
+import { AccountSearchService } from 'src/app/services/account-search/account-search.service';
 
 
 @Component({
@@ -50,12 +50,9 @@ export class ContactCenterTaskComponent extends Task implements OnInit, OnDestro
   officerListData: any[];
   selectedOfficerList = [];
 
-  accountNo: string;
-  accountSearchRes: Account[];
-  selectedAccount: any;
   display: any;
-  accountSearchErr: string;
   validationErr: string;
+  contactCenterSearch = false;
 
   set taskState(value: TaskState) {
     this.taskStateValue = value;
@@ -80,7 +77,7 @@ export class ContactCenterTaskComponent extends Task implements OnInit, OnDestro
     private cd: ChangeDetectorRef,
     private location: Location,
     private taskService: TasksService,
-    private accountService: AccountService) {
+    private accountService: AccountSearchService) {
     super();
   }
 
@@ -519,45 +516,35 @@ export class ContactCenterTaskComponent extends Task implements OnInit, OnDestro
   }
 
   /**
-   * To Search Account by AccountNumber
-   */
-  searchAccount(): void {
-    const accountType = {
-      accountNumber: this.accountNo
-    };
-
-    this.accountService.searchAccounts(accountType).subscribe((searchedAccounts: Account[]) => {
-      this.accountSearchRes = searchedAccounts;
-      console.log('Account List', searchedAccounts);
-    }, (error) => {
-      this.accountSearchErr = error;
-      this.accountSearchRes = [];
-    });
-  }
-
-  /**
    * To Add the Selected account in Additional Accounts
    */
-  addSelectedAccount(): void {
-    if (this.taskDetailData.accountDetail.accountNumber === this.selectedAccount.accountNumber) {
+  addSelectedAccount(selectedAccount): void {
+    if (this.taskDetailData.accountDetail.accountNumber === selectedAccount.accountNumber) {
       this.validationErr = 'Additional Account cannot be same as Selected Account';
+      this.display = false;
+      setTimeout(() => {
+       this.validationErr = '';
+      }, 1000);
       return;
     }
     if (!isNullOrUndefined(this.additionalAccounts)) {
-      const index: number = this.additionalAccounts.indexOf(this.selectedAccount);
+      const index: number = this.additionalAccounts.findIndex(account => account.accountNumber === selectedAccount.accountNumber);
       if (index === -1) {
-        this.additionalAccounts.push(this.selectedAccount);
+        this.additionalAccounts.push(selectedAccount);
       } else {
-        this.validationErr = 'Account already present.';
+        this.validationErr = 'Selected Account is already present.';
+        this.display = false;
+        setTimeout(() => {
+          this.validationErr = '';
+         }, 1000);
         return;
       }
     } else {
       this.additionalAccounts = [];
-      this.additionalAccounts.push(this.selectedAccount);
+      this.additionalAccounts.push(selectedAccount);
     }
     this.display = false;
     this.validationErr = '';
-    this.selectedAccount = null;
   }
 
   /**

@@ -1,10 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
-import { Account } from './../../model/Account';
-import { AccountService } from './../../services/account.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Account } from '../../model/Account';
 import { AppSharedService } from 'src/app/services/app-shared.service';
 import { ToastType } from 'src/app/shared/model/toast-type';
+import { AccountSearchService } from 'src/app/services/account-search/account-search.service';
 
 @Component({
   selector: 'srca-account-search',
@@ -20,15 +20,19 @@ export class AccountSearchComponent implements OnInit {
   accountType: string;
   message: any;
   accountSearchForm: FormGroup;
+  @Input() contactCenterSearch = false;
+  @Output() addAccount: EventEmitter<any> = new EventEmitter();
 
-  constructor(private route: ActivatedRoute, private accountService: AccountService,
-    private appSharedService: AppSharedService) { }
+  constructor(private route: ActivatedRoute, private accountService: AccountSearchService,
+    private appSharedService: AppSharedService, private router: Router) { }
+
   ngOnInit() {
     this.accountSearchForm = new FormGroup({
       accountNumber: new FormControl('', Validators.required),
       accountName: new FormControl('', Validators.required),
     });
 
+    console.log('Check boolean', this.contactCenterSearch);
     this.accountType = this.route.snapshot.data.type;
 
     this.cols = [
@@ -45,7 +49,7 @@ export class AccountSearchComponent implements OnInit {
       accountName: searchForm.accountName
     };
 
-    this.accountService.searchAccounts(accountType).subscribe((searchedAccounts: Account[]) => {
+    this.accountService.searchAccounts(accountType).subscribe((searchedAccounts: any) => {
       this.accounts = searchedAccounts;
       this.message = '';
     }, (error) => {
@@ -57,5 +61,16 @@ export class AccountSearchComponent implements OnInit {
       this.appSharedService.setToastMessage(toastType);
       this.accounts = [];
     });
+  }
+
+  selectAccount(rowData): void {
+    if (this.contactCenterSearch) {
+      this.addAccount.emit(rowData);
+      this.accounts = [];
+    } else {
+      this.router.navigate(['../create/ad-account/summary'], {
+        state: { data: rowData.accountNumber }
+      });
+    }
   }
 }

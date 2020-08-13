@@ -4,7 +4,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
-import { Account } from './../model/Account';
+import { Account } from '../../shared/model/Account';
 import { BaseService } from 'src/app/services/base.service';
 import { AppSharedService } from 'src/app/services/app-shared.service';
 
@@ -18,14 +18,14 @@ export class AccountService extends BaseService {
     super(http, appSharedService);
   }
 
-  searchAccounts(account: any): Observable<Account[]> {
-    return this.post(`${this.taskManagementServiceUrl}/searchAccounts`, account).pipe(
-      catchError(this.errorHandler)
-    );
-  }
-  errorHandler(error: HttpErrorResponse) {
-    return throwError(JSON.stringify(error.error.errorMessage));
-  }
+  // searchAccounts(account: any): Observable<Account[]> {
+  //   return this.post(`${this.taskManagementServiceUrl}/searchAccounts`, account).pipe(
+  //     catchError(this.errorHandler)
+  //   );
+  // }
+  // errorHandler(error: HttpErrorResponse) {
+  //   return throwError(JSON.stringify(error.error.errorMessage));
+  // }
 
   getAccountByAccountNumber(accountNumber: number): Observable<Account> {
     return this.get(`${this.taskManagementServiceUrl}/getAccount/${accountNumber}`);

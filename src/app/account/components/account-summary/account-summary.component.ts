@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Account } from './../../model/Account';
+import { Account } from '../../../shared/model/Account';
 import { AccountService } from '../../services/account.service';
 import { AccountSharedService } from '../../services/account-shared.service';
 import { isNullOrUndefined } from 'util';
