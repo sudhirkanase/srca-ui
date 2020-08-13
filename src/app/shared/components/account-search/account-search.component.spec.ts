@@ -6,11 +6,11 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { AccountSearchComponent } from './account-search.component';
 import { PanelModule } from 'primeng/panel';
 import { TableModule } from 'primeng/table';
-import { Account } from './../../model/Account';
+import { Account } from '../../../account/model/Account';
 import { ActivatedRoute } from '@angular/router';
 import { of, throwError } from 'rxjs';
 import { By } from '@angular/platform-browser';
-import { AccountService } from '../../services/account.service';
+import { AccountService } from '../../../account/services/account.service';
 
 describe('AccountSearchComponent', () => {
   let component: AccountSearchComponent;

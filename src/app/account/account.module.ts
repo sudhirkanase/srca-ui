@@ -10,15 +10,14 @@ import { ButtonModule } from 'primeng/button';
 import { AccountRoutingModule } from './account-routing.module';
 import { AccountSharedService } from './services/account-shared.service';
 import { AccountService } from './services/account.service';
-import { AccountSearchComponent } from './components/account-search/account-search.component';
 import { AccountSummaryComponent } from './components/account-summary/account-summary.component';
 import { AccountDetailsComponent } from './components/account-details/account-details.component';
 import { AccountTasksComponent } from './components/account-tasks/account-tasks.component';
 import { TasksModule } from '../tasks/tasks.module';
-
+import { SharedModule } from '../shared/components/shared.module';
 
 @NgModule({
-  declarations: [AccountSearchComponent, AccountSummaryComponent, AccountDetailsComponent, AccountTasksComponent],
+  declarations: [AccountSummaryComponent, AccountDetailsComponent, AccountTasksComponent],
   imports: [
     CommonModule,
     FormsModule,
@@ -28,8 +27,9 @@ import { TasksModule } from '../tasks/tasks.module';
     ButtonModule,
     ReactiveFormsModule,
     TasksModule,
-    AccountRoutingModule
+    AccountRoutingModule,
+    SharedModule
   ],
-  providers: [AccountService, AccountSharedService]
+  providers: [AccountService, AccountSharedService],
 })
 export class AccountModule { }

@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { AccountSearchComponent } from './components/account-search/account-search.component';
+import { AccountSearchComponent } from '../shared/components/account-search/account-search.component';
 import { AccountSummaryComponent } from './components/account-summary/account-summary.component';
 import { TaskContainerComponent } from '../tasks/task-container/task-container.component';
 

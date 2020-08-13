@@ -15,7 +15,7 @@ import { ToastType } from 'src/app/shared/model/toast-type';
   styleUrls: ['./communication.component.scss']
 })
 
-export class CommunicationComponent implements OnInit, OnChanges {
+export class CommunicationComponent implements OnInit {
   display = false;
   types: SelectItem[];
   reason: SelectItem[];
@@ -31,6 +31,10 @@ export class CommunicationComponent implements OnInit, OnChanges {
     private appSharedService: AppSharedService) { }
 
   ngOnInit() {
+
+    if (!isNullOrUndefined(this.communicationData)) {
+      this.communicationList = this.communicationData.communications;
+    }
     this.dropdownData = COMMUNICATION_DROPDOWN_DATA;
     this.initializeCommunicationForm();
     this.loadCommunicationType();
@@ -43,17 +47,6 @@ export class CommunicationComponent implements OnInit, OnChanges {
       { field: 'followUpDate', header: 'Follow Up Date' },
       { field: 'notes', header: 'Notes' }
     ];
-  }
-
-  ngOnChanges(changes: SimpleChanges) {
-    if (changes.communicationData.previousValue !== changes.communicationData.currentValue) {
-      setTimeout(() => {
-        if (!isNullOrUndefined(this.communicationData)
-          && !isNullOrUndefined(this.communicationData.communication)) {
-          this.communicationList = this.communicationData.communications;
-        }
-      });
-    }
   }
 
   /**

@@ -79,7 +79,7 @@
                     <tr>
                         <td *ngFor="let col of columns">
                             <span *ngIf="col.field == 'select'">
-                                <a routerLink="../summary" [state]="{data: rowData['accountNumber']}">Select</a>
+                                <a class="select-color pointer" (click)="selectAccount(rowData)">Select</a>
                             </span>
                             <span *ngIf="col.field != 'select'">
                                 {{rowData[col.field]}}
