@@ -12,6 +12,7 @@
                         <div class="text-center">
                             <span><textarea pInputTextarea formControlName="notes" class="notes" required></textarea></span>
                         </div>
+                        
                         <div class="footer-panel float-r">
                             <span><button pButton type="submit" label="Add Note" class="btn-align" [disabled]="!addNoteForm.valid"></button></span>      
                             <span><button pButton type="button" label="Cancel" class="btn-align" (click)="onCancel()"></button></span>
@@ -22,11 +23,10 @@
             </div>
         </p-dialog>
         <div style="height: 364px;">
-            <p-table #dt [columns]="columns" [value]="auditList" [scrollable]="true" scrollHeight="300px"
-            [resizableColumns]="true" [reorderableColumns]="true">
+            <p-table #dt [columns]="columns" [value]="auditList">
                 <ng-template pTemplate="header" let-columns>
                     <tr>
-                        <th *ngFor="let col of columns">
+                    <th *ngFor="let col of columns" style="width: 307px;">
                             {{col.header}}
                         </th>
                     </tr>
