@@ -1,1 +1,83 @@
-<p>account-maintenance-task works!</p>
+<div>
+    <form [formGroup]="taskDetailForm" (ngSubmit)="onSubmit()">
+        <div class="panel task-panel-b-pad">
+            <p-panel header="Account Maintenance Details">
+                <div class="panel-align">
+                    <label class="col-md-2" [ngClass]="{'notes-alignment':!(isTaskInReview || isTaskInView)}">
+                        Change Description<span *ngIf="!(isTaskInReview || isTaskInView)"
+                            class="required-indicator">*</span></label>
+                    <div class="acc-text">
+                        <textarea *ngIf="!(isTaskInReview || isTaskInView)" pInputTextarea formControlName="changeDesc"
+                            [ngClass]="{ 'invalid-textarea': changeDesc.errors && changeDesc.touched }"></textarea>
+                        <span *ngIf="isTaskInReview || isTaskInView">{{changeDesc.value}}</span>
+                    </div>
+                </div>
+            </p-panel>
+        </div>
+        <div class="panel task-panel-b-pad">
+            <p-panel header="Add Additional Accounts">
+                <p-header>
+                    <button pButton type="button" label="ADD" class="float-r"></button>
+                </p-header>
+            </p-panel>
+        </div>
+        <div class="panel task-panel-b-pad">
+            <p-panel header="Task Priority">
+                <label class="col-md-2">Rush
+                    <span *ngIf="!(isTaskInReview || isTaskInView)" class="required-indicator">*</span>
+                </label>
+                <span>
+                    <p-dropdown *ngIf="!(isTaskInReview || isTaskInView)" [options]="rushTypes" formControlName="rush">
+                    </p-dropdown>
+                    <span *ngIf="isTaskInReview || isTaskInView">{{rush.value === null ? 'Low': rush.value}}</span>
+                </span>
+            </p-panel>
+        </div>
+        <div class="panel task-panel-b-pad">
+            <p-panel header="Task Notes">
+                <div class="panel-align">
+                    <label class="col-md-2" [ngClass]="{'notes-alignment':!(isTaskInReview || isTaskInView)}">
+                        Additional Information<span *ngIf="!(isTaskInReview || isTaskInView)"
+                            class="required-indicator">*</span></label>
+                    <div class="acc-text">
+                        <textarea *ngIf="!(isTaskInReview || isTaskInView)" pInputTextarea
+                            formControlName="additionalInfo"
+                            [ngClass]="{ 'invalid-textarea': additionalInfo.errors && additionalInfo.touched }"></textarea>
+                        <span *ngIf="isTaskInReview || isTaskInView">{{additionalInfo.value}}</span>
+                    </div>
+                </div>
+            </p-panel>
+        </div>
+        <!-- show panel if task is in review state -->
+        <div *ngIf="isTaskInReview || isTaskInView">
+            <div class="panel task-panel-b-pad">
+                <p-panel header="Assign Request To a User Group">
+                    <div class="panel-align task-panel-b-pad">
+                        <label class="col-md-2">Branch Name</label>
+                        <span>WM BILLINGS - WFB,NA</span>
+                        <span class="col-md-4"></span>
+                        <label class="col-md-2">Administrator</label>
+                        <span>LORRY</span>
+                    </div>
+                    <div class="task-panel-b-pad">
+                        <label class="col-md-2">Select User Group</label>
+                        <span>
+                            <p-dropdown formControlName="userGroup"></p-dropdown>
+                        </span>
+                    </div>
+                    <div>
+                        <label class="col-md-2">Select Individual (Optional)</label>
+                        <span>
+                            <p-dropdown formControlName="individual" [options]="individualOptions"></p-dropdown>
+                        </span>
+                    </div>
+                </p-panel>
+            </div>
+        </div>
+        <div *ngIf="isSaveBtnClicked && message">
+            <div [ngClass]="message.cssClass">
+                {{message.text}}
+            </div>
+        </div>
+    </form>
+</div>
