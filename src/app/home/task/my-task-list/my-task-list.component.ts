@@ -130,6 +130,11 @@ export class MyTaskListComponent implements OnInit {
         state: { data: actionDetails },
         queryParams: { task: 'contact-center', type: actionType.toLowerCase() }
       });
+    } else if (rowData.taskType === 'Account Maintenance') {
+      this.router.navigate(['action'], {
+        state: { data: actionDetails },
+        queryParams: { task: 'acct-maintenance', type: actionType.toLowerCase() }
+      });
     }
   }
 }

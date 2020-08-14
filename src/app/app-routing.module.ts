@@ -21,10 +21,6 @@ const routes: Routes = [
     path: 'login',
     component: LoginComponent
   },
-  // {
-  //   path: 'search',
-  //   component: AccountSearchComponent
-  // },
   {
     path: 'create/ad-account',
     loadChildren: () => import('./account/account.module').then(m => m.AccountModule),
@@ -44,9 +40,6 @@ const routes: Routes = [
     path: 'action',
     loadChildren: () => import('./tasks/tasks.module').then(m => m.TasksModule)
   }
-
-  // Lazy temprory as its landing page it should be eager loading
-  // {path: '',  loadChildren: () => import('./home/home.module').then(m => m.HomeModule)}
 ];
 
 @NgModule({

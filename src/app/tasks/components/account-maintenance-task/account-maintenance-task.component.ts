@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import { Location } from '@angular/common';
 import { FormGroup, FormBuilder, FormControl, Validators, AbstractControl } from '@angular/forms';
 import { Task } from '../../model/Task';
 import { TaskState } from 'src/app/app.constants';
 import { TasksService } from '../../services/tasks.service';
 import { SelectItem } from 'primeng/api';
+import { isNullOrUndefined } from 'util';
 
 @Component({
   selector: 'srca-account-maintenance-task',
@@ -39,7 +41,7 @@ export class AccountMaintenanceTaskComponent extends Task implements OnInit {
     return this.taskDetailDataValue;
   }
 
-  constructor(private formBuilder: FormBuilder, private taskService: TasksService) {
+  constructor(private formBuilder: FormBuilder, private taskService: TasksService, private location: Location) {
     super();
   }
   /**
@@ -49,14 +51,16 @@ export class AccountMaintenanceTaskComponent extends Task implements OnInit {
   ngOnInit() {
     this.taskDetailForm = this.formBuilder.group({});
     this.formControlLabelMapping = {
-      changeDesc: 'Change Description',
-      rush: 'Rush',
-      additionalInfo: 'Additional Informatiom',
-      userGroup: 'User Group',
-      individual: 'Individual',
+      changeDescription: 'Change Description',
+      taskPriority: 'Rush',
+      additionalInformation: 'Additional Informatiom',
+      assignedUserGroup: 'User Group',
+      selectedIndividual: 'Individual',
     };
     this.initializeTaskDetailsForm();
     this.rushType();
+
+    this.updateForm();
   }
   /**
    * Check the task state and update form accordingly.
@@ -70,23 +74,41 @@ export class AccountMaintenanceTaskComponent extends Task implements OnInit {
     }
   }
 
+  /**
+   * To Set Data in edit/preview action
+   */
+  updateForm(): void {
+    if (!isNullOrUndefined(this.taskDetailDataValue)) {
+      this.taskDetailForm.patchValue({
+        changeDescription: this.taskDetailDataValue.changeDescription,
+        taskPriority: this.taskDetailDataValue.taskPriority,
+        additionalInformation: this.taskDetailDataValue.additionalInformation,
+        assignedUserGroup: this.taskDetailDataValue.assignedUserGroup,
+        selectedIndividual: this.taskDetailDataValue.selectedIndividual
+      });
+      // To load the dropdown options
+      this.loadIndividualOptions();
+      this.onIndividualSelection();
+    }
+  }
+
   initializeTaskDetailsForm(): void {
     this.taskDetailForm = this.formBuilder.group({
-      changeDesc: [null, Validators.required],
-      rush: ['low', Validators.required],
-      additionalInfo: [null, Validators.required],
-      userGroup: [null],
-      individual: [null]
+      changeDescription: [null, Validators.required],
+      taskPriority: ['low'],
+      additionalInformation: [null, Validators.required],
+      assignedUserGroup: [null],
+      selectedIndividual: [null]
     });
   }
 
   /**
-   * Populate rushtype dropdown data 
+   * Populate rush type dropdown data
    */
   rushType(): void {
     this.rushTypes = [
-      { label: 'low', value: 'low' },
-      { label: 'high', value: 'high' },
+      { label: 'Low', value: 'low' },
+      { label: 'High', value: 'high' },
     ];
   }
 
@@ -105,26 +127,26 @@ export class AccountMaintenanceTaskComponent extends Task implements OnInit {
 
   onIndividualSelection(): void {
     // TODO - fetch from API
-    this.userGroup.setValue('WM NC-Philanthropic CS (Inactive)');
+    this.assignedUserGroup.setValue('WM NC-Philanthropic CS (Inactive)');
   }
 
   /**
    * form control values
    */
-  get changeDesc(): FormControl {
-    return this.taskDetailForm.get('changeDesc') as FormControl;
+  get changeDescription(): FormControl {
+    return this.taskDetailForm.get('changeDescription') as FormControl;
   }
-  get rush(): FormControl {
-    return this.taskDetailForm.get('rush') as FormControl;
+  get taskPriority(): FormControl {
+    return this.taskDetailForm.get('taskPriority') as FormControl;
   }
-  get additionalInfo(): FormControl {
-    return this.taskDetailForm.get('additionalInfo') as FormControl;
+  get additionalInformation(): FormControl {
+    return this.taskDetailForm.get('additionalInformation') as FormControl;
   }
-  get userGroup(): FormControl {
-    return this.taskDetailForm.get('userGroup') as FormControl;
+  get assignedUserGroup(): FormControl {
+    return this.taskDetailForm.get('assignedUserGroup') as FormControl;
   }
-  get individual(): FormControl {
-    return this.taskDetailForm.get('individual') as FormControl;
+  get selectedIndividual(): FormControl {
+    return this.taskDetailForm.get('selectedIndividual') as FormControl;
   }
 
   /**
@@ -134,11 +156,11 @@ export class AccountMaintenanceTaskComponent extends Task implements OnInit {
   onSubmit() {
     this.isSaveBtnClicked = true;
     if (this.taskDetailForm.status === 'VALID') {
-      const saveData = {
-        taskDetail: this.taskDetailForm.value
-      };
+      if (this.taskDetailForm.get('taskPriority').value === null) {
+        this.taskDetailForm.get('taskPriority').setValue('Low');
+      }
       // API call to persist data
-      this.saveTask(this.createRequestBody(saveData));
+      this.saveTask(this.taskDetailForm.value);
       // on API success
       this.message = {
         cssClass: 'alert alert-success',
@@ -166,19 +188,6 @@ export class AccountMaintenanceTaskComponent extends Task implements OnInit {
   }
 
   /**
-   * Helper method to create model data to be sent to server
-   */
-  createRequestBody(dataToSave: any): any {
-    const requestBody: any = {};
-    requestBody.changeDesc = dataToSave.taskDetail.changeDesc;
-    requestBody.rush = dataToSave.taskDetail.rush;
-    requestBody.additionalInfo = dataToSave.taskDetail.additionalInfo;
-    requestBody.userGroup = dataToSave.taskDetail.userGroup;
-    requestBody.individual = dataToSave.taskDetail.individual;
-    return requestBody;
-  }
-
-  /**
    * Save the Account Maintenance details to the backend
    */
   saveTask(dataToSave: any): void {
@@ -187,9 +196,9 @@ export class AccountMaintenanceTaskComponent extends Task implements OnInit {
     const taskType = 'ACCOUNTMAINTENANCE';
     this.taskService.saveAccountMaintenanceTaskDetails(requestBody, taskType).subscribe(
       (saveTaskResponse) => {
-        // if (saveTaskResponse) {
-        //   this.location.back();
-        // }
+        if (saveTaskResponse) {
+          this.location.back();
+        }
       }, (error: any) => {
         this.message = {
           cssClass: 'alert alert-danger',

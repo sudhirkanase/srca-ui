@@ -7,7 +7,6 @@ import { ASSIGN_TO_DROPDOWN_DATA, CONTACT_CENTER_TASK_DROPDOWN_DATA, TaskState }
 import { isNullOrUndefined } from 'util';
 import { Task } from '../../model/Task';
 import { TasksService } from '../../services/tasks.service';
-import { Account } from '../../../shared/model/Account';
 import { AccountSearchService } from 'src/app/services/account-search/account-search.service';
 
 
@@ -76,8 +75,7 @@ export class ContactCenterTaskComponent extends Task implements OnInit, OnDestro
     private formBuilder: FormBuilder,
     private cd: ChangeDetectorRef,
     private location: Location,
-    private taskService: TasksService,
-    private accountService: AccountSearchService) {
+    private taskService: TasksService) {
     super();
   }
 
