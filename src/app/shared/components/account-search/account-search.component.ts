@@ -32,7 +32,6 @@ export class AccountSearchComponent implements OnInit {
       accountName: new FormControl('', Validators.required),
     });
 
-    console.log('Check boolean', this.contactCenterSearch);
     this.accountType = this.route.snapshot.data.type;
 
     this.cols = [

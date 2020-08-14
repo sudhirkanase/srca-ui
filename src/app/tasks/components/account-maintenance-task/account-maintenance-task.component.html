@@ -7,9 +7,9 @@
                         Change Description<span *ngIf="!(isTaskInReview || isTaskInView)"
                             class="required-indicator">*</span></label>
                     <div class="acc-text">
-                        <textarea *ngIf="!(isTaskInReview || isTaskInView)" pInputTextarea formControlName="changeDesc"
-                            [ngClass]="{ 'invalid-textarea': changeDesc.errors && changeDesc.touched }"></textarea>
-                        <span *ngIf="isTaskInReview || isTaskInView">{{changeDesc.value}}</span>
+                        <textarea *ngIf="!(isTaskInReview || isTaskInView)" pInputTextarea formControlName="changeDescription"
+                            [ngClass]="{ 'invalid-textarea': changeDescription.errors && changeDescription.touched }"></textarea>
+                        <span *ngIf="isTaskInReview || isTaskInView">{{changeDescription.value}}</span>
                     </div>
                 </div>
             </p-panel>
@@ -27,9 +27,9 @@
                     <span *ngIf="!(isTaskInReview || isTaskInView)" class="required-indicator">*</span>
                 </label>
                 <span>
-                    <p-dropdown *ngIf="!(isTaskInReview || isTaskInView)" [options]="rushTypes" formControlName="rush">
+                    <p-dropdown *ngIf="!(isTaskInReview || isTaskInView)" [options]="rushTypes" formControlName="taskPriority">
                     </p-dropdown>
-                    <span *ngIf="isTaskInReview || isTaskInView">{{rush.value === null ? 'Low': rush.value}}</span>
+                    <span *ngIf="isTaskInReview || isTaskInView">{{taskPriority.value === null ? 'Low': taskPriority.value}}</span>
                 </span>
             </p-panel>
         </div>
@@ -41,9 +41,9 @@
                             class="required-indicator">*</span></label>
                     <div class="acc-text">
                         <textarea *ngIf="!(isTaskInReview || isTaskInView)" pInputTextarea
-                            formControlName="additionalInfo"
-                            [ngClass]="{ 'invalid-textarea': additionalInfo.errors && additionalInfo.touched }"></textarea>
-                        <span *ngIf="isTaskInReview || isTaskInView">{{additionalInfo.value}}</span>
+                            formControlName="additionalInformation"
+                            [ngClass]="{ 'invalid-textarea': additionalInformation.errors && additionalInformation.touched }"></textarea>
+                        <span *ngIf="isTaskInReview || isTaskInView">{{additionalInformation.value}}</span>
                     </div>
                 </div>
             </p-panel>
@@ -62,13 +62,13 @@
                     <div class="task-panel-b-pad">
                         <label class="col-md-2">Select User Group</label>
                         <span>
-                            <p-dropdown formControlName="userGroup"></p-dropdown>
+                            <p-dropdown formControlName="assignedUserGroup"></p-dropdown>
                         </span>
                     </div>
                     <div>
                         <label class="col-md-2">Select Individual (Optional)</label>
                         <span>
-                            <p-dropdown formControlName="individual" [options]="individualOptions"></p-dropdown>
+                            <p-dropdown formControlName="selectedIndividual" [options]="individualOptions"></p-dropdown>
                         </span>
                     </div>
                 </p-panel>
