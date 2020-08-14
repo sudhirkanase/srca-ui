@@ -5,6 +5,7 @@ import { AppSharedService } from 'src/app/services/app-shared.service';
 import { Observable } from 'rxjs';
 import { DocumentDetail } from '../model/document-detail';
 import { Communication } from '../model/communication';
+import { Audit } from '../model/audit';
 
 @Injectable({
   providedIn: 'root'
@@ -37,5 +38,9 @@ export class TasksService extends BaseService {
 
   deleteCommunicationByTaskId(communicationId: number): Observable<Communication[]> {
     return this.post(`${this.taskManagementServiceUrl}/deleteCommunication`, communicationId);
+  }
+
+  saveAuditDetails(audit: Audit): Observable<Audit[]> {
+    return this.post(`${this.taskManagementServiceUrl}/saveAudit`, audit);
   }
 }

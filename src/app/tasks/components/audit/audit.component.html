@@ -1,36 +1,38 @@
 <div class="panel">
- 
     <p-panel header="Audit">
         <p-header>
-            <button pButton type="button" label="Add Note" (click)="showDialog()"  class="float-r"></button>
+            <button pButton type="button" label="Add Note" (click)="display=true;" class="float-r"></button>
         </p-header>
         <p-dialog [(visible)]="display" header="Add Notes" [modal]="true" [style]="{width: '50vw'}" [baseZIndex]="10000"
             [maximizable]="false" [draggable]="false" [resizable]="false">
             <div class="panel">
-                    <form [formGroup]="addNoteForm"  (ngSubmit)="onSubmit(addNoteForm.value)">
-                        <div class="flex-container">
+                <form [formGroup]="addNoteForm" (ngSubmit)="onSubmit(addNoteForm.value)">
+                    <div class="flex-container">
                         <div class="text-center">
-                            <span><textarea pInputTextarea formControlName="notes" class="notes" required></textarea></span>
+                            <span><textarea pInputTextarea formControlName="action" class="notes"
+                                    required></textarea></span>
                         </div>
-                        
+
                         <div class="footer-panel float-r">
-                            <span><button pButton type="submit" label="Add Note" class="btn-align" [disabled]="!addNoteForm.valid"></button></span>      
-                            <span><button pButton type="button" label="Cancel" class="btn-align" (click)="onCancel()"></button></span>
-                            <div *ngIf="issubmitted && notes.invalid" class="error-col">* Please write note here</div>
+                            <span><button pButton type="submit" label="Add Note" class="btn-align"
+                                    [disabled]="!addNoteForm.valid"></button></span>
+                            <span><button pButton type="button" label="Cancel" class="btn-align"
+                                    (click)="onCancel()"></button></span>
+                            <div *ngIf="issubmitted && action.invalid" class="error-col">* Please write note here</div>
                         </div>
-                        </div>
-                    </form>
+                    </div>
+                </form>
             </div>
         </p-dialog>
         <div style="height: 364px;">
             <p-table #dt [columns]="columns" [value]="auditList">
                 <ng-template pTemplate="header" let-columns>
                     <tr>
-                    <th *ngFor="let col of columns" style="width: 307px;">
+                        <th *ngFor="let col of columns" style="width: 307px;">
                             {{col.header}}
                         </th>
                     </tr>
-                
+
                     <tr>
                         <th *ngFor="let col of columns" [ngSwitch]="col.field">
                             <input class="input-filters" *ngSwitchCase="'date'" pInputText type="text"
@@ -48,7 +50,7 @@
                     </tr>
 
                 </ng-template>
-               
+
                 <ng-template pTemplate="body" let-rowData let-columns="columns">
                     <tr>
                         <td *ngFor="let col of columns">
@@ -65,7 +67,7 @@
         </div>
         <div>
         </div>
-        
+
     </p-panel>
-   
+
 </div>
