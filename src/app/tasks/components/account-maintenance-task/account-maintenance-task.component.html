@@ -17,8 +17,34 @@
         <div class="panel task-panel-b-pad">
             <p-panel header="Add Additional Accounts">
                 <p-header>
-                    <button pButton type="button" label="ADD" class="float-r"></button>
+                    <button pButton type="button" label="ADD" class="float-r" (click)="validationErr='';display=true;contactCenterSearch=true;"></button>
                 </p-header>
+                <p-table [columns]="accountColumns" [value]="additionalAccounts">
+                    <ng-template pTemplate="header" let-columns>
+                        <tr>
+                            <th *ngFor="let col of columns">
+                                {{col.header}}
+                            </th>
+                            <th></th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-rowData let-columns="columns">
+                        <tr>
+                            <td *ngFor="let col of columns">
+                                {{rowData[col.field]}}
+                            </td>
+                            <td class="ui-resizable-column">
+                                <span class="fa fa-trash pointer" [ngClass]="{'pointer-none-review': isTaskInView}"
+                                    style="padding-left: 5px;" (click)="deleteAccount(rowData)"></span>
+                            </td>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="emptymessage">
+                        <tr class="text-center">
+                            <td colspan="3">No records to display.</td>
+                        </tr>
+                    </ng-template>
+                </p-table>
             </p-panel>
         </div>
         <div class="panel task-panel-b-pad">
@@ -54,15 +80,15 @@
                 <p-panel header="Assign Request To a User Group">
                     <div class="panel-align task-panel-b-pad">
                         <label class="col-md-2">Branch Name</label>
-                        <span>WM BILLINGS - WFB,NA</span>
+                        <span>{{taskDetailDataValue.accountDetail.branchName}}</span>
                         <span class="col-md-4"></span>
                         <label class="col-md-2">Administrator</label>
-                        <span>LORRY</span>
+                        <span>{{taskDetailDataValue.accountDetail.administrator}}</span>
                     </div>
                     <div class="task-panel-b-pad">
                         <label class="col-md-2">Select User Group</label>
                         <span>
-                            <p-dropdown formControlName="assignedUserGroup"></p-dropdown>
+                            <p-dropdown formControlName="assignedUserGroup" [options]="userGroupOptions"></p-dropdown>
                         </span>
                     </div>
                     <div>
@@ -81,3 +107,8 @@
         </div>
     </form>
 </div>
+<p-dialog [(visible)]="display" [modal]="true" [style]="{width: '55vw', height: '30vw'}" [baseZIndex]="10000"
+    [maximizable]="false" [draggable]="true" [resizable]="false">
+    <srca-account-search *ngIf="contactCenterSearch" (addAccount)="addSelectedAccount($event)"
+        [contactCenterSearch]="contactCenterSearch"></srca-account-search>
+</p-dialog>

@@ -18,12 +18,18 @@ export class AccountMaintenanceTaskComponent extends Task implements OnInit {
   private taskDetailDataValue: any;
   taskDetailForm: FormGroup;
   rushTypes: SelectItem[];
+  userGroupOptions: SelectItem[];
   isTaskInReview: boolean;
   isTaskInView: boolean;
   isSaveBtnClicked: boolean;
   message: { [key: string]: string };
   formControlLabelMapping: { [key: string]: string };
   individualOptions: SelectItem[];
+  accountColumns: any[];
+  additionalAccounts = [];
+  display: any;
+  validationErr: string;
+  contactCenterSearch = false;
 
   set taskState(value: TaskState) {
     this.taskStateValue = value;
@@ -49,6 +55,7 @@ export class AccountMaintenanceTaskComponent extends Task implements OnInit {
    */
 
   ngOnInit() {
+    console.log(this.taskDetailDataValue.accountDetail.branchName);
     this.taskDetailForm = this.formBuilder.group({});
     this.formControlLabelMapping = {
       changeDescription: 'Change Description',
@@ -57,6 +64,11 @@ export class AccountMaintenanceTaskComponent extends Task implements OnInit {
       assignedUserGroup: 'User Group',
       selectedIndividual: 'Individual',
     };
+
+    this.accountColumns = [
+      { field: 'accountNumber', header: 'Account Number' },
+      { field: 'accountShortName', header: 'Account Short Name' },
+    ];
     this.initializeTaskDetailsForm();
     this.rushType();
 
@@ -70,7 +82,7 @@ export class AccountMaintenanceTaskComponent extends Task implements OnInit {
     this.isTaskInView = (this.taskState === this.taskStateEnum.VIEW);
     if (this.isTaskInReview) {
       this.loadIndividualOptions();
-      this.onIndividualSelection();
+      this.loadUserGroupOptions();
     }
   }
 
@@ -86,9 +98,10 @@ export class AccountMaintenanceTaskComponent extends Task implements OnInit {
         assignedUserGroup: this.taskDetailDataValue.assignedUserGroup,
         selectedIndividual: this.taskDetailDataValue.selectedIndividual
       });
+      this.additionalAccounts = this.taskDetailData.additionalAccounts;
       // To load the dropdown options
       this.loadIndividualOptions();
-      this.onIndividualSelection();
+      this.loadUserGroupOptions();
     }
   }
 
@@ -125,9 +138,12 @@ export class AccountMaintenanceTaskComponent extends Task implements OnInit {
     ];
   }
 
-  onIndividualSelection(): void {
+  loadUserGroupOptions(): void {
     // TODO - fetch from API
-    this.assignedUserGroup.setValue('WM NC-Philanthropic CS (Inactive)');
+    this.userGroupOptions = [
+      { label: 'Select Individual', value: null },
+      { label: 'WM NC-Philanthropic CS (Inactive)', value: 'WM NC-Philanthropic CS (Inactive)' },
+    ];
   }
 
   /**
@@ -192,6 +208,7 @@ export class AccountMaintenanceTaskComponent extends Task implements OnInit {
    */
   saveTask(dataToSave: any): void {
     const requestBody = { ...this.taskDetailData, ...dataToSave };
+    requestBody.additionalAccounts = this.additionalAccounts;
     requestBody.taskType = 'Account Maintenance';
     const taskType = 'ACCOUNTMAINTENANCE';
     this.taskService.saveAccountMaintenanceTaskDetails(requestBody, taskType).subscribe(
@@ -207,5 +224,51 @@ export class AccountMaintenanceTaskComponent extends Task implements OnInit {
       }
     );
   }
+
+  /**
+   * To Add the Selected account in Additional Accounts
+   */
+  addSelectedAccount(selectedAccount): void {
+    if (this.taskDetailData.accountDetail.accountNumber === selectedAccount.accountNumber) {
+      this.validationErr = 'Additional Account cannot be same as Selected Account';
+      this.display = false;
+      setTimeout(() => {
+       this.validationErr = '';
+      }, 1000);
+      return;
+    }
+    if (!isNullOrUndefined(this.additionalAccounts)) {
+      const index: number = this.additionalAccounts.findIndex(account => account.accountNumber === selectedAccount.accountNumber);
+      if (index === -1) {
+        this.additionalAccounts.push(selectedAccount);
+      } else {
+        this.validationErr = 'Selected Account is already present.';
+        this.display = false;
+        setTimeout(() => {
+          this.validationErr = '';
+         }, 1000);
+        return;
+      }
+    } else {
+      this.additionalAccounts = [];
+      this.additionalAccounts.push(selectedAccount);
+    }
+    this.display = false;
+    this.validationErr = '';
+  }
+
+  /**
+   * To Delete the Additional Account added
+   * @param rowData
+   */
+  deleteAccount(rowData): void {
+    if (!isNullOrUndefined(this.additionalAccounts)) {
+      const index: number = this.additionalAccounts.indexOf(rowData);
+      if (index !== -1) {
+        this.additionalAccounts.splice(index, 1);
+      }
+    }
+  }
+
 
 }
