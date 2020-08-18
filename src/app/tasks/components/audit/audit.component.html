@@ -25,12 +25,18 @@
             </div>
         </p-dialog>
         <div style="height: 364px;">
-            <p-table #dt [columns]="columns" [value]="auditList">
+            <p-table #dt [columns]="columns" [value]="auditList" [scrollable]="true" scrollHeight="270px"
+            [resizableColumns]="true" [reorderableColumns]="true" class="my-task-list-table">
                 <ng-template pTemplate="header" let-columns>
                     <tr>
-                        <th *ngFor="let col of columns" style="width: 307px;">
+                       
+                        <!-- <th *ngFor="let col of columns" style="width: 307px;">
                             {{col.header}}
-                        </th>
+                        </th> -->
+                        <th *ngFor="let col of columns" [pSortableColumn]="col.field" pResizableColumn pReorderableColumn>
+                            {{col.header}}
+                            <p-sortIcon [field]="col.field"></p-sortIcon>
+                          </th>
                     </tr>
 
                     <tr>
