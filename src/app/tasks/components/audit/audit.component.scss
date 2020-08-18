@@ -25,3 +25,33 @@
 .input-filters{    
      width:100% !important; 
 }
+
+.my-task-list-table::ng-deep .ui-table{
+   z-index: 0;
+    
+    .ui-table-scrollable-wrapper{
+        .ui-table-scrollable-view{
+            .ui-table-scrollable-header{
+                overflow-y: scroll;
+                .ui-table-scrollable-header-box{
+                    padding-right: 0px !important;
+                    // margin-right: 31px !important;
+                    // background-color: #ebebe8;;
+                }
+            }
+            .ui-table-scrollable-body {
+                overflow-y: scroll !important;
+               // height: 450px;
+            }
+        }
+    }
+
+    .ui-multiselect-panel {
+
+        .ui-multiselect-items-wrapper {
+            z-index:9999;
+        }
+    }
+}  
+
+
