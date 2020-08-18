@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, Input, ElementRef } from '@angular/core';
 import { Location } from '@angular/common';
 import { isNullOrUndefined } from 'util';
 import { TaskDetailsHostDirective } from '../directives/task-details-host.directive';
@@ -6,6 +6,7 @@ import { TaskComponentFactory } from '../factory/task-component.factory';
 import { Task } from '../model/Task';
 import { TasksService } from '../services/tasks.service';
 import { TaskState } from './../../app.constants';
+import { TabView } from 'primeng/tabview';
 
 @Component({
   selector: 'srca-task-container',
@@ -19,7 +20,6 @@ export class TaskContainerComponent implements OnInit {
   taskComponent: Task;
 
   taskStateEnum: typeof TaskState;
-
   @ViewChild(TaskDetailsHostDirective, { static: true }) taskDetailsHost: TaskDetailsHostDirective;
 
   constructor(
@@ -88,6 +88,20 @@ export class TaskContainerComponent implements OnInit {
       this.taskComponent.taskState = this.taskStateEnum.REVIEW;
     } else {
       this.taskComponent.taskState = this.taskInitData.actionType;
+    }
+  }
+
+  onTabChange(event) {
+    if (event.index === 2) {
+      this.getAuditData();
+    }
+  }
+
+  getAuditData() {
+    if (!isNullOrUndefined(this.taskData.id)) {
+      this.taskService.getAuditData(this.taskData.id).subscribe(data => {
+        this.taskData.audit = data;
+      });
     }
   }
 

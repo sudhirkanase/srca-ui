@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewChild } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, OnChanges, DoCheck, SimpleChanges } from '@angular/core';
 import { AUDIT_COLUMNS, AUDIT_FILTER_OPTIONS } from 'src/app/app.constants';
 import { Table } from 'primeng/table';
 import { SelectItem } from 'primeng/api';
@@ -15,7 +15,7 @@ import { isNullOrUndefined } from 'util';
   templateUrl: './audit.component.html',
   styleUrls: ['./audit.component.scss']
 })
-export class AuditComponent implements OnInit {
+export class AuditComponent implements OnInit, OnChanges {
   columns: any[];
   auditList: any[];
   filterOptions: SelectItem[];
@@ -25,6 +25,7 @@ export class AuditComponent implements OnInit {
   loggedInUserData: UserInfoBean;
   @Input() auditData: any;
   @ViewChild('dt', { static: false }) table: Table;
+  @Input() auditListData: any;
 
   constructor(private taskService: TasksService, private baseService: BaseService
   ) { }
@@ -33,8 +34,11 @@ export class AuditComponent implements OnInit {
     this.initializeAddNoteForm();
     this.columns = AUDIT_COLUMNS;
     this.filterOptions = AUDIT_FILTER_OPTIONS;
-    if (!isNullOrUndefined(this.auditData)) {
-      this.auditList = this.auditData.audit;
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes.auditListData.previousValue !== changes.auditListData.currentValue) {
+      this.auditList = this.auditListData;
     }
   }
 
@@ -55,7 +59,7 @@ export class AuditComponent implements OnInit {
         date: formatDate(currentDate, 'MM/dd/yyyy hh:mm:ss a', 'en-US', '+0530'),
         user: this.loggedInUserData.username,
         auditType: 'Notes & Alerts',
-        action: audit.action
+        action: 'Entered Note: ' + audit.action
       };
       this.taskService.saveAuditDetails(auditRequest).subscribe((auditData: Audit[]) => {
         this.auditList = auditData;

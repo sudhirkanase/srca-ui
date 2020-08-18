@@ -15,7 +15,7 @@
     </div>
     <div class="acc-details-mar">
         <p-card>
-            <p-tabView>
+            <p-tabView (onChange)="onTabChange($event)">
                 <p-tabPanel header="Task Detail">
                     <ng-template srcaTaskDetailsHost></ng-template>
                 </p-tabPanel>
@@ -23,7 +23,7 @@
                     <srca-document [documentDetailData]="taskData"></srca-document>
                 </p-tabPanel>
                 <p-tabPanel header="Audit" *ngIf="taskComponent && taskComponent.showAudit()">
-                    <srca-audit [auditData]="taskData"></srca-audit>
+                    <srca-audit [auditData]="taskData" [auditListData]="taskData.audit"></srca-audit>
                 </p-tabPanel>
                 <p-tabPanel header="Communication" *ngIf="taskComponent && taskComponent.showCommunication()">
                     <srca-communication [communicationData]="taskData"></srca-communication>

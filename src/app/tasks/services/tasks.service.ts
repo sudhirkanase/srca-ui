@@ -46,4 +46,8 @@ export class TasksService extends BaseService {
   saveAuditDetails(audit: Audit): Observable<Audit[]> {
     return this.post(`${this.taskManagementServiceUrl}/saveAudit`, audit);
   }
+
+  getAuditData(id: number): Observable<Audit[]> {
+    return this.post(`${this.taskManagementServiceUrl}/getAuditData`, id);
+  }
 }
