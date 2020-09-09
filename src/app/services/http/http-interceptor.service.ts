@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { HttpInterceptor, HttpRequest, HttpHandler } from '@angular/common/http';
-import { catchError } from 'rxjs/operators';
+import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent, HttpErrorResponse, HttpResponse } from '@angular/common/http';
+import { catchError, tap } from 'rxjs/operators';
 import { throwError } from 'rxjs';
 import { AuthenticationService } from '../auth/authentication.service';
 import { AppSharedService } from './../app-shared.service';
@@ -16,7 +16,23 @@ export class HttpInterceptorService implements HttpInterceptor {
     private authService: AuthenticationService,
     private appSharedService: AppSharedService,
     private router: Router) { }
+
+  private requests: string[] = [];
+
+  removeRequest(req: HttpRequest<any>) {
+    const i = this.requests.indexOf(req.url);
+    if (i >= 0) {
+      this.requests.splice(i, 1);
+    }
+    if (this.requests.length === 0) {
+      this.appSharedService.setIsLoading(false);
+    }
+  }
+
   intercept(request: HttpRequest<any>, next: HttpHandler) {
+    this.requests.push(request.url);
+    this.appSharedService.setIsLoading(true);
+
     // With hardcoded user name
     // request = request.clone({
     //   setHeaders: {
@@ -30,8 +46,15 @@ export class HttpInterceptorService implements HttpInterceptor {
         }
       });
     }
+
     return next.handle(request)
       .pipe(
+        tap((resp: HttpEvent<any>) => {
+          if (resp instanceof HttpResponse)
+            this.removeRequest(request);
+        }, (err: HttpErrorResponse) => {
+          this.removeRequest(request);
+        }),
         catchError(response => {
           let errorMessage = '';
           if (response.status === 401) {
@@ -56,7 +79,8 @@ export class HttpInterceptorService implements HttpInterceptor {
             errorMessage = response.error.errorMessage;
           }
           return throwError(response);
-        }));
+        })
+      );
   }
 
 }
