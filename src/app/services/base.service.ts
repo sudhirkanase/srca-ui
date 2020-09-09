@@ -25,7 +25,7 @@ export class BaseService {
   constructor(private http: HttpClient, private appSharedService: AppSharedService) { }
 
   public get(url: string): Observable<any> {
-    this.appSharedService.setIsLoading(true);
+    //this.appSharedService.setIsLoading(true);
     return this.http.get(url)
       .pipe(
         map(this.handleResponse.bind(this)),
@@ -38,7 +38,7 @@ export class BaseService {
       options = {};
     }
 
-    this.appSharedService.setIsLoading(true);
+    //this.appSharedService.setIsLoading(true);
     return this.http.post(url, requestBody, options)
       .pipe(
         map(this.handleResponse.bind(this)),
@@ -51,7 +51,7 @@ export class BaseService {
       options = {};
     }
 
-    this.appSharedService.setIsLoading(true);
+    //this.appSharedService.setIsLoading(true);
     return this.http.put(url, requestBody, options)
       .pipe(
         map(this.handleResponse.bind(this)),
@@ -64,7 +64,7 @@ export class BaseService {
       options = {};
     }
 
-    this.appSharedService.setIsLoading(true);
+    //this.appSharedService.setIsLoading(true);
     return this.http.delete(url, options)
       .pipe(
         map(this.handleResponse.bind(this)),
@@ -93,12 +93,12 @@ export class BaseService {
   }
 
   private handleResponse(response: any) {
-    this.appSharedService.setIsLoading(false);
+    //this.appSharedService.setIsLoading(false);
     return response;
   }
 
   private handleError(error: HttpErrorResponse) {
-    this.appSharedService.setIsLoading(false);
+    //this.appSharedService.setIsLoading(false);
     if (error.error instanceof ErrorEvent) {
       // TODO: send the error to remote logging infrastructure
       console.error('An error occurred:', error.error.message);
