@@ -1,5 +1,5 @@
 <div class="menubar">
-    <p-menubar [model]="menuItems">
+    <p-menubar srcaRole (menuList) = "menuList($event)" [model]="menuItems">
         <!-- <input type="text" pInputText placeholder="task id">
         <button pButton label="Search" icon="pi pi-search"></button> -->
     </p-menubar>

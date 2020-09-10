@@ -4,6 +4,7 @@ import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { AuthGuard } from './services/routeguard/auth.guard';
 import { AccountSearchComponent } from './shared/components/account-search/account-search.component';
+import { RouteGuard } from './services/routeguard/route.guard';
 
 
 const routes: Routes = [
@@ -24,7 +25,8 @@ const routes: Routes = [
   {
     path: 'create/ad-account',
     loadChildren: () => import('./account/account.module').then(m => m.AccountModule),
-    data: { type: 'AD' }
+    data: { type: 'AD' },
+    canActivate: [RouteGuard]
   },
   {
     path: 'create/ifs-account',

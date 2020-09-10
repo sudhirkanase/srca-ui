@@ -17,6 +17,7 @@ import { AlertComponent } from './alert/alert.component';
 import { AppSharedService } from './services/app-shared.service';
 import { SpinnerComponent } from './shared/components/spinner/spinner.component';
 import { ToasterComponent } from './shared/toaster/toaster.component';
+import { SrcaRoleDirective } from './directives/srca-role.directive';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { ToasterComponent } from './shared/toaster/toaster.component';
     AlertComponent,
     SpinnerComponent,
     ToasterComponent,
+    SrcaRoleDirective
   ],
   imports: [
     BrowserModule,
@@ -36,7 +38,7 @@ import { ToasterComponent } from './shared/toaster/toaster.component';
     ReactiveFormsModule,
     HttpClientModule,
     HomeModule,
-    AppRoutingModule,
+    AppRoutingModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: HttpInterceptorService, multi: true },
