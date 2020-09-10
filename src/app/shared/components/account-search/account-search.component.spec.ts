@@ -6,16 +6,18 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { AccountSearchComponent } from './account-search.component';
 import { PanelModule } from 'primeng/panel';
 import { TableModule } from 'primeng/table';
-import { Account } from '../../../account/model/Account';
-import { ActivatedRoute } from '@angular/router';
+import { Account } from './../../model/Account';
+import { ActivatedRoute, Router } from '@angular/router';
 import { of, throwError } from 'rxjs';
 import { By } from '@angular/platform-browser';
-import { AccountService } from '../../../account/services/account.service';
+import { AccountSearchService } from 'src/app/services/account-search/account-search.service';
 
 describe('AccountSearchComponent', () => {
   let component: AccountSearchComponent;
   let fixture: ComponentFixture<AccountSearchComponent>;
   let accountServiceSpy: any;
+  let accountService: AccountSearchService;
+  let router: Router;
   let searchedAccounts: Account[];
 
   beforeEach(async(() => {
@@ -91,7 +93,7 @@ describe('AccountSearchComponent', () => {
       imports: [NoopAnimationsModule, PanelModule, TableModule, FormsModule, ReactiveFormsModule, RouterTestingModule],
       declarations: [AccountSearchComponent],
       providers: [
-        { provide: AccountService, useValue: accountServiceSpy },
+        { provide: AccountSearchService, useValue: accountServiceSpy },
         {
           provide: ActivatedRoute, useValue: {
             snapshot: {
@@ -109,6 +111,8 @@ describe('AccountSearchComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(AccountSearchComponent);
     component = fixture.componentInstance;
+    accountService = TestBed.get(AccountSearchService);
+    router = TestBed.get(Router);
     fixture.detectChanges();
   });
 
@@ -177,7 +181,7 @@ describe('AccountSearchComponent', () => {
     expect(searchBtnEl.disabled).toBeFalsy();
 
     searchBtnEl.click();
-    expect(component.createTaskService.searchAccounts).toHaveBeenCalledWith(searchForm);
+    expect(accountService.searchAccounts).toHaveBeenCalledWith(searchForm);
 
     fixture.detectChanges();
 
@@ -201,7 +205,7 @@ describe('AccountSearchComponent', () => {
     expect(searchBtnEl.disabled).toBeFalsy();
 
     searchBtnEl.click();
-    expect(component.createTaskService.searchAccounts).toHaveBeenCalledWith(searchForm);
+    expect(accountService.searchAccounts).toHaveBeenCalledWith(searchForm);
 
     fixture.detectChanges();
 
@@ -210,6 +214,68 @@ describe('AccountSearchComponent', () => {
 
     const errorMessageEl: HTMLDivElement = fixture.nativeElement.querySelector('.message-align');
     expect(errorMessageEl.textContent).toBe('Account not found');
+  });
+
+  it('should select account when contact center search', () => {
+    accountServiceSpy.searchAccounts.and.returnValue(of(searchedAccounts));
+    spyOn(component.addAccount, 'emit');
+
+    component.contactCenterSearch = true;
+    const searchForm = { accountNumber: '1001', accountName: undefined };
+    const acctNumberInput: HTMLInputElement = fixture.debugElement.query(By.css('input[formControlName=accountNumber]')).nativeElement;
+
+    acctNumberInput.value = '1001';
+    acctNumberInput.dispatchEvent(new Event('input', { bubbles: true, cancelable: true }));
+
+    fixture.detectChanges();
+
+    const searchBtnEl: HTMLButtonElement = fixture.debugElement.query(By.css('button[type=submit]')).nativeElement;
+    expect(searchBtnEl.disabled).toBeFalsy();
+
+    searchBtnEl.click();
+    expect(accountService.searchAccounts).toHaveBeenCalledWith(searchForm);
+
+    fixture.detectChanges();
+
+    const tableRowsEl: HTMLTableRowElement[] = fixture.nativeElement.querySelectorAll('tbody > tr');
+    expect(tableRowsEl.length).toBe(3);
+
+    const selectEl: HTMLAnchorElement = fixture.nativeElement.querySelector('tbody > tr > td a:first-child');
+    selectEl.dispatchEvent(new Event('click'));
+
+    expect(component.addAccount.emit).toHaveBeenCalledWith(searchedAccounts[0]);
+    expect(component.accounts).toEqual([]);
+  });
+
+  it('should select account when not contact center search', () => {
+    accountServiceSpy.searchAccounts.and.returnValue(of(searchedAccounts));
+    spyOn(router, 'navigate');
+
+    const searchForm = { accountNumber: '1001', accountName: undefined };
+    const acctNumberInput: HTMLInputElement = fixture.debugElement.query(By.css('input[formControlName=accountNumber]')).nativeElement;
+
+    acctNumberInput.value = '1001';
+    acctNumberInput.dispatchEvent(new Event('input', { bubbles: true, cancelable: true }));
+
+    fixture.detectChanges();
+
+    const searchBtnEl: HTMLButtonElement = fixture.debugElement.query(By.css('button[type=submit]')).nativeElement;
+    expect(searchBtnEl.disabled).toBeFalsy();
+
+    searchBtnEl.click();
+    expect(accountService.searchAccounts).toHaveBeenCalledWith(searchForm);
+
+    fixture.detectChanges();
+
+    const tableRowsEl: HTMLTableRowElement[] = fixture.nativeElement.querySelectorAll('tbody > tr');
+    expect(tableRowsEl.length).toBe(3);
+
+    const selectEl: HTMLAnchorElement = fixture.nativeElement.querySelector('tbody > tr > td a:first-child');
+    selectEl.dispatchEvent(new Event('click'));
+
+    expect(router.navigate).toHaveBeenCalledWith(['../create/ad-account/summary'], {
+      state: { data: 1000 }
+    });
   });
 
 });
